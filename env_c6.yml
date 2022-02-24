@@ -11,6 +11,48 @@ vms:
     networks:
       - name: vlan_111
         device_type: vmxnet3
-        dns_servers: 
-        - 8.8.8.8
+ 
+  - name: c6-m-1
+    disk:
+    - size_gb: 120
+      type: thin
+      datastore: 10.1.17.16-drive1-2-SATA
+    networks:
+      - name: vlan_111
+        device_type: vmxnet3
 
+  - name: c6-m-2
+    disk:
+    - size_gb: 120
+      type: thin
+      datastore: 10.1.17.16-drive1-2-SATA
+    networks:
+      - name: vlan_111
+        device_type: vmxnet3
+
+  - name: c6-m-3
+    disk:
+    - size_gb: 120
+      type: thin
+      datastore: 10.1.17.16-drive1-2-SATA
+    networks:
+      - name: vlan_111
+        device_type: vmxnet3
+
+  - name: c6-w-1
+    disk:
+    - size_gb: 120
+      type: thin
+      datastore: 10.1.17.16-drive1-2-SATA
+    networks:
+      - name: vlan_111
+        device_type: vmxnet3
+
+  - name: c6-w-2
+    disk:
+    - size_gb: 120
+      type: thin
+      datastore: 10.1.17.16-drive1-2-SATA
+    networks:
+      - name: vlan_111
+        device_type: vmxnet3
