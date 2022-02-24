@@ -1,0 +1,16 @@
+vcenter_hostname: 10.1.17.41
+vcenter_username: administrator@vsphere.local
+vcenter_password: Admin@123
+vcenter_datacenter: Datacenter
+vms:
+  - name: c6-bs
+    disk:
+    - size_gb: 120
+      type: thin
+      datastore: 10.1.17.16-drive1-2-SATA
+    networks:
+      - name: vlan_111
+        device_type: vmxnet3
+        dns_servers: 
+        - 8.8.8.8
+
