@@ -1,0 +1,1 @@
+# ansible-vmware-okd-centos8
