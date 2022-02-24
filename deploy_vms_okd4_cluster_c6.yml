@@ -16,11 +16,9 @@
         folder: /khanhchu
         name: "{{ item.name }}"
         state: poweredon
-        cdrom:
-          type: iso
-          iso_path: [10.1.17.16-drive1-2-SATA] ISO/fedora-coreos-35.20220131.3.0-live.x86_64.iso
         esxi_hostname: 10.1.17.16
         disk: "{{ item.disk }}"
+        template: c6-okd
         hardware:
           memory_mb: 16384
           num_cpus: 4
