@@ -139,14 +139,14 @@
 
 # cluster c6 - okd 
 
-10.1.17.90 bootstrap.ocp4.example.com	
-10.1.17.91 master01.ocp4.example.com	
-10.1.17.92 master02.ocp4.example.com	
-10.1.17.93 master03.ocp4.example.com	
-10.1.17.94 worker01.ocp4.example.com	
-10.1.17.95 worker02.ocp4.example.com	
-10.1.17.96 worker03.ocp4.example.com	
-10.1.17.100 bastion.ocp4.example.com	
+10.1.17.90   bootstrap.ocp4.example.com	 bootstrap
+10.1.17.91   master01.ocp4.example.com	 master01	
+10.1.17.92   master02.ocp4.example.com	 master02	
+10.1.17.93   master03.ocp4.example.com	 master03	
+10.1.17.94   worker01.ocp4.example.com	 worker01	
+10.1.17.95   worker02.ocp4.example.com	 worker02	
+10.1.17.96   worker03.ocp4.example.com	 worker03	
+10.1.17.100  bastion.ocp4.example.com	 bastion	
 # cluster c7 - openshift-aio
 
 10.1.17.96 c7-openshift-aio
