@@ -1,4 +1,5 @@
 [okd]
+bastion.ocp4.example.com	
 bootstrap.ocp4.example.com	
 master01.ocp4.example.com	
 master02.ocp4.example.com	
