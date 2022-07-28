@@ -1,0 +1,32 @@
+# vmware vars
+vcenter_hostname: 10.1.17.41
+vcenter_username: administrator@vsphere.local
+vcenter_password: Admin@123
+vcenter_datacenter: Datacenter
+vms:
+
+  - name: bastion
+    esxi_hostname: 10.1.17.16
+    resource_pool: c6-ocp-centos8
+    disk:
+    - size_gb: 50
+      type: thin
+      datastore: node6-sata1
+    networks:
+      - name: vlan_111
+        ip: 10.1.17.100
+        netmask: 255.255.0.0
+        gateway: 10.1.0.1
+        device_type: vmxnet3
+
+      - name: vlan_all
+        device_type: vmxnet3
+
+      - name: vlan_126
+        ip: 192.168.126.100
+        netmask: 255.255.255.0
+        device_type: vmxnet3
+
+
+
+  
