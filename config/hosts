@@ -152,7 +152,7 @@
 10.1.17.96 c7-openshift-aio
 192.168.126.96 c7-openshift-aio-priv
 
-# cluster c3 - ceph
+# cluster c8 - ceph
 
 10.1.17.101 c8-server-a 
 10.1.17.102 c8-server-b 
@@ -168,3 +168,18 @@
 192.168.126.105 c8-server-e.priv
 192.168.126.106 c8-server-f.priv
 
+# cluster c9 - ceph - multi cluster
+
+10.1.17.101 c8-server-a 
+10.1.17.102 c8-server-b 
+10.1.17.103 c8-server-c 
+10.1.17.104 c8-server-d 
+10.1.17.105 c8-server-e
+10.1.17.106 c8-server-f
+
+192.168.126.101 c8-server-a.priv 
+192.168.126.102 c8-server-b.priv 
+192.168.126.103 c8-server-c.priv 
+192.168.126.104 c8-server-d.priv 
+192.168.126.105 c8-server-e.priv
+192.168.126.106 c8-server-f.priv

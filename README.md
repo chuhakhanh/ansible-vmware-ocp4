@@ -54,7 +54,7 @@ On bastion
     yum -y install git ansible vim wget curl bash-completion tree tar libselinux-python3
     cd /root
     git clone https://github.com/chuhakhanh/jmutai_ocp4_ansible.git
-    cd /root/ocp4_ansible
+    cd /root/jmutai_ocp4_ansible
     
  Step 4: Install and Configure DHCP serveron Bastion / Helper node
 
