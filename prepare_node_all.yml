@@ -11,7 +11,7 @@
     
     - name: Copy host file to etc host
       copy:
-        src: config/hosts
+        src: config/etc/hosts
         dest: /etc/hosts
     
     - name: Create a backup directory if it does not exist
@@ -26,10 +26,6 @@
     
     - name: Copy repo file to etc host
       copy:
-        src: config/2022_03.repo
+        src: config/etc/yum.repos.d/2022_07.repo
         dest: /etc/yum.repos.d/
  
-    - name: Copy .ssh
-      copy:
-        src: config/.ssh_config
-        dest: /root/.ssh/config

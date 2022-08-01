@@ -1,0 +1,10 @@
+# lab support
+10.1.17.35 repo-2 repo-2.lab.example.com
+10.1.17.253   utility-ext    
+192.168.50.254   utility     utility.ocp4.example.com 
+192.168.50.10   master01     master01.ocp4.example.com 
+192.168.50.11   master02     master02.ocp4.example.com 
+192.168.50.12   master03     master03.ocp4.example.com 
+192.168.50.9    bootstrap    bootstrap.ocp4.example.com
+192.168.50.13   worker01     worker01.ocp4.example.com 
+192.168.50.14   worker02     worker02.ocp4.example.com 

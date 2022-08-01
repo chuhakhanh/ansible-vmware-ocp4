@@ -1,0 +1,138 @@
+---
+- hosts: utility
+  gather_facts: true
+  become: true
+  serial: 4
+  tasks: 
+
+    - name: Enable port forwarding
+      lineinfile:
+        file: /etc/sysctl.conf
+        line: net.ipv4.ip_forward = 1
+
+# Configure dhcpd
+
+    - name: Install dhcpd service
+      yum:
+        name: dhcpd
+        state: present
+   
+    - name: Copy file named.conf 
+      copy:
+        src: config/etc/named.conf
+        dest: /etc/named.conf
+ 
+    - name: Copy file example.com.db  
+      copy:
+        src: config/var/named/example.com.db
+        dest: /var/named/example.com.db
+
+    - name: Copy file example.com.reverse.db 
+      copy:
+        src: config/var/named/example.com.reverse.db
+        dest: /var/named/example.com.reverse.db
+    
+    - name: Restart dhcpd service
+      service:
+        name: dhcpd
+        state: started
+        enabled: true
+
+# Configure httpd
+
+    - name: Install httpd service
+      yum:
+        name: httpd
+        state: present
+   
+    - name: Copy file index.html
+      copy:
+        src: config/index.html
+        dest: /var/www/html/index.html
+
+    - name: Restart httpd service
+      service:
+        name: httpd
+        state: started
+        enabled: true
+
+# Create folder and download images
+
+    - name: Create a ignitions directory if it does not exist
+      file:
+        path: /var/www/html/openshift4/4.6.4/ignitions
+        state: directory
+        mode: '0755'
+
+    - name: Create a RHCOS images directory if it does not exist
+      file:
+        path: /var/www/html/openshift4/images
+        state: directory
+        mode: '0755'
+
+    - name: Download the RHCOS images to the /var/www/html/openshift4/images/ folder
+      get_url:
+        url: https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/4.6/4.6.1/rhcos-4.6.1-x86_64-live-rootfs.x86_64.img
+        dest: /var/www/html/openshift4/images/rhcos-4.6.1-x86_64-live-rootfs.x86_64.img
+        mode: 0644
+
+# Configure haproxy
+
+    - name: Install haproxy service
+      yum:
+        name: haproxy
+        state: present
+   
+    - name: Copy file index.html
+      copy:
+        src: config/etc/haproxy/haproxy.cfg
+        dest: /etc/haproxy/haproxy.cfg
+
+    - name: Restart haproxy service
+      service:
+        name: haproxy
+        state: started
+        enabled: true 
+
+# Configure tftpd
+
+    - name: Install tftpd service
+      yum:
+        name: tftpd
+        state: present
+   
+    - name: Copy file 01-52-54-00-00-32-09
+      copy:
+        src: config/var/lib/tftpboot/pxelinux.cfg/01-52-54-00-00-32-09
+        dest: /var/lib/tftpboot/pxelinux.cfg/01-52-54-00-00-32-09
+
+    - name: Copy file 01-52-54-00-00-32-0a
+      copy:
+        src: config/var/lib/tftpboot/pxelinux.cfg/01-52-54-00-00-32-0a
+        dest: /var/lib/tftpboot/pxelinux.cfg/01-52-54-00-00-32-0a
+
+    - name: Copy file 01-52-54-00-00-32-0b
+      copy:
+        src: config/var/lib/tftpboot/pxelinux.cfg/01-52-54-00-00-32-0b
+        dest: /var/lib/tftpboot/pxelinux.cfg/01-52-54-00-00-32-0b
+
+    - name: Copy file 01-52-54-00-00-32-0c
+      copy:
+        src: config/var/lib/tftpboot/pxelinux.cfg/01-52-54-00-00-32-0c
+        dest: /var/lib/tftpboot/pxelinux.cfg/01-52-54-00-00-32-0c
+  
+    - name: Copy file 01-52-54-00-00-32-0d
+      copy:
+        src: config/var/lib/tftpboot/pxelinux.cfg/01-52-54-00-00-32-0d
+        dest: /var/lib/tftpboot/pxelinux.cfg/01-52-54-00-00-32-0d
+  
+    - name: Copy file 01-52-54-00-00-32-0e
+      copy:
+        src: config/var/lib/tftpboot/pxelinux.cfg/01-52-54-00-00-32-0e
+        dest: /var/lib/tftpboot/pxelinux.cfg/01-52-54-00-00-32-0e
+
+    - name: Restart tftpd service
+      service:
+        name: tftpd
+        state: started
+        enabled: true

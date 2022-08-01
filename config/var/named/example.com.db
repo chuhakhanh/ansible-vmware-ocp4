@@ -1,0 +1,25 @@
+$TTL 1D
+@ IN SOA dns.ocp4.example.com. root.example.com. (
+2019022400 ; serial
+3h ; refresh
+15 ; retry
+1w ; expire
+3h ; minimum
+)
+IN NS dns.ocp4.example.com.
+dns.ocp4 IN A 192.168.50.254
+api.ocp4 IN A 192.168.50.254
+api-int.ocp4 IN A 192.168.50.254
+*.apps.ocp4 IN A 192.168.50.254
+bootstrap.ocp4 IN A 192.168.50.9
+master01.ocp4 IN A 192.168.50.10
+etcd-0.ocp4 IN A 192.168.50.10
+_etcd-server-ssl._tcp.ocp4 IN SRV 0 10 2380 etcd-0.ocp4
+master02.ocp4 IN A 192.168.50.11
+etcd-1.ocp4 IN A 192.168.50.11
+_etcd-server-ssl._tcp.ocp4 IN SRV 0 10 2380 etcd-1.ocp4
+master03.ocp4 IN A 192.168.50.12
+etcd-2.ocp4 IN A 192.168.50.12
+_etcd-server-ssl._tcp.ocp4 IN SRV 0 10 2380 etcd-2.ocp4
+worker01.ocp4 IN A 192.168.50.13
+worker02.ocp4 IN A 192.168.50.14
