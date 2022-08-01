@@ -15,7 +15,6 @@ vms:
     - size_gb: 40
       type: thin
       datastore: node6-sata1
-
     networks:
       - name: vlan_111
         ip: 10.1.17.253

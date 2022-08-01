@@ -16,7 +16,12 @@ On deploy-1
     ansible-playbook -i config/inventory prepare_node_all.yml
 ### setup VM utility 
 
-
-
-
     dig master01.ocp4.example.com
+        
+    cp install-config.yaml /root/ocp4upi
+
+    cd /root/ocp4upi
+    openshift-install create manifests --dir=.
+    openshift-install create ignition-configs --dir=.
+    cp *.ign /var/www/html/openshift4/4.6.4/ignitions/
+    chmod +r /var/www/html/openshift4/4.6.4/ignitions/*.ign

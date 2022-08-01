@@ -136,3 +136,48 @@
         name: tftpd
         state: started
         enabled: true
+
+# Create folder ocp4upi
+
+    - name: Create a folder ocp4upi to store install-config.yaml 
+      file:
+        path: /root/ocp4upi
+        state: directory
+        mode: '0755'
+
+    - name: Copy file install-config.yaml
+      copy:
+        src: config/root/ocp4upi/install-config.yaml
+        dest: /root/ocp4upi/install-config.yaml
+
+    - name: Create manifest
+      shell:
+        openshift-install create manifests --dir=/root/ocp4upi/
+
+    - name: Create ignition
+      shell:
+        openshift-install create ignition-configs --dir=/root/ocp4upi/
+
+    - name: Copy file bootstrap.ign
+      copy:
+        remote_src: true
+        src: /root/ocp4upi/bootstrap.ign
+        dest: /var/www/html/openshift4/4.6.4/ignitions/bootstrap.ign
+
+    - name: Copy file bootstrap.ign
+      copy:
+        remote_src: true
+        src: /root/ocp4upi/master.ign
+        dest: /var/www/html/openshift4/4.6.4/ignitions/master.ign
+
+    - name: Copy file metadata.json
+      copy:
+        remote_src: true
+        src: /root/ocp4upi/metadata.json
+        dest: /var/www/html/openshift4/4.6.4/ignitions/metadata.json       
+
+    - name: Copy file worker.ign
+      copy:
+        remote_src: true
+        src: /root/ocp4upi/worker.ign
+        dest: /var/www/html/openshift4/4.6.4/ignitions/worker.ign      

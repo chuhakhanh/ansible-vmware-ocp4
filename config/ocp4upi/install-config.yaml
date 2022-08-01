@@ -1,0 +1,33 @@
+apiVersion: v1
+baseDomain: example.com
+compute:
+- hyperthreading: Enabled
+  name: worker
+  replicas: 2
+controlPlane:
+  hyperthreading: Enabled
+  name: master
+  replicas: 3
+metadata:
+  name: ocp4
+networking:
+  clusterNetwork:
+  - cidr: 10.128.0.0/14
+    hostPrefix: 23
+  networkType: OpenShiftSDN
+  serviceNetwork:
+  - 172.30.0.0/16
+platform:
+  none: {}
+fips: false
+pullSecret: |
+<CHANGE_ME_KEEPING_THE_INDENTATION_LEVEL>
+sshKey: |
+<CHANGE_ME_KEEPING_THE_INDENTATION_LEVEL>
+imageContentSources:
+- mirrors:
+  - <LOCAL_REGISTRY_FQDN>/openshift/ocp4
+  source: quay.io/openshift-release-dev/ocp-release
+- mirrors:
+  - <LOCAL_REGISTRY_FQDN>/openshift/ocp4
+  source: quay.io/openshift-release-dev/ocp-v4.0-art-dev
