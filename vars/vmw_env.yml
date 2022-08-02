@@ -9,7 +9,6 @@ my_pull_secret: '{"auths":{"cloud.openshift.com":{"auth":"b3BlbnNoaWZ0LXJlbGVhc2
 
 # virtual machines vars
 vms:
-
   - name: utility
     esxi_hostname: 10.1.17.16
     resource_pool: c6-ocp
@@ -35,6 +34,7 @@ vms:
   - name: bootstrap
     esxi_hostname: 10.1.17.16
     resource_pool: c6-ocp
+    template:
     disk:
     - size_gb: 100
       type: thin
