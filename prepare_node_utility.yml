@@ -24,6 +24,12 @@
         src: config/etc/named.conf
         dest: /etc/named.conf
  
+    - name: Create Folder
+      file: 
+        path: "/var/named"
+        recurse: yes
+        state: directory
+        
     - name: Copy file example.com.db  
       copy:
         src: config/var/named/example.com.db
