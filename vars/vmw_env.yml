@@ -45,7 +45,7 @@ ocp_vm:
       - name: vlan_111
         device_type: vmxnet3
       - name: vlan_126
-        mac: 52:54:00:00:32:09
+        mac: "52:54:00:00:32:09"
         device_type: vmxnet3
 
   - name: master01
@@ -60,7 +60,7 @@ ocp_vm:
       - name: vlan_111
         device_type: vmxnet3
       - name: vlan_126
-        mac: 52:54:00:00:32:0A
+        mac: "52:54:00:00:32:0A"
         device_type: vmxnet3
 
   - name: master02
@@ -75,7 +75,7 @@ ocp_vm:
       - name: vlan_111
         device_type: vmxnet3
       - name: vlan_126
-        mac: 52:54:00:00:32:0B
+        mac: "52:54:00:00:32:0B"
         device_type: vmxnet3
 
   - name: master03
@@ -90,7 +90,7 @@ ocp_vm:
       - name: vlan_111
         device_type: vmxnet3
       - name: vlan_126
-        mac: 52:54:00:00:32:0C
+        mac: "52:54:00:00:32:0C"
         device_type: vmxnet3
 
   - name: worker01
@@ -105,7 +105,7 @@ ocp_vm:
       - name: vlan_111
         device_type: vmxnet3
       - name: vlan_126
-        mac: 52:54:00:00:32:0D
+        mac: "52:54:00:00:32:0D"
         device_type: vmxnet3
 
   - name: worker02
@@ -120,5 +120,5 @@ ocp_vm:
       - name: vlan_111
         device_type: vmxnet3
       - name: vlan_126
-        mac: 52:54:00:00:32:0E
+        mac: "52:54:00:00:32:0E"
         device_type: vmxnet3
