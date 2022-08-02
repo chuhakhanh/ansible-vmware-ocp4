@@ -33,6 +33,7 @@ infra_vm:
 
 ocp_vm:
   - name: bootstrap
+    guest_id: bootstrap
     esxi_hostname: 10.1.17.16
     resource_pool: c6-ocp
     template: tpl-rhel-85
@@ -48,6 +49,7 @@ ocp_vm:
         device_type: vmxnet3
 
   - name: master01
+    guest_id: master01
     esxi_hostname: 10.1.17.16
     resource_pool: c6-ocp
     disk:
@@ -62,6 +64,7 @@ ocp_vm:
         device_type: vmxnet3
 
   - name: master02
+    guest_id: master02
     esxi_hostname: 10.1.17.16
     resource_pool: c6-ocp
     disk:
@@ -76,6 +79,7 @@ ocp_vm:
         device_type: vmxnet3
 
   - name: master03
+    guest_id: master03
     esxi_hostname: 10.1.17.16
     resource_pool: c6-ocp
     disk:
@@ -90,6 +94,7 @@ ocp_vm:
         device_type: vmxnet3
 
   - name: worker01
+    guest_id: worker01
     esxi_hostname: 10.1.17.16
     resource_pool: c6-ocp
     disk:
@@ -104,6 +109,7 @@ ocp_vm:
         device_type: vmxnet3
 
   - name: worker02
+    guest_id: worker02
     esxi_hostname: 10.1.17.16
     resource_pool: c6-ocp
     disk:
