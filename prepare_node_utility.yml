@@ -192,7 +192,7 @@
 
     - name: Copy pull_secret into file install-config.yaml
       lineinfile:
-        line: {{ my_pull_secret }}
+        line: "{{ my_pull_secret }}"
         regexp: ^input_pull_secret
         path: /root/ocp4upi/install-config.yaml
 
@@ -204,7 +204,7 @@
 
     - name: Copy public key into file install-config.yaml
       lineinfile:
-        line: {{ output_keypair.public_key }}
+        line: "{{ output_keypair.public_key }}"
         regexp: ^input_public_key
         path: /root/ocp4upi/install-config.yaml
 

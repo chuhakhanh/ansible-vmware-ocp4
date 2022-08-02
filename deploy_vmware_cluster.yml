@@ -28,10 +28,8 @@
       dns_servers: 8.8.8.8 
     wait_for_ip_address: true
     wait_for_ip_address_timeout: 600
-  loop: "{{ vms }}" 
+  loop: "{{ infra_vm }}" 
   delegate_to: localhost
-  register: deploy
-  when: item.template is defined
 
 - name: Create a virtual machine 
   community.vmware.vmware_guest:
@@ -61,7 +59,7 @@
       dns_servers: 8.8.8.8 
     wait_for_ip_address: true
     wait_for_ip_address_timeout: 600
-  loop: "{{ vms }}" 
+  loop: "{{ ocp_vm }}" 
   delegate_to: localhost
-  register: deploy
-  when: item.template is not defined
+
+
