@@ -6,6 +6,7 @@
 
 On deploy-1
     
+    ansible-galaxy collection install community.crypto
     git clone https://github.com/chuhakhanh/ansible-vmware-okd-centos8
     cd /root/ansible-vmware-okd-centos8
     ansible-playbook -i config/inventory setup_vmware_cluster.yml -e "action=create"

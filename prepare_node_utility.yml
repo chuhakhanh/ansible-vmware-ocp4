@@ -1,6 +1,7 @@
 ---
 - hosts: utility
   gather_facts: true
+  vars_files: vars/vmw_env.yml
   become: true
   serial: 4
   tasks: 
@@ -8,6 +9,7 @@
     - name: Enable port forwarding
       lineinfile:
         file: /etc/sysctl.conf
+        state: present
         line: net.ipv4.ip_forward = 1
 
 # Configure dhcpd
@@ -45,11 +47,6 @@
         name: httpd
         state: present
    
-    - name: Copy file index.html
-      copy:
-        src: config/index.html
-        dest: /var/www/html/index.html
-
     - name: Restart httpd service
       service:
         name: httpd
@@ -70,11 +67,6 @@
         state: directory
         mode: '0755'
 
-    - name: Download the RHCOS images to the /var/www/html/openshift4/images/ folder
-      get_url:
-        url: https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/4.6/4.6.1/rhcos-4.6.1-x86_64-live-rootfs.x86_64.img
-        dest: /var/www/html/openshift4/images/rhcos-4.6.1-x86_64-live-rootfs.x86_64.img
-        mode: 0644
 
 # Configure haproxy
 
@@ -137,6 +129,54 @@
         state: started
         enabled: true
 
+
+# Download openshift-install and oc binaries from the OpenShift clients mirror
+
+    - name: Download oc to /root folder
+      get_url:
+        url: https://mirror.openshift.com/pub/openshift-v4/clients/ocp/4.6.1/openshift-client-linux-4.6.1.tar.gz
+        dest: /root/openshift-client-linux-4.6.1.tar.gz
+        force: no
+        mode: 0644
+
+    - name: Download openshift-install to /root folder
+      get_url:
+        url: https://mirror.openshift.com/pub/openshift-v4/clients/ocp/4.6.1/openshift-install-linux.tar.gz
+        dest: /root/openshift-install-linux.tar.gz
+        force: no
+        mode: 0644
+
+    - name: Check openshift-client is exists  
+      stat:
+        path: /root/openshift-client-linux
+      register: ocl
+
+    - name: Check openshift-install-linux is exists  
+      stat:
+        path: /usr/local/bin/openshift-install-linux
+      register: oil
+      
+    - name: Extract /root/openshift-install-linux.tar.gz
+      ansible.builtin.unarchive:
+        src: /root/openshift-install-linux.tar.gz
+        dest: /usr/local/bin/openshift-install-linux
+        mode: 0644
+      when: not oil.stat.exists
+
+    - name: Extract /root/openshift-install-linux.tar.gz
+      ansible.builtin.unarchive:
+        src: /root/openshift-client-linux-4.6.1.tar.gz
+        dest: /root
+        mode: 0644
+      when: not ocl.stat.exists
+
+    - name: Set up the bash commands completion
+      shell: |
+        oc completion bash > /etc/bash_completion.d/openshift
+        openshift-install completion bash /etc/bash_completion.d/openshift-install
+        source /etc/bash_completion.d/openshift
+        source /etc/bash_completion.d/openshift-install
+
 # Create folder ocp4upi
 
     - name: Create a folder ocp4upi to store install-config.yaml 
@@ -147,8 +187,26 @@
 
     - name: Copy file install-config.yaml
       copy:
-        src: config/root/ocp4upi/install-config.yaml
+        src: config/ocp4upi/install-config.yaml
         dest: /root/ocp4upi/install-config.yaml
+
+    - name: Copy pull_secret into file install-config.yaml
+      lineinfile:
+        line: {{ my_pull_secret }}
+        regexp: ^input_pull_secret
+        path: /root/ocp4upi/install-config.yaml
+
+    - name: Create a keypair
+      community.crypto.openssh_keypair:
+        path: /root/.ssh/id_rsa    
+        force: True
+      register: output_keypair
+
+    - name: Copy public key into file install-config.yaml
+      lineinfile:
+        line: {{ output_keypair.public_key }}
+        regexp: ^input_public_key
+        path: /root/ocp4upi/install-config.yaml
 
     - name: Create manifest
       shell:

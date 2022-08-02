@@ -21,13 +21,13 @@ platform:
   none: {}
 fips: false
 pullSecret: |
-<CHANGE_ME_KEEPING_THE_INDENTATION_LEVEL>
+  input_pull_secret
 sshKey: |
-<CHANGE_ME_KEEPING_THE_INDENTATION_LEVEL>
-imageContentSources:
-- mirrors:
-  - <LOCAL_REGISTRY_FQDN>/openshift/ocp4
-  source: quay.io/openshift-release-dev/ocp-release
-- mirrors:
-  - <LOCAL_REGISTRY_FQDN>/openshift/ocp4
-  source: quay.io/openshift-release-dev/ocp-v4.0-art-dev
+  input_public_key
+# imageContentSources:
+# - mirrors:
+#   - <LOCAL_REGISTRY_FQDN>/openshift/ocp4
+#   source: quay.io/openshift-release-dev/ocp-release
+# - mirrors:
+#   - <LOCAL_REGISTRY_FQDN>/openshift/ocp4
+#   source: quay.io/openshift-release-dev/ocp-v4.0-art-dev
