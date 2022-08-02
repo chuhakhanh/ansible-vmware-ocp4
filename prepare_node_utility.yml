@@ -1,5 +1,5 @@
 ---
-- hosts: utility
+- hosts: infra
   gather_facts: true
   vars_files: vars/vmw_env.yml
   become: true
@@ -8,7 +8,7 @@
 
     - name: Enable port forwarding
       lineinfile:
-        file: /etc/sysctl.conf
+        path: /etc/sysctl.conf
         state: present
         line: net.ipv4.ip_forward = 1
 

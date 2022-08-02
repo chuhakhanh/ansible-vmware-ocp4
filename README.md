@@ -10,11 +10,11 @@ On deploy-1
     git clone https://github.com/chuhakhanh/ansible-vmware-okd-centos8
     cd /root/ansible-vmware-okd-centos8
     ansible-playbook -i config/inventory setup_vmware_cluster.yml -e "action=create"
-    
-    cp -u config/hosts /etc/hosts
-    chmod u+x ./script/key_copy.sh; ./script/key_copy.sh config/inventory
+    echo "10.1.17.253 utility" >> /etc/hosts
+    ssh-copy-id root@utility
     
     ansible-playbook -i config/inventory prepare_node_all.yml
+    ansible-playbook -i config/inventory prepare_node_utility.yml
 ### setup VM utility 
 
     dig master01.ocp4.example.com
