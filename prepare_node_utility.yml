@@ -19,10 +19,10 @@
         name: dhcp-server
         state: present
 
-    - name: Copy file /etc/named.conf
+    - name: Copy file /etc/dhcp/dhcpd.conf
       copy:
-        src: config/etc/named.conf
-        dest: /etc/named.conf
+        src: config/etc/dhcp/dhcpd.conf
+        dest: /etc/dhcp/dhcpd.conf
 
     - name: Restart dhcpd service
       service:
