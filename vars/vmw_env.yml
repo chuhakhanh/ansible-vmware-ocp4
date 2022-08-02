@@ -34,7 +34,7 @@ vms:
   - name: bootstrap
     esxi_hostname: 10.1.17.16
     resource_pool: c6-ocp
-    template:
+    template: tpl-rhel-85
     disk:
     - size_gb: 100
       type: thin
