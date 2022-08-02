@@ -16,7 +16,7 @@
 
     - name: Install dhcpd service
       yum:
-        name: dhcp
+        name: dhcp-server
         state: present
    
     - name: Copy file named.conf 
