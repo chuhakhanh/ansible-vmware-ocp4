@@ -18,6 +18,24 @@
       yum:
         name: dhcp-server
         state: present
+
+    - name: Copy file /etc/named.conf
+      copy:
+        src: config/etc/named.conf
+        dest: /etc/named.conf
+
+    - name: Restart dhcpd service
+      service:
+        name: dhcpd
+        state: started
+        enabled: true
+
+# Configure dns
+
+    - name: Install named service
+      yum:
+        name: bind
+        state: present
    
     - name: Copy file named.conf 
       copy:
@@ -29,7 +47,7 @@
         path: "/var/named"
         recurse: yes
         state: directory
-        
+
     - name: Copy file example.com.db  
       copy:
         src: config/var/named/example.com.db
@@ -39,12 +57,12 @@
       copy:
         src: config/var/named/example.com.reverse.db
         dest: /var/named/example.com.reverse.db
-    
-    - name: Restart dhcpd service
+
+    - name: Restart named service
       service:
-        name: dhcpd
+        name: named
         state: started
-        enabled: true
+        enabled: true    
 
 # Configure httpd
 
