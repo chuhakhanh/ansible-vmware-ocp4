@@ -70,6 +70,12 @@
       yum:
         name: httpd
         state: present
+    
+    - name: Change httpd config to us port 8080 
+      lineinfile:
+        line: "Listen 8080"
+        regexp: ^Listen
+        path: /etc/httpd/conf/httpd.conf      
    
     - name: Restart httpd service
       service:
