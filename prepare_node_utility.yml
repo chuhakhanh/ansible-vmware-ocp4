@@ -238,7 +238,7 @@
 
     - name: Copy pull_secret into file install-config.yaml
       lineinfile:
-        line: "pullSecret: {{ my_pull_secret }}"
+        line: "pullSecret: '{{ my_pull_secret }}'"
         regexp: ^pullSecret 
         path: /root/ocp4upi/install-config.yaml
 
