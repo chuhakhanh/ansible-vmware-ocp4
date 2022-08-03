@@ -120,7 +120,7 @@
 
     - name: Install tftpd service
       yum:
-        name: tftp
+        name: tftp-server
         state: present
     
     - name: Create a pxelinux directory if it does not exist
@@ -161,7 +161,7 @@
 
     - name: Restart tftpd service
       service:
-        name: tftpd
+        name: tftp-server
         state: started
         enabled: true
 
