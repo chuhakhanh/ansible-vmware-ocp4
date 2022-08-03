@@ -165,7 +165,27 @@
         state: started
         enabled: true
 
+    - name: Download rhcos-4.6.1-x86_64-live-rootfs.x86_64.img to /root folder
+      get_url:
+        url: https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/4.6/4.6.1/rhcos-4.6.1-x86_64-live-rootfs.x86_64.img
+        dest: /var/www/html/openshift4/images/rhcos-4.6.1-x86_64-live-rootfs.x86_64.img
+        force: no
+        mode: 0644
+      
+    - name: Download rhcos-4.6.1-x86_64-live-kernel-x86_64 to /root folder
+      get_url:
+        url: https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/4.6/4.6.1/rhcos-4.6.1-x86_64-live-kernel-x86_64
+        dest: /var/www/html/openshift4/images/rhcos-4.6.1-x86_64-live-kernel-x86_64
+        force: no
+        mode: 0644
 
+    - name: Download rhcos-4.6.1-x86_64-live-initramfs.x86_64.img to /root folder
+      get_url:
+        url: https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/4.6/4.6.1/rhcos-4.6.1-x86_64-live-initramfs.x86_64.img
+        dest: /var/www/html/openshift4/images/rhcos-4.6.1-x86_64-live-initramfs.x86_64.img
+        force: no
+        mode: 0644
+        
 # Download openshift-install and oc binaries from the OpenShift clients mirror
 
     - name: Download oc to /root folder
