@@ -210,9 +210,12 @@
 
     - name: Set up the bash commands completion
       shell: |
-        oc completion bash > /etc/bash_completion.d/openshift
+        oc completion bash > /etc/bash_completion.d/openshift 
+        
         openshift-install completion bash /etc/bash_completion.d/openshift-install
+        
         source /etc/bash_completion.d/openshift
+        
         source /etc/bash_completion.d/openshift-install
 
 # Create folder ocp4upi
