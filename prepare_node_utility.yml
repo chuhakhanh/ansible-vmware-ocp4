@@ -99,7 +99,7 @@
         name: haproxy
         state: present
    
-    - name: Copy file index.html
+    - name: Copy file haproxy.cfg
       copy:
         src: config/etc/haproxy/haproxy.cfg
         dest: /etc/haproxy/haproxy.cfg
