@@ -2,7 +2,7 @@
 - hosts: infra
   gather_facts: true
   vars_files: vars/vmw_env.yml
-  become: yes
+  become: no
   serial: 4
   tasks: 
 
@@ -207,6 +207,12 @@
         mode: 0755
         remote_src: yes
       when: not ocl.stat.exists
+
+    - name: Create a /etc/bash_completion.d/ directory if it does not exist
+      file:
+        path: /etc/bash_completion.d/
+        state: directory
+        mode: '0755'
 
     - name: Set up the bash commands completion
       shell: |
