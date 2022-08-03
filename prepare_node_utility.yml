@@ -1,6 +1,6 @@
 ---
 - hosts: infra
-  gather_facts: true
+  gather_facts: no
   vars_files: vars/vmw_env.yml
   become: true
   serial: 4
@@ -216,7 +216,7 @@
         source /etc/bash_completion.d/openshift-install
       args:
         executable: /bin/bash
-        
+
 # Create folder ocp4upi
 
     - name: Create a folder ocp4upi to store install-config.yaml 
