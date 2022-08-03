@@ -16,6 +16,8 @@ On deploy-1
     ansible-playbook -i config/inventory prepare_node_all.yml
     ansible-playbook -i config/inventory prepare_node_utility.yml
 ### setup VM utility 
+Boot Option 
+- Firmware: BIOS
 
     dig master01.ocp4.example.com
         
