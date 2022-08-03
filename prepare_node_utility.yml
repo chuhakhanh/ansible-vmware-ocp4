@@ -161,7 +161,7 @@
 
     - name: Restart tftpd service
       service:
-        name: tftp-server
+        name: tftp
         state: started
         enabled: true
 
