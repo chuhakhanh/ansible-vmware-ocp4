@@ -2,7 +2,7 @@
 - hosts: infra
   gather_facts: true
   vars_files: vars/vmw_env.yml
-  become: no
+  become: yes
   serial: 4
   tasks: 
 
