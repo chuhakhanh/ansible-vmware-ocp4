@@ -21,9 +21,9 @@ platform:
   none: {}
 fips: false
 pullSecret: |
-  input_pull_secret
+input_pull_secret
 sshKey: |
-  input_public_key
+input_public_key
 # imageContentSources:
 # - mirrors:
 #   - <LOCAL_REGISTRY_FQDN>/openshift/ocp4
