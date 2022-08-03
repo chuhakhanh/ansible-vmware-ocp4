@@ -122,7 +122,13 @@
       yum:
         name: tftp
         state: present
-   
+    
+    - name: Create a pxelinux directory if it does not exist
+      file:
+        path: /var/lib/tftpboot/pxelinux.cfg  
+        state: directory
+        mode: '0755'
+
     - name: Copy file 01-52-54-00-00-32-09
       copy:
         src: config/var/lib/tftpboot/pxelinux.cfg/01-52-54-00-00-32-09
