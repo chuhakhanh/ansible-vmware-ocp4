@@ -120,7 +120,7 @@
 
     - name: Install tftpd service
       yum:
-        name: tftpd
+        name: tftp
         state: present
    
     - name: Copy file 01-52-54-00-00-32-09
