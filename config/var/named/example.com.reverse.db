@@ -6,7 +6,7 @@ $TTL 1D
 1w ; expire
 3h ; minimum
 )
-IN NS dns.ocp4.example.com.
+@ IN NS dns.ocp4.example.com.
 254 IN PTR api.ocp4.example.com.
 254 IN PTR api-int.ocp4.example.com.
 9 IN PTR bootstrap.ocp4.example.com.

@@ -6,7 +6,7 @@ $TTL 1D
 1w ; expire
 3h ; minimum
 )
-IN NS dns.ocp4.example.com.
+         IN NS dns.ocp4.example.com.
 dns.ocp4 IN A 192.168.50.254
 api.ocp4 IN A 192.168.50.254
 api-int.ocp4 IN A 192.168.50.254
