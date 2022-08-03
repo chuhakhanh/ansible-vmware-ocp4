@@ -194,14 +194,14 @@
       
     - name: Extract /root/openshift-install-linux.tar.gz
       ansible.builtin.unarchive:
-        src: /root/openshift-install-linux.tar.gz
+        remote_src: /root/openshift-install-linux.tar.gz
         dest: /usr/local/bin/openshift-install-linux
         mode: 0644
       when: not oil.stat.exists
 
     - name: Extract /root/openshift-install-linux.tar.gz
       ansible.builtin.unarchive:
-        src: /root/openshift-client-linux-4.6.1.tar.gz
+        remote_src: /root/openshift-client-linux-4.6.1.tar.gz
         dest: /root
         mode: 0644
       when: not ocl.stat.exists
