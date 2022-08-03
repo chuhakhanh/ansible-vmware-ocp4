@@ -194,16 +194,18 @@
       
     - name: Extract /root/openshift-install-linux.tar.gz
       ansible.builtin.unarchive:
-        remote_src: /root/openshift-install-linux.tar.gz
-        dest: /usr/local/bin/openshift-install-linux
+        src: /root/openshift-install-linux.tar.gz
+        dest: /usr/local/bin
         mode: 0644
+        remote_src: yes
       when: not oil.stat.exists
 
     - name: Extract /root/openshift-install-linux.tar.gz
       ansible.builtin.unarchive:
-        remote_src: /root/openshift-client-linux-4.6.1.tar.gz
-        dest: /root
+        src: /root/openshift-client-linux-4.6.1.tar.gz
+        dest: /usr/local/bin
         mode: 0644
+        remote_src: yes
       when: not ocl.stat.exists
 
     - name: Set up the bash commands completion
