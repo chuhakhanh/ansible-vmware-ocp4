@@ -1,5 +1,11 @@
 # ansible-vmware-okd-centos8
 
+
+## Introduction
+
+### Referneces
+    https://docs.okd.io/4.9/support/troubleshooting/troubleshooting-installations.html
+    https://docs.openshift.com/container-platform/4.6/installing/installing_bare_metal/installing-bare-metal-network-customizations.html#installation-user-infra-machines-iso_installing-bare-metal-network-customizations
 ## Setup
 
 ### deploy cluster  
@@ -51,7 +57,19 @@ VM Boot Option
     firewall-cmd --add-port=32700/tcp --zone=external --permanent # haproxy stats
     firewall-cmd --reload
     
+    sudo timedatectl set-timezone Asia/Saigon
     ssh -i /root/.ssh/id_rsa core@bootstrap
     watch 'ps -ef| grep -v "\["'
 
 It's an ignition file problem.When we create a ignition file, we have to finish the installation with in 24 hours.Because the ignition files contains certificate and it will expires in 24 hours.
+
+    ssh core@<bootstrap_fqdn> journalctl -b -f -u bootkube.service
+    ssh core@<bootstrap_fqdn> 'for pod in $(sudo podman ps -a -q); do sudo podman logs $pod; done'
+     
+    export KUBECONFIG=/root/ocp4upi/auth/kubeconfig
+    openshift-install --dir=ocp4upi wait-for install-complete --log-level=debug
+
+    https://docs.openshift.com/container-platform/4.6/post_installation_configuration/node-tasks.html
+    oc get csr
+    oc adm certificate approve csr-7lnxb
+    oc get nodes

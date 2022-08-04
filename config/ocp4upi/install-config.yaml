@@ -23,10 +23,3 @@ fips: false
 pullSecret: 
 sshKey: 
 
-# imageContentSources:
-# - mirrors:
-#   - <LOCAL_REGISTRY_FQDN>/openshift/ocp4
-#   source: quay.io/openshift-release-dev/ocp-release
-# - mirrors:
-#   - <LOCAL_REGISTRY_FQDN>/openshift/ocp4
-#   source: quay.io/openshift-release-dev/ocp-v4.0-art-dev
