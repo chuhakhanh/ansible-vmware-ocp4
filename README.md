@@ -9,7 +9,7 @@
 
 ### Software version
 
-    | Software | Version |
+| Software | Version |
 | --- | --- |
 | `openshift` | *4.6.1* |
 | `rhcos` | *4.6.1* |
