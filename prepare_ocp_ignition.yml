@@ -1,0 +1,62 @@
+---
+- hosts: infra
+  gather_facts: true
+  vars_files: vars/vmw_env.yml
+  become: no
+  serial: 4
+  tasks: 
+
+    - name: Copy file install-config.yaml
+      copy:
+        src: config/ocp4upi/install-config.yaml
+        dest: /root/ocp4upi/install-config.yaml
+
+    - name: Copy pull_secret into file install-config.yaml
+      lineinfile:
+        line: "pullSecret: '{{ my_pull_secret }}'"
+        regexp: ^pullSecret 
+        path: /root/ocp4upi/install-config.yaml
+
+    - name: Create a keypair
+      community.crypto.openssh_keypair:
+        path: /root/.ssh/id_rsa    
+        force: True
+      register: output_keypair
+
+    - name: Copy public key into file install-config.yaml
+      lineinfile:
+        line: "sshKey: {{ output_keypair.public_key }}"
+        regexp: ^sshKey
+        path: /root/ocp4upi/install-config.yaml
+
+    - name: Create manifest
+      shell:
+        openshift-install create manifests --dir=/root/ocp4upi/
+
+    - name: Create ignition
+      shell:
+        openshift-install create ignition-configs --dir=/root/ocp4upi/
+
+    - name: Copy file bootstrap.ign
+      copy:
+        remote_src: true
+        src: /root/ocp4upi/bootstrap.ign
+        dest: /var/www/html/openshift4/4.6.4/ignitions/bootstrap.ign
+
+    - name: Copy file bootstrap.ign
+      copy:
+        remote_src: true
+        src: /root/ocp4upi/master.ign
+        dest: /var/www/html/openshift4/4.6.4/ignitions/master.ign
+
+    - name: Copy file metadata.json
+      copy:
+        remote_src: true
+        src: /root/ocp4upi/metadata.json
+        dest: /var/www/html/openshift4/4.6.4/ignitions/metadata.json       
+
+    - name: Copy file worker.ign
+      copy:
+        remote_src: true
+        src: /root/ocp4upi/worker.ign
+        dest: /var/www/html/openshift4/4.6.4/ignitions/worker.ign      
