@@ -95,22 +95,37 @@ Reboot
 
 Note: 
 
-    - It's an ignition file problem.When we create a ignition file, we have to finish the installation with in 24 hours.Because the ignition files contains certificate and it will expires in 24 hours.
-    - If you recreate OCP and recreate ignition file, remove hidden files: /root/ocp4ui/.openshift_install_state.json 
+- It's an ignition file problem.When we create a ignition file, we have to finish the installation with in 24 hours.Because the ignition files contains certificate and it will expires in 24 hours.
+- If you recreate OCP and recreate ignition file, remove hidden files: /root/ocp4ui/.openshift_install_state.json 
 
-    ssh core@<bootstrap_fqdn> journalctl -b -f -u bootkube.service
-    ssh core@<bootstrap_fqdn> 'for pod in $(sudo podman ps -a -q); do sudo podman logs $pod; done'
-     
+Troubleshooting while bootstraping:
+
+    ssh core@bootstrap 
+    journalctl -b -f -u bootkube.service
+    for pod in $(sudo podman ps -a -q); do sudo podman logs $pod; done
+
+## Operation
+
+#### Setttings to cluster
+Export
+
     export KUBECONFIG=/root/ocp4upi/auth/kubeconfig
     openshift-install --dir=ocp4upi wait-for install-complete --log-level=debug
+### Add woker nodes
+
+References: 
 
     https://docs.openshift.com/container-platform/4.6/post_installation_configuration/node-tasks.html
+
+
+Perform to add worker nodes:
+
     oc get csr
     oc adm certificate approve csr-7lnxb
     oc get nodes
     oc get co
 
-### Login
+### Login to OCP4
 
 After install 
 
