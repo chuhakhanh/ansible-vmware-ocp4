@@ -6,11 +6,87 @@
   serial: 4
   tasks: 
 
+# Prepare utility as a router
+
     - name: Enable port forwarding
       lineinfile:
         path: /etc/sysctl.conf
         state: present
         line: net.ipv4.ip_forward = 1
+      
+    - name: Add zone external to ens128
+      community.general.nmcli:
+        type: ethernet
+        conn_name: ens128
+        zone: external
+        state: present
+    
+    - name: Add zone external to ens224
+      community.general.nmcli:
+        type: ethernet
+        conn_name: ens224
+        zone: external
+        state: present
+
+    - ansible.posix.firewalld:
+        masquerade: yes
+        state: enabled
+        permanent: yes
+        zone: "{{ item }}"
+      with_items:
+        - internal
+        - external
+
+# Allow firewall service
+    
+    - name: Allow service to internal
+      ansible.posix.firewalld:
+        zone: internal
+        service: "{{ item }}"
+        permanent: yes
+        state: enabled
+      with_items:
+        - http
+        - https
+        - dhcp
+        - rpc-bind
+        - mountd
+        - nfs
+
+    - name: Allow port to internal
+      ansible.posix.firewalld:
+        zone: internal
+        port: "{{ item }}"
+        permanent: yes
+        state: enabled   
+      with_items:
+        - 53/udp
+        - 53/tcp
+        - 8080/tcp
+        - 6443/tcp
+        - 22623/tcp
+
+    - name: Allow service to external
+      ansible.posix.firewalld:
+        zone: external
+        service: "{{ item }}"
+        permanent: yes
+        state: enabled
+      with_items:
+        - http
+        - https
+        - dhcp
+
+    - name: Allow port to external
+      ansible.posix.firewalld:
+        zone: external
+        port: "{{ item }}"
+        permanent: yes
+        state: enabled   
+      with_items:
+        - 9000/tcp
+        - 6443/tcp
+        - 32700/tcp
 
 # Configure dhcpd
 
@@ -257,58 +333,4 @@
         path: /root/ocp4upi
         state: directory
         mode: '0755'
-
-    - name: Copy file install-config.yaml
-      copy:
-        src: config/ocp4upi/install-config.yaml
-        dest: /root/ocp4upi/install-config.yaml
-
-    - name: Copy pull_secret into file install-config.yaml
-      lineinfile:
-        line: "pullSecret: '{{ my_pull_secret }}'"
-        regexp: ^pullSecret 
-        path: /root/ocp4upi/install-config.yaml
-
-    - name: Create a keypair
-      community.crypto.openssh_keypair:
-        path: /root/.ssh/id_rsa    
-        force: True
-      register: output_keypair
-
-    - name: Copy public key into file install-config.yaml
-      lineinfile:
-        line: "sshKey: {{ output_keypair.public_key }}"
-        regexp: ^sshKey
-        path: /root/ocp4upi/install-config.yaml
-
-    - name: Create manifest
-      shell:
-        openshift-install create manifests --dir=/root/ocp4upi/
-
-    - name: Create ignition
-      shell:
-        openshift-install create ignition-configs --dir=/root/ocp4upi/
-
-    - name: Copy file bootstrap.ign
-      copy:
-        remote_src: true
-        src: /root/ocp4upi/bootstrap.ign
-        dest: /var/www/html/openshift4/4.6.4/ignitions/bootstrap.ign
-
-    - name: Copy file bootstrap.ign
-      copy:
-        remote_src: true
-        src: /root/ocp4upi/master.ign
-        dest: /var/www/html/openshift4/4.6.4/ignitions/master.ign
-
-    - name: Copy file metadata.json
-      copy:
-        remote_src: true
-        src: /root/ocp4upi/metadata.json
-        dest: /var/www/html/openshift4/4.6.4/ignitions/metadata.json       
-
-    - name: Copy file worker.ign
-      copy:
-        remote_src: true
-        src: /root/ocp4upi/worker.ign
-        dest: /var/www/html/openshift4/4.6.4/ignitions/worker.ign      
+   

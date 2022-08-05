@@ -6,7 +6,18 @@
 ### Referneces
     https://docs.okd.io/4.9/support/troubleshooting/troubleshooting-installations.html
     https://docs.openshift.com/container-platform/4.6/installing/installing_bare_metal/installing-bare-metal-network-customizations.html#installation-user-infra-machines-iso_installing-bare-metal-network-customizations
+
+### Architect
+
+Process of installation 
+
+    ![Alt text](media/pics/process1.png?raw=true "Deploy process")
+
+Diagram of system
+
+    ![Alt text](media/pics/diagram1.png?raw=true "Diagram")
 ## Setup
+
 
 ### deploy cluster  
 
@@ -18,50 +29,53 @@ On deploy-1
     ansible-playbook -i config/inventory setup_vmware_cluster.yml -e "action=create"
     echo "10.1.17.253 utility" >> /etc/hosts
     ssh-copy-id root@utility
+
+Prepare environment such as local repository, hosts file    
     
     ansible-playbook -i config/inventory prepare_node_all.yml
+
+### Setup the utility node    
+
+Setup required software node utility such as: dns, dhcp ...
+    
     ansible-playbook -i config/inventory prepare_node_utility.yml
-### setup VM utility 
-VM Boot Option 
-- Firmware: BIOS
-
-   
-    dig master01.ocp4.example.com
- 
-
-    nmcli connection modify ens224 connection.zone internal
-    nmcli connection modify ens192 connection.zone external
-    firewall-cmd --zone=external --add-masquerade --permanent
-    firewall-cmd --zone=internal --add-masquerade --permanent
-    firewall-cmd --list-all --zone=internal
-    firewall-cmd --list-all --zone=external
     
-    firewall-cmd --add-port=53/udp --zone=internal --permanent
-    firewall-cmd --add-port=53/tcp --zone=internal --permanent
-    firewall-cmd --add-service=dhcp --zone=internal --permanent
-    firewall-cmd --add-port=8080/tcp --zone=internal --permanent
-    
-    firewall-cmd --add-port=6443/tcp --zone=internal --permanent # kube-api-server on control plane nodes
-    firewall-cmd --add-port=22623/tcp --zone=internal --permanent # machine-config server
-    firewall-cmd --add-service=http --zone=internal --permanent # web services hosted on worker nodes
-     firewall-cmd --add-service=https --zone=internal --permanent # web services hosted on worker nodes
- 
-    firewall-cmd --add-port=6443/tcp --zone=external --permanent # kube-api-server on control plane nodes
-    firewall-cmd --add-service=http --zone=external --permanent # web services hosted on worker nodes
-    firewall-cmd --add-service=https --zone=external --permanent # web services hosted on worker nodes
-    firewall-cmd --add-port=9000/tcp --zone=external --permanent # HAProxy Stats
+Prepare ignition for setup OCP cluster
+First edit pull secret variables file vars/vmw_env.yml. Edit my_pull_secret: '{"auths":....}'
+Run playbook
 
-    firewall-cmd --zone=internal --add-service mountd --permanent
-    firewall-cmd --zone=internal --add-service rpc-bind --permanent
-    firewall-cmd --zone=internal --add-service nfs --permanent
-    firewall-cmd --add-port=32700/tcp --zone=external --permanent # haproxy stats
-    firewall-cmd --reload
+    ansible-playbook -i config/inventory prepare_ocp_ignition.yml
+### Setup VM in OCP cluster using Method ISO Installation
+
+References: 
     
-    sudo timedatectl set-timezone Asia/Saigon
+    https://docs.openshift.com/container-platform/4.6/installing/installing_bare_metal/installing-bare-metal-network-customizations.html#installation-user-infra-machines-iso_installing-bare-metal-network-customizations
+
+Setup VM Installing a cluster on bare metal with network customizations - Installing on bare metal | Installing | OpenShift Container Platform 4.6
+    - Download file from https://mirror.openshift.com/pub/openshift-v4/x86_64/dependencies/rhcos/4.6/4.6.1/rhcos-installer.x86_64.iso and put to datastore
+    - VM Boot Option>Firmware: BIOS
+    - CDROM> Select rhcos-installer.x86_64.iso
+    - On VM console:      
+        sudo timedatectl set-timezone Asia/Saigon
+
+    For bootstrap VM
+        sudo coreos-installer install /dev/sda --insecure-ignition --ignition-url=http://192.168.50.254:8080/openshift4/4.6.4/ignitions/bootstrap.ign 
+    
+    For master VM
+        sudo coreos-installer install /dev/sda --insecure-ignition --ignition-url=http://192.168.50.254:8080/openshift4/4.6.4/ignitions/master.ign 
+    
+    For worker VM
+        sudo coreos-installer install /dev/sda --insecure-ignition --ignition-url=http://192.168.50.254:8080/openshift4/4.6.4/ignitions/worker.ign 
+
+    - Reboot 
+
+
     ssh -i /root/.ssh/id_rsa core@bootstrap
     watch 'ps -ef| grep -v "\["'
 
-It's an ignition file problem.When we create a ignition file, we have to finish the installation with in 24 hours.Because the ignition files contains certificate and it will expires in 24 hours.
+Note: 
+    - It's an ignition file problem.When we create a ignition file, we have to finish the installation with in 24 hours.Because the ignition files contains certificate and it will expires in 24 hours.
+    - If you recreate OCP and recreate ignition file, remove hidden files: /root/ocp4ui/.openshift_install_state.json 
 
     ssh core@<bootstrap_fqdn> journalctl -b -f -u bootkube.service
     ssh core@<bootstrap_fqdn> 'for pod in $(sudo podman ps -a -q); do sudo podman logs $pod; done'
@@ -73,3 +87,13 @@ It's an ignition file problem.When we create a ignition file, we have to finish 
     oc get csr
     oc adm certificate approve csr-7lnxb
     oc get nodes
+
+### Login
+After install 
+    http://10.1.17.253:32700/
+
+Edit hosts file
+    10.1.17.253 console-openshift-console.apps.ocp4.example.com oauth-openshift.apps.ocp4.example.com
+
+Login to console 
+    https://console-openshift-console.apps.ocp4.example.com/monitoring/dashboards/grafana-dashboard-etcd
