@@ -11,11 +11,11 @@
 
 Process of installation 
 
-    ![Deploy process](media/pics/process1.png)
+    ![Deploy process](./media/pics/process1.png)
 
 Diagram of system
 
-    ![Diagram](media/pics/diagram1.png)
+    ![Diagram](./media/pics/diagram1.png)
 ## Setup
 
 
