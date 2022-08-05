@@ -8,6 +8,12 @@
 
 # Prepare utility as a router
 
+    - name: Start firewalld service
+      service:
+        name: firewalld
+        state: started
+        enabled: true    
+
     - name: Enable port forwarding
       lineinfile:
         path: /etc/sysctl.conf
