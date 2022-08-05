@@ -3,9 +3,16 @@
 
 ## Introduction
 
-### Referneces
+### References
     https://docs.okd.io/4.9/support/troubleshooting/troubleshooting-installations.html
     https://docs.openshift.com/container-platform/4.6/installing/installing_bare_metal/installing-bare-metal-network-customizations.html#installation-user-infra-machines-iso_installing-bare-metal-network-customizations
+
+### Software version
+
+    | Software | Version |
+| --- | --- |
+| `openshift` | *4.6.1* |
+| `rhcos` | *4.6.1* |
 
 ### Architect
 
