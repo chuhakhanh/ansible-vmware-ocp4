@@ -11,11 +11,11 @@
 
 Process of installation 
 
-    ![Alt text](media/pics/process1.png?raw=true "Deploy process")
+    ![Deploy process](media/pics/process1.png)
 
 Diagram of system
 
-    ![Alt text](media/pics/diagram1.png?raw=true "Diagram")
+    ![Diagram](media/pics/diagram1.png)
 ## Setup
 
 
@@ -52,6 +52,7 @@ References:
     https://docs.openshift.com/container-platform/4.6/installing/installing_bare_metal/installing-bare-metal-network-customizations.html#installation-user-infra-machines-iso_installing-bare-metal-network-customizations
 
 Setup VM Installing a cluster on bare metal with network customizations - Installing on bare metal | Installing | OpenShift Container Platform 4.6
+
     - Download file from https://mirror.openshift.com/pub/openshift-v4/x86_64/dependencies/rhcos/4.6/4.6.1/rhcos-installer.x86_64.iso and put to datastore
     - VM Boot Option>Firmware: BIOS
     - CDROM> Select rhcos-installer.x86_64.iso
@@ -74,6 +75,7 @@ Setup VM Installing a cluster on bare metal with network customizations - Instal
     watch 'ps -ef| grep -v "\["'
 
 Note: 
+
     - It's an ignition file problem.When we create a ignition file, we have to finish the installation with in 24 hours.Because the ignition files contains certificate and it will expires in 24 hours.
     - If you recreate OCP and recreate ignition file, remove hidden files: /root/ocp4ui/.openshift_install_state.json 
 
@@ -87,13 +89,18 @@ Note:
     oc get csr
     oc adm certificate approve csr-7lnxb
     oc get nodes
+    oc get co
 
 ### Login
+
 After install 
+
     http://10.1.17.253:32700/
 
 Edit hosts file
+
     10.1.17.253 console-openshift-console.apps.ocp4.example.com oauth-openshift.apps.ocp4.example.com
 
 Login to console 
+
     https://console-openshift-console.apps.ocp4.example.com/monitoring/dashboards/grafana-dashboard-etcd
