@@ -48,7 +48,9 @@ Setup required software node utility such as: dns, dhcp ...
     ansible-playbook -i config/inventory prepare_node_utility.yml
     
 Prepare ignition for setup OCP cluster
+
 First edit pull secret variables file vars/vmw_env.yml. Edit my_pull_secret: '{"auths":....}'
+
 Run playbook
 
     ansible-playbook -i config/inventory prepare_ocp_ignition.yml
@@ -60,22 +62,32 @@ References:
 
 Setup VM Installing a cluster on bare metal with network customizations - Installing on bare metal | Installing | OpenShift Container Platform 4.6
 
-    - Download file from https://mirror.openshift.com/pub/openshift-v4/x86_64/dependencies/rhcos/4.6/4.6.1/rhcos-installer.x86_64.iso and put to datastore
+Download file and put to iso datastore 
+
+    https://mirror.openshift.com/pub/openshift-v4/x86_64/dependencies/rhcos/4.6/4.6.1/rhcos-installer.x86_64.iso 
+
+Settings VM and install
+
     - VM Boot Option>Firmware: BIOS
     - CDROM> Select rhcos-installer.x86_64.iso
-    - On VM console:      
-        sudo timedatectl set-timezone Asia/Saigon
 
-    For bootstrap VM
-        sudo coreos-installer install /dev/sda --insecure-ignition --ignition-url=http://192.168.50.254:8080/openshift4/4.6.4/ignitions/bootstrap.ign 
-    
-    For master VM
-        sudo coreos-installer install /dev/sda --insecure-ignition --ignition-url=http://192.168.50.254:8080/openshift4/4.6.4/ignitions/master.ign 
-    
-    For worker VM
-        sudo coreos-installer install /dev/sda --insecure-ignition --ignition-url=http://192.168.50.254:8080/openshift4/4.6.4/ignitions/worker.ign 
+Set timezone for VM
 
-    - Reboot 
+    sudo timedatectl set-timezone Asia/Saigon
+
+For bootstrap VM
+    
+    sudo coreos-installer install /dev/sda --insecure-ignition --ignition-url=http://192.168.50.254:8080/openshift4/4.6.4/ignitions/bootstrap.ign 
+    
+For master VM
+    
+    sudo coreos-installer install /dev/sda --insecure-ignition --ignition-url=http://192.168.50.254:8080/openshift4/4.6.4/ignitions/master.ign 
+
+For worker VM
+
+    sudo coreos-installer install /dev/sda --insecure-ignition --ignition-url=http://192.168.50.254:8080/openshift4/4.6.4/ignitions/worker.ign 
+
+Reboot 
 
 
     ssh -i /root/.ssh/id_rsa core@bootstrap
