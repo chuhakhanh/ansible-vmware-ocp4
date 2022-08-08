@@ -13,7 +13,7 @@
   tasks: 
 
 
-# Create folder and download images
+# Create folder and download images into httpd
 
     - name: Create a ignitions directory if it does not exist
       file:
@@ -56,12 +56,12 @@
         name: syslinux
         state: present
         
-# Download openshift-install and oc binaries from the OpenShift clients mirror
+# Download openshift-install and oc, kubectl binaries from the OpenShift clients mirror into /root/<version>/ then create shortocut links in /usr/local/bin 
 
     - name: Download oc to /root folder
       get_url:
         url: "{{ client_mirror }}/ocp/{{ rhcos_ver }}/openshift-client-linux-{{ rhcos_ver }}.tar.gz"
-        dest: "/root/{{ rhcos_ver }}/openshift-client-linux-4.6.1.tar.gz"
+        dest: "/root/{{ rhcos_ver }}/openshift-client-linux-{{ rhcos_ver }}.tar.gz"
         force: no
         mode: 0644
 
@@ -74,26 +74,26 @@
 
     - name: Check openshift-client is exists  
       stat:
-        path: /root/{{ rhcos_ver }}/openshift-client-linux
+        path: "/root/{{ rhcos_ver }}/oc"
       register: ocl
 
     - name: Check openshift-install-linux is exists  
       stat:
-        path: /root/{{ rhcos_ver }}/openshift-install-linux
+        path: "/root/{{ rhcos_ver }}/openshift-install-linux"
       register: oil
       
     - name: Extract /root/openshift-install-linux.tar.gz
       ansible.builtin.unarchive:
-        src: /root/openshift-install-linux.tar.gz
-        dest: /usr/local/bin
+        src:  "/root/{{ rhcos_ver }}/openshift-install-linux.tar.gz"
+        dest: "/root/{{ rhcos_ver }}"
         mode: 0755
         remote_src: yes
       when: not oil.stat.exists
 
     - name: Extract /root/openshift-client-linux-4.6.1.tar.gz
       ansible.builtin.unarchive:
-        src: /root/openshift-client-linux-4.6.1.tar.gz
-        dest: /usr/local/bin
+        src: /root/{{ rhcos_ver }}/openshift-client-linux-{{ rhcos_ver }}.tar.gz
+        dest: /root/{{ rhcos_ver }}/
         mode: 0755
         remote_src: yes
       when: not ocl.stat.exists

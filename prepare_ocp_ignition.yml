@@ -7,6 +7,24 @@
   serial: 4
   tasks: 
 
+    - name: Create symbolic link for oc
+      file:
+        src: "/root/{{ rhcos_ver }}/oc"
+        dest: "/usr/local/bin/oc"
+        state: link
+    
+    - name: Create symbolic link for kubectl
+      file:
+        src: "/root/{{ rhcos_ver }}/kubectl"
+        dest: "/usr/local/bin/kubectl"
+        state: link
+
+    - name: Create symbolic link for openshift-install
+      file:
+        src: "/root/{{ rhcos_ver }}/openshift-install"
+        dest: "/usr/local/bin/openshift-install"
+        state: link
+
     - name: Create ocp4upi directory
       file: 
         path: "/root/ocp4upi/{{rhcos_ver}}"

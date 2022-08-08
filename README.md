@@ -84,11 +84,6 @@ Download file and put to iso datastore
 
     https://mirror.openshift.com/pub/openshift-v4/x86_64/dependencies/rhcos/4.6/4.6.1/rhcos-installer.x86_64.iso 
 
-Settings VM and install
-
-    - VM Boot Option>Firmware: BIOS
-    - CDROM> Select rhcos-installer.x86_64.iso
-
 Set timezone for VM
 
     sudo timedatectl set-timezone Asia/Saigon
