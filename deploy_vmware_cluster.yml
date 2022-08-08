@@ -1,4 +1,9 @@
 ---
+
+- name: Use specific var file
+  include_vars:
+    file: "vars/{{ocp_version}}/vmw_vms.yml"
+
 - name: Create a virtual machine from a template
   community.vmware.vmware_guest:
     hostname: "{{ vcenter_hostname }}"
@@ -31,7 +36,7 @@
   loop: "{{ infra_vm }}" 
   delegate_to: localhost
 
-- name: Create a virtual machine 
+- name: Create a virtual machine with only hardware
   community.vmware.vmware_guest:
     hostname: "{{ vcenter_hostname }}"
     username: "{{ vcenter_username }}"
@@ -45,6 +50,7 @@
     state: present
     esxi_hostname: "{{ item.esxi_hostname }}"
     disk: "{{ item.disk }}"
+    cdrom: "{{ item.cdrom }}"
     hardware:
       memory_mb: 16384
       num_cpus: 4
