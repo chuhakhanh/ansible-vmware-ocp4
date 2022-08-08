@@ -2,6 +2,12 @@
 - hosts: infra
   gather_facts: true
   vars_files: vars/vmw_env.yml
+  vars:
+    - ocp_maj: 4.6
+    - mirror: "https://mirror.openshift.com/pub/openshift-v4"
+    - baseurl: "{{ mirror }}/dependencies/rhcos/{{ ocp_maj }}/{{ rhcos_ver }}"
+    - client_mirror: "https://mirror.openshift.com/pub/openshift-v4/clients"
+    
   become: no
   serial: 4
   tasks: 
@@ -11,7 +17,7 @@
 
     - name: Create a ignitions directory if it does not exist
       file:
-        path: "/var/www/html/openshift4/{{ocp_version}}/ignitions"
+        path: "/var/www/html/openshift4/{{ rhcos_ver }}/ignitions"
         state: directory
         mode: '0755'
 
@@ -23,21 +29,21 @@
 
     - name: Download rhcos-4.6.1-x86_64-live-rootfs.x86_64.img to /root folder
       get_url:
-        url: https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/4.6/4.6.1/rhcos-4.6.1-x86_64-live-rootfs.x86_64.img
-        dest: /var/www/html/openshift4/images/rhcos-4.6.1-x86_64-live-rootfs.x86_64.img
+        url: "{{ baseurl }}/rhcos-{{ rhcos_ver }}-x86_64-live-rootfs.x86_64.img"
+        dest: "/var/www/html/openshift4/images/rhcos-{{ rhcos_ver }}-x86_64-live-rootfs.x86_64.img"
         force: no
         mode: 0644
       
     - name: Download rhcos-4.6.1-x86_64-live-kernel-x86_64 to /root folder
       get_url:
-        url: https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/4.6/4.6.1/rhcos-4.6.1-x86_64-live-kernel-x86_64
+        url: "{{ baseurl }}/rhcos-{{ rhcos_ver }}-x86_64-live-kernel-x86_64"
         dest: /var/www/html/openshift4/images/rhcos-4.6.1-x86_64-live-kernel-x86_64
         force: no
         mode: 0644
 
     - name: Download rhcos-4.6.1-x86_64-live-initramfs.x86_64.img to /root folder
       get_url:
-        url: https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/4.6/4.6.1/rhcos-4.6.1-x86_64-live-initramfs.x86_64.img
+        url: "{{ baseurl }}/rhcos-{{ rhcos_ver }}-x86_64-live-initramfs.x86_64.img"
         dest: /var/www/html/openshift4/images/rhcos-4.6.1-x86_64-live-initramfs.x86_64.img
         force: no
         mode: 0644
@@ -54,26 +60,26 @@
 
     - name: Download oc to /root folder
       get_url:
-        url: https://mirror.openshift.com/pub/openshift-v4/clients/ocp/4.6.1/openshift-client-linux-4.6.1.tar.gz
-        dest: /root/openshift-client-linux-4.6.1.tar.gz
+        url: "{{ client_mirror }}/ocp/{{ rhcos_ver }}/openshift-client-linux-{{ rhcos_ver }}.tar.gz"
+        dest: "/root/{{ rhcos_ver }}/openshift-client-linux-4.6.1.tar.gz"
         force: no
         mode: 0644
 
     - name: Download openshift-install to /root folder
       get_url:
-        url: https://mirror.openshift.com/pub/openshift-v4/clients/ocp/4.6.1/openshift-install-linux.tar.gz
-        dest: /root/openshift-install-linux.tar.gz
+        url: "{{ client_mirror }}/ocp/{{ rhcos_ver }}/openshift-install-linux.tar.gz"
+        dest: "/root/{{ rhcos_ver }}/openshift-install-linux.tar.gz"
         force: no
         mode: 0644
 
     - name: Check openshift-client is exists  
       stat:
-        path: /root/openshift-client-linux
+        path: /root/{{ rhcos_ver }}/openshift-client-linux
       register: ocl
 
     - name: Check openshift-install-linux is exists  
       stat:
-        path: /usr/local/bin/openshift-install-linux
+        path: /root/{{ rhcos_ver }}/openshift-install-linux
       register: oil
       
     - name: Extract /root/openshift-install-linux.tar.gz

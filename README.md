@@ -37,12 +37,12 @@ On deploy-1
   
 On a vsphere environment, create a several VM  cluters with different name but same IP address and MAC address. So we do not need to reconfigure the utility VM include DNS, haproxy. However, we can use only 1 single VM cluster at one time.
   
-    ansible-playbook -i config/inventory setup_vmware_cluster.yml -e "action=create" -e "ocp_version=4.10.16"
+    ansible-playbook -i config/inventory setup_vmware_cluster.yml -e "action=create" -e "rhcos_ver=4.10.16"
     echo "10.1.17.253 utility" >> /etc/hosts
     ssh-copy-id root@utility
 
 Or manage the cluster
-    ansible-playbook -i config/inventory setup_vmware_cluster.yml -e "action=destroy" -e "ocp_version=4.10.16"
+    ansible-playbook -i config/inventory setup_vmware_cluster.yml -e "action=destroy" -e "rhcos_ver=4.10.16"
 
 Prepare environment such as local repository, hosts file    
     
@@ -54,7 +54,10 @@ Prepare environment such as local repository, hosts file
 Setup required software node utility such as: dns, dhcp ...
     
     ansible-playbook -i config/inventory prepare_node_utility_service.yml 
-    ansible-playbook -i config/inventory prepare_node_utility_ocp.yml -e "ocp_version=4.10.16"
+
+There are severals openshift version can be deploy on node utility
+
+    ansible-playbook -i config/inventory prepare_node_utility_ocp.yml -e "rhcos_ver=4.10.16"
     
 In node utility, prepare ignition for setup OCP cluster
 
@@ -67,7 +70,7 @@ In node utility, prepare ignition for setup OCP cluster
 
 Get pull secret variables from at https://console.redhat.com/openshift/install/metal/installer-provisioned/, then copy into my_pull_secret: '{"auths":....}' in prepare_ocp_ignition.yml file
 
-    ansible-playbook -i config/inventory prepare_ocp_ignition.yml -e "ocp_version=4.10.16"
+    ansible-playbook -i config/inventory prepare_ocp_ignition.yml -e "rhcos_ver=4.10.16"
     
 ### Setup VM in OCP cluster using Method ISO Installation
 
@@ -90,6 +93,7 @@ Set timezone for VM
 
     sudo timedatectl set-timezone Asia/Saigon
 
+OCP Version: 4.6.1
 For bootstrap VM
     
     sudo coreos-installer install /dev/sda --insecure-ignition --ignition-url http://192.168.50.254:8080/openshift4/4.6.4/ignitions/bootstrap.ign 
@@ -105,13 +109,13 @@ For worker VM
 Reboot 
 
     
-    ocp_version=4.10.16
+    rhcos_ver=4.10.16
     rm -f /root/.ssh/known_hosts
-    ssh -i /root/.ssh/"$ocp_version"/id_rsa core@bootstrap
-    ssh -i /root/.ssh/"$ocp_version"/id_rsa core@master01
+    ssh -i /root/.ssh/"$rhcos_ver"/id_rsa core@bootstrap
+    ssh -i /root/.ssh/"$rhcos_ver"/id_rsa core@master01
     watch 'ps -ef| grep -v "\["'
     
-    export KUBECONFIG=/root/ocp4upi/"$ocp_version"/auth/kubeconfig
+    export KUBECONFIG=/root/ocp4upi/"$rhcos_ver"/auth/kubeconfig
 
 
 Note: 
@@ -138,9 +142,9 @@ DEBUG Still waiting for the cluster to initialize: Cluster operator authenticati
 
 On node utility
 
-    ocp_version=4.10.16
-    export KUBECONFIG=/root/ocp4upi/"$ocp_version"/auth/kubeconfig
-    openshift-install --dir=/root/ocp4upi/"$ocp_version" wait-for install-complete --log-level=debug
+    rhcos_ver=4.10.16
+    export KUBECONFIG=/root/ocp4upi/"$rhcos_ver"/auth/kubeconfig
+    openshift-install --dir=/root/ocp4upi/"$rhcos_ver" wait-for install-complete --log-level=debug
  
     oc get csr
     oc get csr -o go-template='{{range .items}}{{if not .status}}{{.metadata.name}}{{"\n"}}{{end}}{{end}}' | xargs --no-run-if-empty oc adm certificate approve
@@ -160,4 +164,4 @@ Login to console
 
     https://console-openshift-console.apps.ocp4.example.com/monitoring/dashboards/grafana-dashboard-etcd
     user: kubeadmin
-    password: cat /root/ocp4upi/"$ocp_version"/auth/kubeadmin-password
+    password: cat /root/ocp4upi/"$rhcos_ver"/auth/kubeadmin-password
