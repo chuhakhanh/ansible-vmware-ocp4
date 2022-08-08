@@ -1,0 +1,110 @@
+---
+- hosts: infra
+  gather_facts: true
+  vars_files: vars/vmw_env.yml
+  become: no
+  serial: 4
+  tasks: 
+
+
+# Create folder and download images
+
+    - name: Create a ignitions directory if it does not exist
+      file:
+        path: "/var/www/html/openshift4/{{ocp_version}}/ignitions"
+        state: directory
+        mode: '0755'
+
+    - name: Create a RHCOS images directory if it does not exist
+      file:
+        path: /var/www/html/openshift4/images
+        state: directory
+        mode: '0755'
+
+    - name: Download rhcos-4.6.1-x86_64-live-rootfs.x86_64.img to /root folder
+      get_url:
+        url: https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/4.6/4.6.1/rhcos-4.6.1-x86_64-live-rootfs.x86_64.img
+        dest: /var/www/html/openshift4/images/rhcos-4.6.1-x86_64-live-rootfs.x86_64.img
+        force: no
+        mode: 0644
+      
+    - name: Download rhcos-4.6.1-x86_64-live-kernel-x86_64 to /root folder
+      get_url:
+        url: https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/4.6/4.6.1/rhcos-4.6.1-x86_64-live-kernel-x86_64
+        dest: /var/www/html/openshift4/images/rhcos-4.6.1-x86_64-live-kernel-x86_64
+        force: no
+        mode: 0644
+
+    - name: Download rhcos-4.6.1-x86_64-live-initramfs.x86_64.img to /root folder
+      get_url:
+        url: https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/4.6/4.6.1/rhcos-4.6.1-x86_64-live-initramfs.x86_64.img
+        dest: /var/www/html/openshift4/images/rhcos-4.6.1-x86_64-live-initramfs.x86_64.img
+        force: no
+        mode: 0644
+        
+
+# Configure syslinux
+
+    - name: Install syslinux service
+      yum:
+        name: syslinux
+        state: present
+        
+# Download openshift-install and oc binaries from the OpenShift clients mirror
+
+    - name: Download oc to /root folder
+      get_url:
+        url: https://mirror.openshift.com/pub/openshift-v4/clients/ocp/4.6.1/openshift-client-linux-4.6.1.tar.gz
+        dest: /root/openshift-client-linux-4.6.1.tar.gz
+        force: no
+        mode: 0644
+
+    - name: Download openshift-install to /root folder
+      get_url:
+        url: https://mirror.openshift.com/pub/openshift-v4/clients/ocp/4.6.1/openshift-install-linux.tar.gz
+        dest: /root/openshift-install-linux.tar.gz
+        force: no
+        mode: 0644
+
+    - name: Check openshift-client is exists  
+      stat:
+        path: /root/openshift-client-linux
+      register: ocl
+
+    - name: Check openshift-install-linux is exists  
+      stat:
+        path: /usr/local/bin/openshift-install-linux
+      register: oil
+      
+    - name: Extract /root/openshift-install-linux.tar.gz
+      ansible.builtin.unarchive:
+        src: /root/openshift-install-linux.tar.gz
+        dest: /usr/local/bin
+        mode: 0755
+        remote_src: yes
+      when: not oil.stat.exists
+
+    - name: Extract /root/openshift-client-linux-4.6.1.tar.gz
+      ansible.builtin.unarchive:
+        src: /root/openshift-client-linux-4.6.1.tar.gz
+        dest: /usr/local/bin
+        mode: 0755
+        remote_src: yes
+      when: not ocl.stat.exists
+
+    - name: Create a /etc/bash_completion.d/ directory if it does not exist
+      file:
+        path: /etc/bash_completion.d/
+        state: directory
+        mode: '0755'
+
+    - name: Set up the bash commands completion
+      shell: |
+        oc completion bash > /etc/bash_completion.d/openshift 
+        openshift-install completion bash > /etc/bash_completion.d/openshift-install
+        source /etc/bash_completion.d/openshift
+        source /etc/bash_completion.d/openshift-install
+      args:
+        executable: /bin/bash
+
+   
