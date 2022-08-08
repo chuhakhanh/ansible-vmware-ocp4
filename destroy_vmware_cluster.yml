@@ -3,7 +3,7 @@
 - name: Use specific var file
   include_vars:
     file: "vars/ocp_version/{{ocp_version}}/vmw_vms.yml"
-    
+
 - name: Remove a virtual machine from a template
   community.vmware.vmware_guest:
     hostname: "{{ vcenter_hostname }}"
@@ -16,7 +16,7 @@
     name: "{{ item.name }}"
     state: absent
     force: true
-  loop: "{{ vms }}" 
+  loop: "{{ ocp_vm }}" 
   delegate_to: localhost
   register: deploy
 
