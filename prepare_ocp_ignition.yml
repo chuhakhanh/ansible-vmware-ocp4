@@ -7,7 +7,7 @@
   serial: 4
   tasks: 
 
-    - name: Create Folder
+    - name: Create ocp4upi directory
       file: 
         path: "/root/ocp4upi/{{ocp_version}}"
         recurse: yes
@@ -23,6 +23,12 @@
         line: "pullSecret: '{{ my_pull_secret }}'"
         regexp: ^pullSecret 
         path: "/root/ocp4upi/{{ocp_version}}/install-config.yaml"
+  
+    - name: Create ocp4upi directory
+      file: 
+        path: "/root/.ssh/{{ocp_version}}"
+        recurse: yes
+        state: directory
 
     - name: Create a keypair
       community.crypto.openssh_keypair:
