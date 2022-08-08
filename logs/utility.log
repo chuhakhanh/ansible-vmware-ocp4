@@ -1,0 +1,308 @@
+root@utility ignitions]# openshift-install --dir=/root/ocp4upi/"$ocp_version" wait-for install-complete --log-level=debug
+DEBUG OpenShift Installer 4.6.1                    
+DEBUG Built from commit ebdbda57fc18d3b73e69f0f2cc499ddfca7e6593 
+DEBUG Loading Install Config...                    
+DEBUG   Loading SSH Key...                         
+DEBUG   Loading Base Domain...                     
+DEBUG     Loading Platform...                      
+DEBUG   Loading Cluster Name...                    
+DEBUG     Loading Base Domain...                   
+DEBUG     Loading Platform...                      
+DEBUG   Loading Pull Secret...                     
+DEBUG   Loading Platform...                        
+DEBUG Using Install Config loaded from state file  
+INFO Waiting up to 40m0s for the cluster at https://api.ocp4.example.com:6443 to initialize... 
+DEBUG Still waiting for the cluster to initialize: Working towards 4.6.1: 99% complete, waiting on authentication, console, ingress, kube-storage-version-migrator, monitoring 
+DEBUG Still waiting for the cluster to initialize: Working towards 4.6.1: 99% complete, waiting on authentication, console, ingress, kube-storage-version-migrator, monitoring 
+DEBUG Still waiting for the cluster to initialize: Working towards 4.6.1: 99% complete, waiting on authentication, console, ingress, kube-storage-version-migrator, monitoring 
+DEBUG Still waiting for the cluster to initialize: Some cluster operators are still updating: authentication, console, ingress, kube-storage-version-migrator, monitoring 
+DEBUG Still waiting for the cluster to initialize: Some cluster operators are still updating: authentication, console, ingress, kube-storage-version-migrator, monitoring 
+DEBUG Still waiting for the cluster to initialize: Some cluster operators are still updating: authentication, console, ingress, kube-storage-version-migrator, monitoring 
+DEBUG Still waiting for the cluster to initialize: Some cluster operators are still updating: authentication, console, ingress, kube-storage-version-migrator, monitoring 
+
+DEBUG Still waiting for the cluster to initialize: Working towards 4.6.1: 99% complete, waiting on authentication, console, monitoring 
+
+
+
+E0808 15:40:48.752187   58531 reflector.go:307] k8s.io/client-go/tools/watch/informerwatcher.go:146: Failed to watch *v1.ClusterVersion: the server is currently unable to handle the request (get clusterversions.config.openshift.io)
+DEBUG Still waiting for the cluster to initialize: Working towards 4.6.1: 99% complete, waiting on authentication, console, monitoring 
+DEBUG Still waiting for the cluster to initialize: Working towards 4.6.1: 99% complete, waiting on authentication, console, monitoring 
+DEBUG Still waiting for the cluster to initialize: Working towards 4.6.1: 99% complete, waiting on authentication, console, monitoring 
+DEBUG Still waiting for the cluster to initialize: Working towards 4.6.1: 100% complete 
+DEBUG Still waiting for the cluster to initialize: Working towards 4.6.1: 100% complete 
+DEBUG Still waiting for the cluster to initialize: Cluster operator authentication is reporting a failure: WellKnownReadyControllerDegraded: need at least 3 kube-apiservers, got 2 
+DEBUG Cluster is initialized                       
+INFO Waiting up to 10m0s for the openshift-console route to be created... 
+DEBUG Route found in openshift-console namespace: console 
+DEBUG Route found in openshift-console namespace: downloads 
+DEBUG OpenShift console route is created           
+INFO Install complete!                            
+INFO To access the cluster as the system:admin user when using 'oc', run 'export KUBECONFIG=/root/ocp4upi/4.10.16/auth/kubeconfig' 
+INFO Access the OpenShift web-console here: https://console-openshift-console.apps.ocp4.example.com 
+INFO Login to the console with user: "kubeadmin", and password: "wSbcZ-UK8JK-CaNef-eMvuw" 
+DEBUG Time elapsed per stage:                      
+DEBUG Cluster Operators: 21m5s                     
+INFO Time elapsed: 21m5s   
+
+############## some approved iss perform currently with logs
+
+[root@utility 4.10.16]# oc get csr
+NAME        AGE     SIGNERNAME                                    REQUESTOR                                                                   CONDITION
+csr-5fj28   8m27s   kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Pending
+csr-6cxtm   25m     kubernetes.io/kubelet-serving                 system:node:master02                                                        Approved,Issued
+csr-bqx9b   25m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+csr-dgbtr   25m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+csr-slx9t   25m     kubernetes.io/kubelet-serving                 system:node:master01                                                        Approved,Issued
+csr-v5rkv   25m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+csr-w9fjv   25m     kubernetes.io/kubelet-serving                 system:node:master03                                                        Approved,Issued
+csr-z9p2v   8m5s    kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Pending
+[root@utility 4.10.16]#  oc adm certificate approve csr-z9p2v
+certificatesigningrequest.certificates.k8s.io/csr-z9p2v approved
+[root@utility 4.10.16]# oc get csr
+NAME        AGE     SIGNERNAME                                    REQUESTOR                                                                   CONDITION
+csr-5fj28   8m54s   kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Pending
+csr-6cxtm   25m     kubernetes.io/kubelet-serving                 system:node:master02                                                        Approved,Issued
+csr-bqx9b   26m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+csr-dgbtr   25m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+csr-hw62h   9s      kubernetes.io/kubelet-serving                 system:node:worker01                                                        Pending
+csr-slx9t   25m     kubernetes.io/kubelet-serving                 system:node:master01                                                        Approved,Issued
+csr-v5rkv   25m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+csr-w9fjv   25m     kubernetes.io/kubelet-serving                 system:node:master03                                                        Approved,Issued
+csr-z9p2v   8m32s   kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+[root@utility 4.10.16]# oc get csr
+NAME        AGE     SIGNERNAME                                    REQUESTOR                                                                   CONDITION
+csr-5fj28   12m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Pending
+csr-6cxtm   29m     kubernetes.io/kubelet-serving                 system:node:master02                                                        Approved,Issued
+csr-bqx9b   29m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+csr-dgbtr   29m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+csr-hw62h   3m57s   kubernetes.io/kubelet-serving                 system:node:worker01                                                        Pending
+csr-slx9t   29m     kubernetes.io/kubelet-serving                 system:node:master01                                                        Approved,Issued
+csr-v5rkv   29m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+csr-w9fjv   29m     kubernetes.io/kubelet-serving                 system:node:master03                                                        Approved,Issued
+csr-z9p2v   12m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+[root@utility 4.10.16]# oc get csr
+NAME        AGE     SIGNERNAME                                    REQUESTOR                                                                   CONDITION
+csr-5fj28   12m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Pending
+csr-6cxtm   29m     kubernetes.io/kubelet-serving                 system:node:master02                                                        Approved,Issued
+csr-bqx9b   29m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+csr-dgbtr   29m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+csr-hw62h   3m59s   kubernetes.io/kubelet-serving                 system:node:worker01                                                        Pending
+csr-slx9t   29m     kubernetes.io/kubelet-serving                 system:node:master01                                                        Approved,Issued
+csr-v5rkv   29m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+csr-w9fjv   29m     kubernetes.io/kubelet-serving                 system:node:master03                                                        Approved,Issued
+csr-z9p2v   12m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+[root@utility 4.10.16]#  oc adm certificate approve csr-hw62h 
+certificatesigningrequest.certificates.k8s.io/csr-hw62h approved
+[root@utility 4.10.16]# oc get csr
+NAME        AGE    SIGNERNAME                                    REQUESTOR                                                                   CONDITION
+csr-5fj28   13m    kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Pending
+csr-6cxtm   30m    kubernetes.io/kubelet-serving                 system:node:master02                                                        Approved,Issued
+csr-bqx9b   31m    kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+csr-dgbtr   30m    kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+csr-hw62h   5m7s   kubernetes.io/kubelet-serving                 system:node:worker01                                                        Approved,Issued
+csr-slx9t   30m    kubernetes.io/kubelet-serving                 system:node:master01                                                        Approved,Issued
+csr-v5rkv   30m    kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+csr-w9fjv   30m    kubernetes.io/kubelet-serving                 system:node:master03                                                        Approved,Issued
+csr-z9p2v   13m    kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+[root@utility 4.10.16]# oc get csr
+NAME        AGE     SIGNERNAME                                    REQUESTOR                                                                   CONDITION
+csr-5fj28   14m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Pending
+csr-6cxtm   31m     kubernetes.io/kubelet-serving                 system:node:master02                                                        Approved,Issued
+csr-bqx9b   32m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+csr-dgbtr   31m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+csr-hw62h   6m10s   kubernetes.io/kubelet-serving                 system:node:worker01                                                        Approved,Issued
+csr-slx9t   31m     kubernetes.io/kubelet-serving                 system:node:master01                                                        Approved,Issued
+csr-v5rkv   31m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+csr-w9fjv   31m     kubernetes.io/kubelet-serving                 system:node:master03                                                        Approved,Issued
+csr-z9p2v   14m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+[root@utility 4.10.16]# oc get csr
+NAME        AGE     SIGNERNAME                                    REQUESTOR                                                                   CONDITION
+csr-5fj28   15m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Pending
+csr-6cxtm   31m     kubernetes.io/kubelet-serving                 system:node:master02                                                        Approved,Issued
+csr-bqx9b   32m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+csr-dgbtr   32m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+csr-hw62h   6m32s   kubernetes.io/kubelet-serving                 system:node:worker01                                                        Approved,Issued
+csr-l45n8   14s     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Pending
+csr-slx9t   31m     kubernetes.io/kubelet-serving                 system:node:master01                                                        Approved,Issued
+csr-v5rkv   32m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+csr-w9fjv   32m     kubernetes.io/kubelet-serving                 system:node:master03                                                        Approved,Issued
+csr-z9p2v   14m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+[root@utility 4.10.16]# oc get csr
+NAME        AGE     SIGNERNAME                                    REQUESTOR                                                                   CONDITION
+csr-5fj28   15m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Pending
+csr-6cxtm   31m     kubernetes.io/kubelet-serving                 system:node:master02                                                        Approved,Issued
+csr-bqx9b   32m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+csr-dgbtr   32m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+csr-hw62h   6m38s   kubernetes.io/kubelet-serving                 system:node:worker01                                                        Approved,Issued
+csr-l45n8   20s     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Pending
+csr-slx9t   31m     kubernetes.io/kubelet-serving                 system:node:master01                                                        Approved,Issued
+csr-v5rkv   32m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+csr-w9fjv   32m     kubernetes.io/kubelet-serving                 system:node:master03                                                        Approved,Issued
+csr-z9p2v   15m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+[root@utility 4.10.16]# oc get csr
+NAME        AGE     SIGNERNAME                                    REQUESTOR                                                                   CONDITION
+csr-5fj28   15m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Pending
+csr-6cxtm   32m     kubernetes.io/kubelet-serving                 system:node:master02                                                        Approved,Issued
+csr-bqx9b   32m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+csr-dgbtr   32m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+csr-hw62h   6m43s   kubernetes.io/kubelet-serving                 system:node:worker01                                                        Approved,Issued
+csr-l45n8   25s     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Pending
+csr-slx9t   32m     kubernetes.io/kubelet-serving                 system:node:master01                                                        Approved,Issued
+csr-v5rkv   32m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+csr-w9fjv   32m     kubernetes.io/kubelet-serving                 system:node:master03                                                        Approved,Issued
+csr-z9p2v   15m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+[root@utility 4.10.16]# 
+[root@utility 4.10.16]# oc get csr
+NAME        AGE     SIGNERNAME                                    REQUESTOR                                                                   CONDITION
+csr-5fj28   15m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Pending
+csr-6cxtm   32m     kubernetes.io/kubelet-serving                 system:node:master02                                                        Approved,Issued
+csr-bqx9b   32m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+csr-dgbtr   32m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+csr-hw62h   6m57s   kubernetes.io/kubelet-serving                 system:node:worker01                                                        Approved,Issued
+csr-l45n8   39s     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Pending
+csr-slx9t   32m     kubernetes.io/kubelet-serving                 system:node:master01                                                        Approved,Issued
+csr-v5rkv   32m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+csr-w9fjv   32m     kubernetes.io/kubelet-serving                 system:node:master03                                                        Approved,Issued
+csr-z9p2v   15m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+[root@utility 4.10.16]#  oc adm certificate approve csr-l45n8
+certificatesigningrequest.certificates.k8s.io/csr-l45n8 approved
+[root@utility 4.10.16]# oc get csr
+NAME        AGE     SIGNERNAME                                    REQUESTOR                                                                   CONDITION
+csr-5fj28   15m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Pending
+csr-6cxtm   32m     kubernetes.io/kubelet-serving                 system:node:master02                                                        Approved,Issued
+csr-bqx9b   33m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+csr-dgbtr   32m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+csr-hw62h   7m11s   kubernetes.io/kubelet-serving                 system:node:worker01                                                        Approved,Issued
+csr-l45n8   53s     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+csr-slx9t   32m     kubernetes.io/kubelet-serving                 system:node:master01                                                        Approved,Issued
+csr-v5rkv   32m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+csr-w9fjv   32m     kubernetes.io/kubelet-serving                 system:node:master03                                                        Approved,Issued
+csr-z9p2v   15m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+[root@utility 4.10.16]# oc get csr
+NAME        AGE     SIGNERNAME                                    REQUESTOR                                                                   CONDITION
+csr-5fj28   17m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Pending
+csr-6cxtm   33m     kubernetes.io/kubelet-serving                 system:node:master02                                                        Approved,Issued
+csr-bqx9b   34m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+csr-dgbtr   34m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+csr-hw62h   8m30s   kubernetes.io/kubelet-serving                 system:node:worker01                                                        Approved,Issued
+csr-l45n8   2m12s   kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+csr-lbpgf   68s     kubernetes.io/kubelet-serving                 system:node:worker02                                                        Pending
+csr-slx9t   33m     kubernetes.io/kubelet-serving                 system:node:master01                                                        Approved,Issued
+csr-v5rkv   34m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+csr-w9fjv   34m     kubernetes.io/kubelet-serving                 system:node:master03                                                        Approved,Issued
+csr-z9p2v   16m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+[root@utility 4.10.16]#  oc adm certificate approve csr-lbpgf
+certificatesigningrequest.certificates.k8s.io/csr-lbpgf approved
+[root@utility 4.10.16]#  oc adm certificate approve csr-l45n8
+certificatesigningrequest.certificates.k8s.io/csr-l45n8 approved
+[root@utility 4.10.16]# oc get csr
+NAME        AGE     SIGNERNAME                                    REQUESTOR                                                                   CONDITION
+csr-5fj28   17m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Pending
+csr-6cxtm   34m     kubernetes.io/kubelet-serving                 system:node:master02                                                        Approved,Issued
+csr-bqx9b   34m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+csr-dgbtr   34m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+csr-hw62h   9m3s    kubernetes.io/kubelet-serving                 system:node:worker01                                                        Approved,Issued
+csr-l45n8   2m45s   kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+csr-lbpgf   101s    kubernetes.io/kubelet-serving                 system:node:worker02                                                        Approved,Issued
+csr-slx9t   34m     kubernetes.io/kubelet-serving                 system:node:master01                                                        Approved,Issued
+csr-v5rkv   34m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+csr-w9fjv   34m     kubernetes.io/kubelet-serving                 system:node:master03                                                        Approved,Issued
+csr-z9p2v   17m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+[root@utility 4.10.16]# oc get csr
+NAME        AGE     SIGNERNAME                                    REQUESTOR                                                                   CONDITION
+csr-5fj28   18m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Pending
+csr-6cxtm   34m     kubernetes.io/kubelet-serving                 system:node:master02                                                        Approved,Issued
+csr-bqx9b   35m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+csr-dgbtr   35m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+csr-hw62h   9m26s   kubernetes.io/kubelet-serving                 system:node:worker01                                                        Approved,Issued
+csr-l45n8   3m8s    kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+csr-lbpgf   2m4s    kubernetes.io/kubelet-serving                 system:node:worker02                                                        Approved,Issued
+csr-slx9t   34m     kubernetes.io/kubelet-serving                 system:node:master01                                                        Approved,Issued
+csr-v5rkv   35m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+csr-w9fjv   35m     kubernetes.io/kubelet-serving                 system:node:master03                                                        Approved,Issued
+csr-z9p2v   17m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+[root@utility 4.10.16]# oc get csr
+NAME        AGE     SIGNERNAME                                    REQUESTOR                                                                   CONDITION
+csr-5fj28   18m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Pending
+csr-6cxtm   35m     kubernetes.io/kubelet-serving                 system:node:master02                                                        Approved,Issued
+csr-bqx9b   35m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+csr-dgbtr   35m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+csr-hw62h   9m59s   kubernetes.io/kubelet-serving                 system:node:worker01                                                        Approved,Issued
+csr-l45n8   3m41s   kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+csr-lbpgf   2m37s   kubernetes.io/kubelet-serving                 system:node:worker02                                                        Approved,Issued
+csr-slx9t   35m     kubernetes.io/kubelet-serving                 system:node:master01                                                        Approved,Issued
+csr-v5rkv   35m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+csr-w9fjv   35m     kubernetes.io/kubelet-serving                 system:node:master03                                                        Approved,Issued
+csr-z9p2v   18m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+[root@utility 4.10.16]# cat ^C
+[root@utility 4.10.16]# ll
+total 300
+drwxr-x--- 2 root root     50 Aug  8 14:41 auth
+-rw-r----- 1 root root 291392 Aug  8 14:41 bootstrap.ign
+-rw-r----- 1 root root   1718 Aug  8 14:41 master.ign
+-rw-r----- 1 root root     96 Aug  8 14:41 metadata.json
+-rw-r----- 1 root root   1718 Aug  8 14:41 worker.ign
+[root@utility 4.10.16]# cat auth/kube
+kubeadmin-password  kubeconfig          
+[root@utility 4.10.16]# cat auth/kubeadmin-password 
+wSbcZ-UK8JK-CaNef-eMvuw[root@utility 4.10.16]# cd auth^C
+[root@utility 4.10.16]# pưd
+bash: pưd: command not found...
+[root@utility 4.10.16]# pwd
+/root/ocp4upi/4.10.16
+[root@utility 4.10.16]# cat /root/ocp4upi/"$ocp_version"/auth/kubeadmin-password
+wSbcZ-UK8JK-CaNef-eMvuw[ oc adm certificate approve csr-l45n8^C
+[root@utility 4.10.16]# oc get csr
+NAME        AGE     SIGNERNAME                                    REQUESTOR                                                                   CONDITION
+csr-5fj28   20m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Pending
+csr-6cxtm   37m     kubernetes.io/kubelet-serving                 system:node:master02                                                        Approved,Issued
+csr-bqx9b   38m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+csr-dgbtr   37m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+csr-hw62h   12m     kubernetes.io/kubelet-serving                 system:node:worker01                                                        Approved,Issued
+csr-l45n8   5m53s   kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+csr-lbpgf   4m49s   kubernetes.io/kubelet-serving                 system:node:worker02                                                        Approved,Issued
+csr-slx9t   37m     kubernetes.io/kubelet-serving                 system:node:master01                                                        Approved,Issued
+csr-v5rkv   37m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+csr-w9fjv   37m     kubernetes.io/kubelet-serving                 system:node:master03                                                        Approved,Issued
+csr-z9p2v   20m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+[root@utility 4.10.16]#  oc adm certificate approve csr-5fj28
+certificatesigningrequest.certificates.k8s.io/csr-5fj28 approved
+[root@utility 4.10.16]# oc get csr
+NAME        AGE     SIGNERNAME                                    REQUESTOR                                                                   CONDITION
+csr-5fj28   21m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+csr-6cxtm   37m     kubernetes.io/kubelet-serving                 system:node:master02                                                        Approved,Issued
+csr-bqx9b   38m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+csr-dgbtr   38m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+csr-hw62h   12m     kubernetes.io/kubelet-serving                 system:node:worker01                                                        Approved,Issued
+csr-l45n8   6m13s   kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+csr-lbpgf   5m9s    kubernetes.io/kubelet-serving                 system:node:worker02                                                        Approved,Issued
+csr-slx9t   37m     kubernetes.io/kubelet-serving                 system:node:master01                                                        Approved,Issued
+csr-v5rkv   38m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+csr-w9fjv   38m     kubernetes.io/kubelet-serving                 system:node:master03                                                        Approved,Issued
+csr-z9p2v   20m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+[root@utility 4.10.16]# oc get csr
+NAME        AGE     SIGNERNAME                                    REQUESTOR                                                                   CONDITION
+csr-5fj28   21m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+csr-6cxtm   38m     kubernetes.io/kubelet-serving                 system:node:master02                                                        Approved,Issued
+csr-bqx9b   38m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+csr-dgbtr   38m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+csr-hw62h   13m     kubernetes.io/kubelet-serving                 system:node:worker01                                                        Approved,Issued
+csr-l45n8   6m45s   kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+csr-lbpgf   5m41s   kubernetes.io/kubelet-serving                 system:node:worker02                                                        Approved,Issued
+csr-slx9t   38m     kubernetes.io/kubelet-serving                 system:node:master01                                                        Approved,Issued
+csr-v5rkv   38m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+csr-w9fjv   38m     kubernetes.io/kubelet-serving                 system:node:master03                                                        Approved,Issued
+csr-z9p2v   21m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+[root@utility 4.10.16]# oc get csr
+NAME        AGE     SIGNERNAME                                    REQUESTOR                                                                   CONDITION
+csr-5fj28   21m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+csr-6cxtm   38m     kubernetes.io/kubelet-serving                 system:node:master02                                                        Approved,Issued
+csr-bqx9b   39m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+csr-dgbtr   38m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+csr-hw62h   13m     kubernetes.io/kubelet-serving                 system:node:worker01                                                        Approved,Issued
+csr-l45n8   6m49s   kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+csr-lbpgf   5m45s   kubernetes.io/kubelet-serving                 system:node:worker02                                                        Approved,Issued
+csr-slx9t   38m     kubernetes.io/kubelet-serving                 system:node:master01                                                        Approved,Issued
+csr-v5rkv   38m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
+csr-w9fjv   38m     kubernetes.io/kubelet-serving                 system:node:master03                                                        Approved,Issued
+csr-z9p2v   21m     kubernetes.io/kube-apiserver-client-kubelet   system:serviceaccount:openshift-machine-config-operator:node-bootstrapper   Approved,Issued
