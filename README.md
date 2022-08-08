@@ -55,7 +55,7 @@ Prepare ignition for setup OCP cluster
 
 Get pull secret variables from at https://console.redhat.com/openshift/install/metal/installer-provisioned/, then copy into my_pull_secret: '{"auths":....}' in prepare_ocp_ignition.yml file
 
-    ansible-playbook -i config/inventory prepare_ocp_ignition.yml
+    ansible-playbook -i config/inventory prepare_ocp_ignition.yml -e "ocp_version=4.10.16"
 ### Setup VM in OCP cluster using Method ISO Installation
 
 References: 
