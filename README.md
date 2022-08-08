@@ -79,21 +79,26 @@ Set timezone for VM
 
 For bootstrap VM
     
-    sudo coreos-installer install /dev/sda --insecure-ignition --ignition-url=http://192.168.50.254:8080/openshift4/4.6.4/ignitions/bootstrap.ign 
+    sudo coreos-installer install /dev/sda --insecure-ignition --ignition-url http://192.168.50.254:8080/openshift4/4.6.4/ignitions/bootstrap.ign 
     
 For master VM
     
-    sudo coreos-installer install /dev/sda --insecure-ignition --ignition-url=http://192.168.50.254:8080/openshift4/4.6.4/ignitions/master.ign 
+    sudo coreos-installer install /dev/sda --insecure-ignition --ignition-url http://192.168.50.254:8080/openshift4/4.6.4/ignitions/master.ign 
 
 For worker VM
 
-    sudo coreos-installer install /dev/sda --insecure-ignition --ignition-url=http://192.168.50.254:8080/openshift4/4.6.4/ignitions/worker.ign 
+    sudo coreos-installer install /dev/sda --insecure-ignition --ignition-url http://192.168.50.254:8080/openshift4/4.6.4/ignitions/worker.ign 
 
 Reboot 
 
-
-    ssh -i /root/.ssh/id_rsa core@bootstrap
+    
+    ocp_version=4.10.16
+    ssh -i /root/.ssh/"$ocp_version"/id_rsa core@bootstrap
+    ssh -i /root/.ssh/"$ocp_version"/id_rsa core@master01
     watch 'ps -ef| grep -v "\["'
+    
+    export KUBECONFIG=/root/ocp4upi/"$ocp_version"/auth/kubeconfig
+
 
 Note: 
 
@@ -103,6 +108,7 @@ Note:
 Troubleshooting while bootstraping:
 
     ssh core@bootstrap 
+    journalctl -b -f -u release-image.service -u bootkube.service
     journalctl -b -f -u bootkube.service
     for pod in $(sudo podman ps -a -q); do sudo podman logs $pod; done
 
@@ -111,14 +117,21 @@ Troubleshooting while bootstraping:
 #### Setttings to cluster
 Export
 
-    export KUBECONFIG=/root/ocp4upi/auth/kubeconfig
-    openshift-install --dir=ocp4upi wait-for install-complete --log-level=debug
+    ocp_version=4.10.16
+    export KUBECONFIG=/root/ocp4upi/"$ocp_version"/auth/kubeconfig
+    openshift-install --dir=/root/ocp4upi/"$ocp_version" wait-for install-complete --log-level=debug
+    
 ### Add woker nodes
 
 References: 
 
     https://docs.openshift.com/container-platform/4.6/post_installation_configuration/node-tasks.html
 
+For clusters running on platforms that are not machine API enabled, such as bare metal and other user-provisioned infrastructure, you must implement a method of automatically approving the kubelet serving certificate requests (CSRs). [Review logss in logs/utility.log to review output from node utlity about bootstrap process](logs/utility.log)
+Example:
+After there are some error logs, and request pending. After approve all the request, all logs is cleared.
+E0808 15:40:48.752187   58531 reflector.go:307] k8s.io/client-go/tools/watch/informerwatcher.go:146: Failed to watch *v1.ClusterVersion: the server is currently unable to handle the request (get clusterversions.config.openshift.io)
+DEBUG Still waiting for the cluster to initialize: Cluster operator authentication is reporting a failure: WellKnownReadyControllerDegraded: need at least 3 kube-apiservers, got 2 
 
 Perform to add worker nodes:
 
@@ -140,3 +153,5 @@ Edit hosts file
 Login to console 
 
     https://console-openshift-console.apps.ocp4.example.com/monitoring/dashboards/grafana-dashboard-etcd
+    user: kubeadmin
+    password: cat /root/ocp4upi/"$ocp_version"/auth/kubeadmin-password

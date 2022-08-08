@@ -332,11 +332,4 @@
       args:
         executable: /bin/bash
 
-# Create folder ocp4upi
-
-    - name: Create a folder ocp4upi to store install-config.yaml 
-      file:
-        path: /root/ocp4upi
-        state: directory
-        mode: '0755'
    
