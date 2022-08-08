@@ -53,11 +53,14 @@ Setup required software node utility such as: dns, dhcp ...
     ansible-playbook -i config/inventory prepare_node_utility_service.yml 
     ansible-playbook -i config/inventory prepare_node_utility_ocp.yml -e "ocp_version=4.10.16"
     
-Prepare ignition for setup OCP cluster
+In node utility, prepare ignition for setup OCP cluster
 
     mkdir /root/4.10.26; cd /root/4.10.26
     wget https://mirror.openshift.com/pub/openshift-v4/clients/ocp/4.10.26/openshift-client-linux.tar.gz 
     wget https://mirror.openshift.com/pub/openshift-v4/clients/ocp/4.10.26/openshift-install-linux.tar.gz
+    ln -s /root/4.10.26/kubectl /usr/local/bin/kubectl
+    ln -s /root/4.10.26/oc /usr/local/bin/oc
+    ln -s /root/4.10.26/openshift-install /usr/local/bin//openshift-install
 
 Get pull secret variables from at https://console.redhat.com/openshift/install/metal/installer-provisioned/, then copy into my_pull_secret: '{"auths":....}' in prepare_ocp_ignition.yml file
 

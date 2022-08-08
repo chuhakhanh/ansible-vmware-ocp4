@@ -38,7 +38,7 @@ ocp_vm:
     networks:
       - name: vlan_111
         device_type: vmxnet3
-        connected: false
+        start_connected: no
       - name: vlan_126
         mac: "52:54:00:00:32:09"
         device_type: vmxnet3
@@ -58,7 +58,7 @@ ocp_vm:
     networks:
       - name: vlan_111
         device_type: vmxnet3
-        connected: false
+        start_connected: no
       - name: vlan_126
         mac: "52:54:00:00:32:0A"
         device_type: vmxnet3
@@ -78,7 +78,7 @@ ocp_vm:
     networks:
       - name: vlan_111
         device_type: vmxnet3
-        connected: false
+        start_connected: no
       - name: vlan_126
         mac: "52:54:00:00:32:0B"
         device_type: vmxnet3
@@ -98,7 +98,7 @@ ocp_vm:
     networks:
       - name: vlan_111
         device_type: vmxnet3
-        connected: false
+        start_connected: no
       - name: vlan_126
         mac: "52:54:00:00:32:0C"
         device_type: vmxnet3
@@ -118,7 +118,7 @@ ocp_vm:
     networks:
       - name: vlan_111
         device_type: vmxnet3
-        connected: false
+        start_connected: no
       - name: vlan_126
         mac: "52:54:00:00:32:0D"
         device_type: vmxnet3
@@ -138,7 +138,7 @@ ocp_vm:
     networks:
       - name: vlan_111
         device_type: vmxnet3
-        connected: false
+        start_connected: no
       - name: vlan_126
         mac: "52:54:00:00:32:0E"
         device_type: vmxnet3
