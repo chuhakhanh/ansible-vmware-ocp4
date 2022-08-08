@@ -49,7 +49,7 @@ Prepare environment such as local repository, hosts file
 
 Setup required software node utility such as: dns, dhcp ...
     
-    ansible-playbook -i config/inventory prepare_node_utility.yml
+    ansible-playbook -i config/inventory prepare_node_utility.yml -e "ocp_version=4.10.16"
     
 Prepare ignition for setup OCP cluster
 
