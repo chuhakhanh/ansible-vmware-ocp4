@@ -32,9 +32,12 @@ Diagram of system
 On deploy-1
     
     ansible-galaxy collection install community.crypto
-    git clone https://github.com/chuhakhanh/ansible-vmware-okd-centos8
+    git clone https://github.com/chuhakhanh/ansible-vmware-okd-centos8 
     cd /root/ansible-vmware-okd-centos8
-    ansible-playbook -i config/inventory setup_vmware_cluster.yml -e "action=create"
+  
+On a vsphere environment, create a several VM  cluters with different name but same IP address and MAC address. So we do not need to reconfigure the utility VM include DNS, haproxy. However, we can use only 1 single VM cluster at one time.
+  
+    ansible-playbook -i config/inventory setup_vmware_cluster.yml -e "action=create" -e "ocp_version=4.10.16"
     echo "10.1.17.253 utility" >> /etc/hosts
     ssh-copy-id root@utility
 
@@ -50,9 +53,7 @@ Setup required software node utility such as: dns, dhcp ...
     
 Prepare ignition for setup OCP cluster
 
-First edit pull secret variables file vars/vmw_env.yml. Edit my_pull_secret: '{"auths":....}'
-
-Run playbook
+Get pull secret variables from at https://console.redhat.com/openshift/install/metal/installer-provisioned/, then copy into my_pull_secret: '{"auths":....}' in prepare_ocp_ignition.yml file
 
     ansible-playbook -i config/inventory prepare_ocp_ignition.yml
 ### Setup VM in OCP cluster using Method ISO Installation
