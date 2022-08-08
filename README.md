@@ -41,6 +41,9 @@ On a vsphere environment, create a several VM  cluters with different name but s
     echo "10.1.17.253 utility" >> /etc/hosts
     ssh-copy-id root@utility
 
+Or manage the cluster
+    ansible-playbook -i config/inventory setup_vmware_cluster.yml -e "action=destroy" -e "ocp_version=4.10.16"
+
 Prepare environment such as local repository, hosts file    
     
     ansible-playbook -i config/inventory prepare_node_all.yml
@@ -103,6 +106,7 @@ Reboot
 
     
     ocp_version=4.10.16
+    rm -f /root/.ssh/known_hosts
     ssh -i /root/.ssh/"$ocp_version"/id_rsa core@bootstrap
     ssh -i /root/.ssh/"$ocp_version"/id_rsa core@master01
     watch 'ps -ef| grep -v "\["'
@@ -146,7 +150,7 @@ DEBUG Still waiting for the cluster to initialize: Cluster operator authenticati
 Perform to add worker nodes:
 
     oc get csr
-    oc adm certificate approve csr-7lnxb
+    oc get csr -o go-template='{{range .items}}{{if not .status}}{{.metadata.name}}{{"\n"}}{{end}}{{end}}' | xargs --no-run-if-empty oc adm certificate approve
     oc get nodes
     oc get co
 
