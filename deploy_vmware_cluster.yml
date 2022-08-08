@@ -64,7 +64,8 @@
       boot_firmware: "efi"
     networks: "{{ item.networks }}"
     customization:
-      dns_servers: 8.8.8.8 
+      dns_servers: 8.8.8.8
+      timezone: Asia/Saigon 
     wait_for_ip_address: true
     wait_for_ip_address_timeout: 600
   loop: "{{ ocp_vm }}" 

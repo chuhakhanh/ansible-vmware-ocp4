@@ -1,0 +1,575 @@
+[core@bootstrap ~]$ journalctl -b -f -u release-image.service -u bootkube.service
+-- Logs begin at Mon 2022-08-08 12:04:20 UTC. --
+Aug 08 12:06:08 bootstrap bootkube.sh[2434]: I0808 12:06:08.926441       1 bootstrap_ip.go:158] Filtered address 192.168.50.9/24 ens224
+Aug 08 12:06:08 bootstrap bootkube.sh[2434]: I0808 12:06:08.926454       1 bootstrap_ip.go:158] Filtered address fe80::4358:29e0:e953:2728/64
+Aug 08 12:06:08 bootstrap bootkube.sh[2434]: I0808 12:06:08.926462       1 bootstrap_ip.go:158] Filtered address 127.0.0.1/8 lo
+Aug 08 12:06:08 bootstrap bootkube.sh[2434]: I0808 12:06:08.926469       1 bootstrap_ip.go:158] Filtered address ::1/128
+Aug 08 12:06:08 bootstrap bootkube.sh[2434]: I0808 12:06:08.926476       1 bootstrap_ip.go:200] Found routable IPs []
+Aug 08 12:06:08 bootstrap bootkube.sh[2434]: W0808 12:06:08.926483       1 bootstrap_ip.go:82] couldn't detect the bootstrap IP automatically, falling back to the first listed address
+Aug 08 12:06:08 bootstrap bootkube.sh[2434]: I0808 12:06:08.926489       1 render.go:414] using bootstrap IP 192.168.50.9
+Aug 08 12:06:08 bootstrap bootkube.sh[2434]: I0808 12:06:08.926507       1 render.go:597] Bootstrapping etcd using: "HAScalingStrategy"
+Aug 08 12:06:08 bootstrap bootkube.sh[2434]: WARNING: Validity period of the certificate for "etcd-signer" is greater than 5 years!
+Aug 08 12:06:08 bootstrap bootkube.sh[2434]: WARNING: By security reasons it is strongly recommended to change this period and make it smaller!
+Aug 08 12:06:09 bootstrap bootkube.sh[2434]: WARNING: Validity period of the certificate for "etcd-metric-signer" is greater than 5 years!
+Aug 08 12:06:09 bootstrap bootkube.sh[2434]: WARNING: By security reasons it is strongly recommended to change this period and make it smaller!
+Aug 08 12:06:10 bootstrap bootkube.sh[2434]: Writing asset: /assets/etcd-bootstrap/manifests/00_etcd-endpoints-cm.yaml
+Aug 08 12:06:10 bootstrap bootkube.sh[2434]: Writing asset: /assets/etcd-bootstrap/manifests/etcd-ca-bundle-configmap.yaml
+Aug 08 12:06:10 bootstrap bootkube.sh[2434]: Writing asset: /assets/etcd-bootstrap/manifests/etcd-metric-client-secret.yaml
+Aug 08 12:06:10 bootstrap bootkube.sh[2434]: Writing asset: /assets/etcd-bootstrap/manifests/etcd-metric-serving-ca-configmap.yaml
+Aug 08 12:06:10 bootstrap bootkube.sh[2434]: Writing asset: /assets/etcd-bootstrap/manifests/etcd-signer-secret.yaml
+Aug 08 12:06:10 bootstrap bootkube.sh[2434]: Writing asset: /assets/etcd-bootstrap/manifests/00_openshift-etcd-ns.yaml
+Aug 08 12:06:10 bootstrap bootkube.sh[2434]: Writing asset: /assets/etcd-bootstrap/manifests/etcd-client-secret.yaml
+Aug 08 12:06:10 bootstrap bootkube.sh[2434]: Writing asset: /assets/etcd-bootstrap/manifests/etcd-metric-signer-secret.yaml
+Aug 08 12:06:10 bootstrap bootkube.sh[2434]: Writing asset: /assets/etcd-bootstrap/manifests/etcd-serving-ca-configmap.yaml
+Aug 08 12:06:10 bootstrap bootkube.sh[2434]: Writing asset: /assets/etcd-bootstrap/manifests/openshift-etcd-svc.yaml
+Aug 08 12:06:10 bootstrap bootkube.sh[2434]: Writing asset: /assets/etcd-bootstrap/etc-kubernetes/manifests/etcd-member-pod.yaml
+Aug 08 12:06:10 bootstrap bootkube.sh[2434]: Rendering cluster config manifests...
+Aug 08 12:06:22 bootstrap bootkube.sh[2434]: Writing asset: /assets/config-bootstrap/manifests/0000_10_config-operator_01_image.crd.yaml
+Aug 08 12:06:22 bootstrap bootkube.sh[2434]: Writing asset: /assets/config-bootstrap/manifests/0000_10_config-operator_01_oauth.crd.yaml
+Aug 08 12:06:22 bootstrap bootkube.sh[2434]: Writing asset: /assets/config-bootstrap/manifests/0000_10_config-operator_01_apiserver.crd.yaml
+Aug 08 12:06:22 bootstrap bootkube.sh[2434]: Writing asset: /assets/config-bootstrap/manifests/0000_10_config-operator_01_build.crd.yaml
+Aug 08 12:06:22 bootstrap bootkube.sh[2434]: Writing asset: /assets/config-bootstrap/manifests/0000_10_config-operator_01_console.crd.yaml
+Aug 08 12:06:22 bootstrap bootkube.sh[2434]: Writing asset: /assets/config-bootstrap/manifests/0000_10_config-operator_01_featuregate.crd.yaml
+Aug 08 12:06:22 bootstrap bootkube.sh[2434]: Writing asset: /assets/config-bootstrap/manifests/0000_10_config-operator_01_ingress.crd.yaml
+Aug 08 12:06:22 bootstrap bootkube.sh[2434]: Writing asset: /assets/config-bootstrap/manifests/0000_03_authorization-openshift_01_rolebindingrestriction.crd.yaml
+Aug 08 12:06:22 bootstrap bootkube.sh[2434]: Writing asset: /assets/config-bootstrap/manifests/0000_03_config-operator_01_proxy.crd.yaml
+Aug 08 12:06:22 bootstrap bootkube.sh[2434]: Writing asset: /assets/config-bootstrap/manifests/0000_10_config-operator_01_dns.crd.yaml
+Aug 08 12:06:22 bootstrap bootkube.sh[2434]: Writing asset: /assets/config-bootstrap/manifests/0000_10_config-operator_01_infrastructure.crd.yaml
+Aug 08 12:06:22 bootstrap bootkube.sh[2434]: Writing asset: /assets/config-bootstrap/manifests/0000_10_config-operator_01_imagecontentpolicy.crd.yaml
+Aug 08 12:06:22 bootstrap bootkube.sh[2434]: Writing asset: /assets/config-bootstrap/manifests/0000_10_config-operator_01_scheduler.crd.yaml
+Aug 08 12:06:22 bootstrap bootkube.sh[2434]: Writing asset: /assets/config-bootstrap/manifests/0000_03_config-operator_01_operatorhub.crd.yaml
+Aug 08 12:06:22 bootstrap bootkube.sh[2434]: Writing asset: /assets/config-bootstrap/manifests/0000_03_quota-openshift_01_clusterresourcequota.crd.yaml
+Aug 08 12:06:22 bootstrap bootkube.sh[2434]: Writing asset: /assets/config-bootstrap/manifests/0000_03_security-openshift_01_scc.crd.yaml
+Aug 08 12:06:22 bootstrap bootkube.sh[2434]: Writing asset: /assets/config-bootstrap/manifests/0000_03_securityinternal-openshift_02_rangeallocation.crd.yaml
+Aug 08 12:06:22 bootstrap bootkube.sh[2434]: Writing asset: /assets/config-bootstrap/manifests/0000_10_config-operator_01_authentication.crd.yaml
+Aug 08 12:06:22 bootstrap bootkube.sh[2434]: Writing asset: /assets/config-bootstrap/manifests/0000_10_config-operator_01_imagecontentsourcepolicy.crd.yaml
+Aug 08 12:06:22 bootstrap bootkube.sh[2434]: Writing asset: /assets/config-bootstrap/manifests/0000_10_config-operator_01_network.crd.yaml
+Aug 08 12:06:22 bootstrap bootkube.sh[2434]: Writing asset: /assets/config-bootstrap/manifests/0000_10_config-operator_01_project.crd.yaml
+Aug 08 12:06:22 bootstrap bootkube.sh[2434]: Rendering Kubernetes API server core manifests...
+Aug 08 12:06:39 bootstrap bootkube.sh[2434]: Writing asset: /assets/kube-apiserver-bootstrap/bootstrap-manifests/kube-apiserver-pod.yaml
+Aug 08 12:06:39 bootstrap bootkube.sh[2434]: Writing asset: /assets/kube-apiserver-bootstrap/manifests/0000_20_kube-apiserver-operator_00_cr-scc-hostmount-anyuid.yaml
+Aug 08 12:06:39 bootstrap bootkube.sh[2434]: Writing asset: /assets/kube-apiserver-bootstrap/manifests/0000_20_kube-apiserver-operator_00_cr-scc-restricted.yaml
+Aug 08 12:06:39 bootstrap bootkube.sh[2434]: Writing asset: /assets/kube-apiserver-bootstrap/manifests/0000_20_kube-apiserver-operator_00_scc-hostnetwork.yaml
+Aug 08 12:06:39 bootstrap bootkube.sh[2434]: Writing asset: /assets/kube-apiserver-bootstrap/manifests/0000_20_kube-apiserver-operator_00_scc-privileged.yaml
+Aug 08 12:06:39 bootstrap bootkube.sh[2434]: Writing asset: /assets/kube-apiserver-bootstrap/manifests/secret-kube-apiserver-to-kubelet-signer.yaml
+Aug 08 12:06:39 bootstrap bootkube.sh[2434]: Writing asset: /assets/kube-apiserver-bootstrap/manifests/secret-loadbalancer-serving-signer.yaml
+Aug 08 12:06:39 bootstrap bootkube.sh[2434]: Writing asset: /assets/kube-apiserver-bootstrap/manifests/cluster-role-binding-kube-apiserver.yaml
+Aug 08 12:06:39 bootstrap bootkube.sh[2434]: Writing asset: /assets/kube-apiserver-bootstrap/manifests/0000_20_kube-apiserver-operator_00_cr-scc-hostnetwork.yaml
+Aug 08 12:06:39 bootstrap bootkube.sh[2434]: Writing asset: /assets/kube-apiserver-bootstrap/manifests/secret-aggregator-client-signer.yaml
+Aug 08 12:06:39 bootstrap bootkube.sh[2434]: Writing asset: /assets/kube-apiserver-bootstrap/manifests/secret-localhost-serving-signer.yaml
+Aug 08 12:06:39 bootstrap bootkube.sh[2434]: Writing asset: /assets/kube-apiserver-bootstrap/manifests/0000_20_kube-apiserver-operator_00_cr-scc-hostaccess.yaml
+Aug 08 12:06:39 bootstrap bootkube.sh[2434]: Writing asset: /assets/kube-apiserver-bootstrap/manifests/0000_20_kube-apiserver-operator_00_scc-hostmount-anyuid.yaml
+Aug 08 12:06:39 bootstrap bootkube.sh[2434]: Writing asset: /assets/kube-apiserver-bootstrap/manifests/configmap-csr-controller-ca.yaml
+Aug 08 12:06:39 bootstrap bootkube.sh[2434]: Writing asset: /assets/kube-apiserver-bootstrap/manifests/secret-control-plane-client-signer.yaml
+Aug 08 12:06:39 bootstrap bootkube.sh[2434]: Writing asset: /assets/kube-apiserver-bootstrap/manifests/secret-service-network-serving-signer.yaml
+Aug 08 12:06:39 bootstrap bootkube.sh[2434]: Writing asset: /assets/kube-apiserver-bootstrap/manifests/0000_20_kube-apiserver-operator_00_scc-restricted.yaml
+Aug 08 12:06:39 bootstrap bootkube.sh[2434]: Writing asset: /assets/kube-apiserver-bootstrap/manifests/00_openshift-kube-apiserver-ns.yaml
+Aug 08 12:06:39 bootstrap bootkube.sh[2434]: Writing asset: /assets/kube-apiserver-bootstrap/manifests/configmap-kubelet-bootstrap-kubeconfig-ca.yaml
+Aug 08 12:06:39 bootstrap bootkube.sh[2434]: Writing asset: /assets/kube-apiserver-bootstrap/manifests/0000_20_kube-apiserver-operator_00_cr-scc-nonroot.yaml
+Aug 08 12:06:39 bootstrap bootkube.sh[2434]: Writing asset: /assets/kube-apiserver-bootstrap/manifests/0000_20_kube-apiserver-operator_00_cr-scc-privileged.yaml
+Aug 08 12:06:39 bootstrap bootkube.sh[2434]: Writing asset: /assets/kube-apiserver-bootstrap/manifests/0000_20_kube-apiserver-operator_00_scc-anyuid.yaml
+Aug 08 12:06:39 bootstrap bootkube.sh[2434]: Writing asset: /assets/kube-apiserver-bootstrap/manifests/0000_20_kube-apiserver-operator_00_scc-hostaccess.yaml
+Aug 08 12:06:39 bootstrap bootkube.sh[2434]: Writing asset: /assets/kube-apiserver-bootstrap/manifests/0000_20_kube-apiserver-operator_00_scc-nonroot.yaml
+Aug 08 12:06:39 bootstrap bootkube.sh[2434]: Writing asset: /assets/kube-apiserver-bootstrap/manifests/0000_20_kube-apiserver-operator_00_cr-scc-anyuid.yaml
+Aug 08 12:06:39 bootstrap bootkube.sh[2434]: Writing asset: /assets/kube-apiserver-bootstrap/manifests/cluster-role-kube-apiserver.yaml
+Aug 08 12:06:39 bootstrap bootkube.sh[2434]: Writing asset: /assets/kube-apiserver-bootstrap/manifests/configmap-sa-token-signing-certs.yaml
+Aug 08 12:06:39 bootstrap bootkube.sh[2434]: Writing asset: /assets/kube-apiserver-bootstrap/manifests/secret-bound-sa-token-signing-key.yaml
+Aug 08 12:06:39 bootstrap bootkube.sh[2434]: Writing asset: /assets/kube-apiserver-bootstrap/manifests/00_openshift-kube-apiserver-operator-ns.yaml
+Aug 08 12:06:39 bootstrap bootkube.sh[2434]: Writing asset: /assets/kube-apiserver-bootstrap/manifests/configmap-admin-kubeconfig-client-ca.yaml
+Aug 08 12:06:40 bootstrap bootkube.sh[2434]: Rendering Kubernetes Controller Manager core manifests...
+Aug 08 12:06:52 bootstrap bootkube.sh[2434]: Writing asset: /assets/kube-controller-manager-bootstrap/bootstrap-manifests/kube-controller-manager-pod.yaml
+Aug 08 12:06:52 bootstrap bootkube.sh[2434]: Writing asset: /assets/kube-controller-manager-bootstrap/manifests/secret-csr-signer-signer.yaml
+Aug 08 12:06:52 bootstrap bootkube.sh[2434]: Writing asset: /assets/kube-controller-manager-bootstrap/manifests/secret-initial-kube-controller-manager-service-account-private-key.yaml
+Aug 08 12:06:52 bootstrap bootkube.sh[2434]: Writing asset: /assets/kube-controller-manager-bootstrap/manifests/0000_00_namespace-openshift-infra.yaml
+Aug 08 12:06:52 bootstrap bootkube.sh[2434]: Writing asset: /assets/kube-controller-manager-bootstrap/manifests/00_namespace-security-allocation-controller-clusterrole.yaml
+Aug 08 12:06:52 bootstrap bootkube.sh[2434]: Writing asset: /assets/kube-controller-manager-bootstrap/manifests/00_namespace-security-allocation-controller-clusterrolebinding.yaml
+Aug 08 12:06:52 bootstrap bootkube.sh[2434]: Writing asset: /assets/kube-controller-manager-bootstrap/manifests/00_openshift-kube-controller-manager-ns.yaml
+Aug 08 12:06:52 bootstrap bootkube.sh[2434]: Writing asset: /assets/kube-controller-manager-bootstrap/manifests/00_openshift-kube-controller-manager-operator-ns.yaml
+Aug 08 12:06:52 bootstrap bootkube.sh[2434]: Rendering Kubernetes Scheduler core manifests...
+Aug 08 12:07:05 bootstrap bootkube.sh[2434]: Writing asset: /assets/kube-scheduler-bootstrap/bootstrap-manifests/kube-scheduler-pod.yaml
+Aug 08 12:07:05 bootstrap bootkube.sh[2434]: Writing asset: /assets/kube-scheduler-bootstrap/manifests/00_openshift-kube-scheduler-ns.yaml
+Aug 08 12:07:06 bootstrap bootkube.sh[2434]: Rendering Ingress Operator core manifests...
+Aug 08 12:07:18 bootstrap bootkube.sh[2434]: wrote /assets/ingress-operator-manifests/cluster-ingress-00-custom-resource-definition.yaml
+Aug 08 12:07:18 bootstrap bootkube.sh[2434]: wrote /assets/ingress-operator-manifests/cluster-ingress-00-namespace.yaml
+Aug 08 12:07:18 bootstrap bootkube.sh[2434]: Rendering MCO manifests...
+Aug 08 12:07:34 bootstrap bootkube.sh[2434]: I0808 12:07:34.385933       1 bootstrap.go:84] Version: v4.10.0-202207291908.p0.gdc29945.assembly.stream-dirty (dc29945da95a65f460ad50ad1bbc10e1918a9c61)
+Aug 08 12:07:34 bootstrap bootkube.sh[2434]: I0808 12:07:34.390498       1 bootstrap.go:187] manifests/machineconfigcontroller/controllerconfig.yaml
+Aug 08 12:07:34 bootstrap bootkube.sh[2434]: I0808 12:07:34.394485       1 bootstrap.go:187] manifests/master.machineconfigpool.yaml
+Aug 08 12:07:34 bootstrap bootkube.sh[2434]: I0808 12:07:34.394767       1 bootstrap.go:187] manifests/worker.machineconfigpool.yaml
+Aug 08 12:07:34 bootstrap bootkube.sh[2434]: I0808 12:07:34.395038       1 bootstrap.go:187] manifests/bootstrap-pod-v2.yaml
+Aug 08 12:07:34 bootstrap bootkube.sh[2434]: I0808 12:07:34.395327       1 bootstrap.go:187] manifests/machineconfigserver/csr-bootstrap-role-binding.yaml
+Aug 08 12:07:34 bootstrap bootkube.sh[2434]: I0808 12:07:34.395590       1 bootstrap.go:187] manifests/machineconfigserver/kube-apiserver-serving-ca-configmap.yaml
+Aug 08 12:07:34 bootstrap bootkube.sh[2434]: Rendering CCO manifests...
+Aug 08 12:07:48 bootstrap bootkube.sh[2434]: time="2022-08-08T12:07:48Z" level=info msg="Rendering files to /assets/cco-bootstrap"
+Aug 08 12:07:48 bootstrap bootkube.sh[2434]: time="2022-08-08T12:07:48Z" level=info msg="Writing file: /assets/cco-bootstrap/manifests/cco-cloudcredential_v1_operator_config_custresdef.yaml"
+Aug 08 12:07:48 bootstrap bootkube.sh[2434]: time="2022-08-08T12:07:48Z" level=info msg="Writing file: /assets/cco-bootstrap/manifests/cco-cloudcredential_v1_credentialsrequest_crd.yaml"
+Aug 08 12:07:48 bootstrap bootkube.sh[2434]: time="2022-08-08T12:07:48Z" level=info msg="Writing file: /assets/cco-bootstrap/manifests/cco-namespace.yaml"
+Aug 08 12:07:48 bootstrap bootkube.sh[2434]: time="2022-08-08T12:07:48Z" level=info msg="Writing file: /assets/cco-bootstrap/manifests/cco-operator-config.yaml"
+Aug 08 12:07:48 bootstrap bootkube.sh[2434]: time="2022-08-08T12:07:48Z" level=info msg="Rendering static pod"
+Aug 08 12:07:48 bootstrap bootkube.sh[2434]: time="2022-08-08T12:07:48Z" level=info msg="writing file: /assets/cco-bootstrap/bootstrap-manifests/cloud-credential-operator-pod.yaml"
+Aug 08 12:07:51 bootstrap bootkube.sh[2434]: https://localhost:2379 is healthy: successfully committed proposal: took = 18.159753ms
+Aug 08 12:07:51 bootstrap bootkube.sh[2434]: Starting cluster-bootstrap...
+Aug 08 12:08:02 bootstrap bootkube.sh[2434]: Starting temporary bootstrap control plane...
+Aug 08 12:08:02 bootstrap bootkube.sh[2434]: Waiting up to 20m0s for the Kubernetes API
+Aug 08 12:08:03 bootstrap bootkube.sh[2434]: Still waiting for the Kubernetes API: Get "https://localhost:6443/readyz": dial tcp [::1]:6443: connect: connection refused
+Aug 08 12:08:50 bootstrap bootkube.sh[2434]: API is up
+Aug 08 12:08:51 bootstrap bootkube.sh[2434]: Created "0000_00_cluster-version-operator_00_namespace.yaml" namespaces.v1./openshift-cluster-version -n
+Aug 08 12:08:51 bootstrap bootkube.sh[2434]: Failed to create "0000_00_cluster-version-operator_01_adminack_configmap.yaml" configmaps.v1./admin-acks -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:08:51 bootstrap bootkube.sh[2434]: Failed to create "0000_00_cluster-version-operator_01_admingate_configmap.yaml" configmaps.v1./admin-gates -n openshift-config-managed: namespaces "openshift-config-managed" not found
+Aug 08 12:08:51 bootstrap bootkube.sh[2434]: Created "0000_00_cluster-version-operator_01_clusteroperator.crd.yaml" customresourcedefinitions.v1.apiextensions.k8s.io/clusteroperators.config.openshift.io -n
+Aug 08 12:08:51 bootstrap bootkube.sh[2434]: Created "0000_00_cluster-version-operator_01_clusterversion.crd.yaml" customresourcedefinitions.v1.apiextensions.k8s.io/clusterversions.config.openshift.io -n
+Aug 08 12:08:51 bootstrap bootkube.sh[2434]: Created "0000_00_cluster-version-operator_02_roles.yaml" clusterrolebindings.v1.rbac.authorization.k8s.io/cluster-version-operator -n
+Aug 08 12:09:01 bootstrap bootkube.sh[2434]: Failed to create "0000_00_cluster-version-operator_03_deployment.yaml" deployments.v1.apps/cluster-version-operator -n openshift-cluster-version: deployments.apps "cluster-version-operator" is forbidden: caches not synchronized
+Aug 08 12:09:01 bootstrap bootkube.sh[2434]: Created "0000_00_namespace-openshift-infra.yaml" namespaces.v1./openshift-infra -n
+Aug 08 12:09:01 bootstrap bootkube.sh[2434]: Created "0000_03_authorization-openshift_01_rolebindingrestriction.crd.yaml" customresourcedefinitions.v1.apiextensions.k8s.io/rolebindingrestrictions.authorization.openshift.io -n
+Aug 08 12:09:01 bootstrap bootkube.sh[2434]: Created "0000_03_config-operator_01_operatorhub.crd.yaml" customresourcedefinitions.v1.apiextensions.k8s.io/operatorhubs.config.openshift.io -n
+Aug 08 12:09:01 bootstrap bootkube.sh[2434]: Created "0000_03_config-operator_01_proxy.crd.yaml" customresourcedefinitions.v1.apiextensions.k8s.io/proxies.config.openshift.io -n
+Aug 08 12:09:01 bootstrap bootkube.sh[2434]: Created "0000_03_quota-openshift_01_clusterresourcequota.crd.yaml" customresourcedefinitions.v1.apiextensions.k8s.io/clusterresourcequotas.quota.openshift.io -n
+Aug 08 12:09:02 bootstrap bootkube.sh[2434]: Created "0000_03_security-openshift_01_scc.crd.yaml" customresourcedefinitions.v1.apiextensions.k8s.io/securitycontextconstraints.security.openshift.io -n
+Aug 08 12:09:02 bootstrap bootkube.sh[2434]: Created "0000_03_securityinternal-openshift_02_rangeallocation.crd.yaml" customresourcedefinitions.v1.apiextensions.k8s.io/rangeallocations.security.internal.openshift.io -n
+Aug 08 12:09:02 bootstrap bootkube.sh[2434]: Created "0000_10_config-operator_01_apiserver.crd.yaml" customresourcedefinitions.v1.apiextensions.k8s.io/apiservers.config.openshift.io -n
+Aug 08 12:09:03 bootstrap bootkube.sh[2434]: Created "0000_10_config-operator_01_authentication.crd.yaml" customresourcedefinitions.v1.apiextensions.k8s.io/authentications.config.openshift.io -n
+Aug 08 12:09:03 bootstrap bootkube.sh[2434]: Created "0000_10_config-operator_01_build.crd.yaml" customresourcedefinitions.v1.apiextensions.k8s.io/builds.config.openshift.io -n
+Aug 08 12:09:04 bootstrap bootkube.sh[2434]: Created "0000_10_config-operator_01_console.crd.yaml" customresourcedefinitions.v1.apiextensions.k8s.io/consoles.config.openshift.io -n
+Aug 08 12:09:04 bootstrap bootkube.sh[2434]: Created "0000_10_config-operator_01_dns.crd.yaml" customresourcedefinitions.v1.apiextensions.k8s.io/dnses.config.openshift.io -n
+Aug 08 12:09:04 bootstrap bootkube.sh[2434]: Created "0000_10_config-operator_01_featuregate.crd.yaml" customresourcedefinitions.v1.apiextensions.k8s.io/featuregates.config.openshift.io -n
+Aug 08 12:09:05 bootstrap bootkube.sh[2434]: Created "0000_10_config-operator_01_image.crd.yaml" customresourcedefinitions.v1.apiextensions.k8s.io/images.config.openshift.io -n
+Aug 08 12:09:05 bootstrap bootkube.sh[2434]: Created "0000_10_config-operator_01_imagecontentpolicy.crd.yaml" customresourcedefinitions.v1.apiextensions.k8s.io/imagecontentpolicies.config.openshift.io -n
+Aug 08 12:09:06 bootstrap bootkube.sh[2434]: Created "0000_10_config-operator_01_imagecontentsourcepolicy.crd.yaml" customresourcedefinitions.v1.apiextensions.k8s.io/imagecontentsourcepolicies.operator.openshift.io -n
+Aug 08 12:09:06 bootstrap bootkube.sh[2434]: Created "0000_10_config-operator_01_infrastructure.crd.yaml" customresourcedefinitions.v1.apiextensions.k8s.io/infrastructures.config.openshift.io -n
+Aug 08 12:09:06 bootstrap bootkube.sh[2434]: Created "0000_10_config-operator_01_ingress.crd.yaml" customresourcedefinitions.v1.apiextensions.k8s.io/ingresses.config.openshift.io -n
+Aug 08 12:09:07 bootstrap bootkube.sh[2434]: Created "0000_10_config-operator_01_network.crd.yaml" customresourcedefinitions.v1.apiextensions.k8s.io/networks.config.openshift.io -n
+Aug 08 12:09:07 bootstrap bootkube.sh[2434]: Created "0000_10_config-operator_01_oauth.crd.yaml" customresourcedefinitions.v1.apiextensions.k8s.io/oauths.config.openshift.io -n
+Aug 08 12:09:08 bootstrap bootkube.sh[2434]: Created "0000_10_config-operator_01_project.crd.yaml" customresourcedefinitions.v1.apiextensions.k8s.io/projects.config.openshift.io -n
+Aug 08 12:09:08 bootstrap bootkube.sh[2434]: Created "0000_10_config-operator_01_scheduler.crd.yaml" customresourcedefinitions.v1.apiextensions.k8s.io/schedulers.config.openshift.io -n
+Aug 08 12:09:08 bootstrap bootkube.sh[2434]: Created "0000_20_kube-apiserver-operator_00_cr-scc-anyuid.yaml" clusterroles.v1.rbac.authorization.k8s.io/system:openshift:scc:anyuid -n
+Aug 08 12:09:09 bootstrap bootkube.sh[2434]: Created "0000_20_kube-apiserver-operator_00_cr-scc-hostaccess.yaml" clusterroles.v1.rbac.authorization.k8s.io/system:openshift:scc:hostaccess -n
+Aug 08 12:09:09 bootstrap bootkube.sh[2434]: Created "0000_20_kube-apiserver-operator_00_cr-scc-hostmount-anyuid.yaml" clusterroles.v1.rbac.authorization.k8s.io/system:openshift:scc:hostmount -n
+Aug 08 12:09:10 bootstrap bootkube.sh[2434]: Created "0000_20_kube-apiserver-operator_00_cr-scc-hostnetwork.yaml" clusterroles.v1.rbac.authorization.k8s.io/system:openshift:scc:hostnetwork -n
+Aug 08 12:09:10 bootstrap bootkube.sh[2434]: Created "0000_20_kube-apiserver-operator_00_cr-scc-nonroot.yaml" clusterroles.v1.rbac.authorization.k8s.io/system:openshift:scc:nonroot -n
+Aug 08 12:09:10 bootstrap bootkube.sh[2434]: Created "0000_20_kube-apiserver-operator_00_cr-scc-privileged.yaml" clusterroles.v1.rbac.authorization.k8s.io/system:openshift:scc:privileged -n
+Aug 08 12:09:11 bootstrap bootkube.sh[2434]: Created "0000_20_kube-apiserver-operator_00_cr-scc-restricted.yaml" clusterroles.v1.rbac.authorization.k8s.io/system:openshift:scc:restricted -n
+Aug 08 12:09:11 bootstrap bootkube.sh[2434]: Created "0000_20_kube-apiserver-operator_00_scc-anyuid.yaml" securitycontextconstraints.v1.security.openshift.io/anyuid -n
+Aug 08 12:09:12 bootstrap bootkube.sh[2434]: Created "0000_20_kube-apiserver-operator_00_scc-hostaccess.yaml" securitycontextconstraints.v1.security.openshift.io/hostaccess -n
+Aug 08 12:09:12 bootstrap bootkube.sh[2434]: Created "0000_20_kube-apiserver-operator_00_scc-hostmount-anyuid.yaml" securitycontextconstraints.v1.security.openshift.io/hostmount-anyuid -n
+Aug 08 12:09:12 bootstrap bootkube.sh[2434]: Created "0000_20_kube-apiserver-operator_00_scc-hostnetwork.yaml" securitycontextconstraints.v1.security.openshift.io/hostnetwork -n
+Aug 08 12:09:15 bootstrap bootkube.sh[2434]: Created "0000_20_kube-apiserver-operator_00_scc-nonroot.yaml" securitycontextconstraints.v1.security.openshift.io/nonroot -n
+Aug 08 12:09:15 bootstrap bootkube.sh[2434]: Created "0000_20_kube-apiserver-operator_00_scc-privileged.yaml" securitycontextconstraints.v1.security.openshift.io/privileged -n
+Aug 08 12:09:15 bootstrap bootkube.sh[2434]: Created "0000_20_kube-apiserver-operator_00_scc-restricted.yaml" securitycontextconstraints.v1.security.openshift.io/restricted -n
+Aug 08 12:09:15 bootstrap bootkube.sh[2434]: Created "0001_00_cluster-version-operator_03_service.yaml" services.v1./cluster-version-operator -n openshift-cluster-version
+Aug 08 12:09:16 bootstrap bootkube.sh[2434]: Failed to create "00_etcd-endpoints-cm.yaml" configmaps.v1./etcd-endpoints -n openshift-etcd: namespaces "openshift-etcd" not found
+Aug 08 12:09:16 bootstrap bootkube.sh[2434]: Created "00_namespace-security-allocation-controller-clusterrole.yaml" clusterroles.v1.rbac.authorization.k8s.io/system:openshift:controller:namespace-security-allocation-controller -n
+Aug 08 12:09:16 bootstrap bootkube.sh[2434]: Created "00_namespace-security-allocation-controller-clusterrolebinding.yaml" clusterrolebindings.v1.rbac.authorization.k8s.io/system:openshift:controller:namespace-security-allocation-controller -n
+Aug 08 12:09:16 bootstrap bootkube.sh[2434]: Created "00_openshift-etcd-ns.yaml" namespaces.v1./openshift-etcd -n
+Aug 08 12:09:18 bootstrap bootkube.sh[2434]: Created "00_openshift-kube-apiserver-ns.yaml" namespaces.v1./openshift-kube-apiserver -n
+Aug 08 12:09:18 bootstrap bootkube.sh[2434]: Created "00_openshift-kube-apiserver-operator-ns.yaml" namespaces.v1./openshift-kube-apiserver-operator -n
+Aug 08 12:09:18 bootstrap bootkube.sh[2434]: Created "00_openshift-kube-controller-manager-ns.yaml" namespaces.v1./openshift-kube-controller-manager -n
+Aug 08 12:09:18 bootstrap bootkube.sh[2434]: Created "00_openshift-kube-controller-manager-operator-ns.yaml" namespaces.v1./openshift-kube-controller-manager-operator -n
+Aug 08 12:09:18 bootstrap bootkube.sh[2434]: Created "00_openshift-kube-scheduler-ns.yaml" namespaces.v1./openshift-kube-scheduler -n
+Aug 08 12:09:18 bootstrap bootkube.sh[2434]: Created "99_kubeadmin-password-secret.yaml" secrets.v1./kubeadmin -n kube-system
+Aug 08 12:09:18 bootstrap bootkube.sh[2434]: Failed to create "99_openshift-cluster-api_master-user-data-secret.yaml" secrets.v1./master-user-data -n openshift-machine-api: namespaces "openshift-machine-api" not found
+Aug 08 12:09:19 bootstrap bootkube.sh[2434]: Failed to create "99_openshift-cluster-api_worker-user-data-secret.yaml" secrets.v1./worker-user-data -n openshift-machine-api: namespaces "openshift-machine-api" not found
+Aug 08 12:09:19 bootstrap bootkube.sh[2434]: Failed to create "99_openshift-machineconfig_99-master-ssh.yaml" machineconfigs.v1.machineconfiguration.openshift.io/99-master-ssh -n : the server could not find the requested resource
+Aug 08 12:09:20 bootstrap bootkube.sh[2434]: Failed to create "99_openshift-machineconfig_99-worker-ssh.yaml" machineconfigs.v1.machineconfiguration.openshift.io/99-worker-ssh -n : the server could not find the requested resource
+Aug 08 12:09:20 bootstrap bootkube.sh[2434]: Created "cco-cloudcredential_v1_credentialsrequest_crd.yaml" customresourcedefinitions.v1.apiextensions.k8s.io/credentialsrequests.cloudcredential.openshift.io -n
+Aug 08 12:09:20 bootstrap bootkube.sh[2434]: Created "cco-cloudcredential_v1_operator_config_custresdef.yaml" customresourcedefinitions.v1.apiextensions.k8s.io/cloudcredentials.operator.openshift.io -n
+Aug 08 12:09:24 bootstrap bootkube.sh[2434]: Created "cco-namespace.yaml" namespaces.v1./openshift-cloud-credential-operator -n
+Aug 08 12:09:24 bootstrap bootkube.sh[2434]: Created "cco-operator-config.yaml" cloudcredentials.v1.operator.openshift.io/cluster -n
+Aug 08 12:09:24 bootstrap bootkube.sh[2434]: Created "cluster-config.yaml" configmaps.v1./cluster-config-v1 -n kube-system
+Aug 08 12:09:25 bootstrap bootkube.sh[2434]: Created "cluster-dns-02-config.yml" dnses.v1.config.openshift.io/cluster -n
+Aug 08 12:09:25 bootstrap bootkube.sh[2434]: Updated status for "cluster-dns-02-config.yml" dnses.v1.config.openshift.io/cluster -n
+Aug 08 12:09:25 bootstrap bootkube.sh[2434]: Created "cluster-infrastructure-02-config.yml" infrastructures.v1.config.openshift.io/cluster -n
+Aug 08 12:09:25 bootstrap bootkube.sh[2434]: Updated status for "cluster-infrastructure-02-config.yml" infrastructures.v1.config.openshift.io/cluster -n
+Aug 08 12:09:25 bootstrap bootkube.sh[2434]: Created "cluster-ingress-00-custom-resource-definition.yaml" customresourcedefinitions.v1.apiextensions.k8s.io/ingresscontrollers.operator.openshift.io -n
+Aug 08 12:09:26 bootstrap bootkube.sh[2434]: Created "cluster-ingress-00-namespace.yaml" namespaces.v1./openshift-ingress-operator -n
+Aug 08 12:09:26 bootstrap bootkube.sh[2434]: Created "cluster-ingress-02-config.yml" ingresses.v1.config.openshift.io/cluster -n
+Aug 08 12:09:26 bootstrap bootkube.sh[2434]: Updated status for "cluster-ingress-02-config.yml" ingresses.v1.config.openshift.io/cluster -n
+Aug 08 12:09:26 bootstrap bootkube.sh[2434]: Skipped "cluster-network-01-crd.yml" customresourcedefinitions.v1.apiextensions.k8s.io/networks.config.openshift.io -n  as it already exists
+Aug 08 12:09:26 bootstrap bootkube.sh[2434]: Created "cluster-network-02-config.yml" networks.v1.config.openshift.io/cluster -n
+Aug 08 12:09:27 bootstrap bootkube.sh[2434]: Created "cluster-proxy-01-config.yaml" proxies.v1.config.openshift.io/cluster -n
+Aug 08 12:09:27 bootstrap bootkube.sh[2434]: Updated status for "cluster-proxy-01-config.yaml" proxies.v1.config.openshift.io/cluster -n
+Aug 08 12:09:27 bootstrap bootkube.sh[2434]: Created "cluster-role-binding-kube-apiserver.yaml" clusterrolebindings.v1.rbac.authorization.k8s.io/kube-apiserver -n
+Aug 08 12:09:28 bootstrap bootkube.sh[2434]: Created "cluster-role-kube-apiserver.yaml" clusterroles.v1.rbac.authorization.k8s.io/kube-apiserver -n
+Aug 08 12:09:28 bootstrap bootkube.sh[2434]: Created "cluster-scheduler-02-config.yml" schedulers.v1.config.openshift.io/cluster -n
+Aug 08 12:09:28 bootstrap bootkube.sh[2434]: Updated status for "cluster-scheduler-02-config.yml" schedulers.v1.config.openshift.io/cluster -n
+Aug 08 12:09:29 bootstrap bootkube.sh[2434]: Failed to create "configmap-admin-kubeconfig-client-ca.yaml" configmaps.v1./admin-kubeconfig-client-ca -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:09:29 bootstrap bootkube.sh[2434]: Failed to create "configmap-csr-controller-ca.yaml" configmaps.v1./csr-controller-ca -n openshift-config-managed: namespaces "openshift-config-managed" not found
+Aug 08 12:09:29 bootstrap bootkube.sh[2434]: Failed to create "configmap-kubelet-bootstrap-kubeconfig-ca.yaml" configmaps.v1./kubelet-bootstrap-kubeconfig -n openshift-config-managed: namespaces "openshift-config-managed" not found
+Aug 08 12:09:30 bootstrap bootkube.sh[2434]: Failed to create "configmap-sa-token-signing-certs.yaml" configmaps.v1./sa-token-signing-certs -n openshift-config-managed: namespaces "openshift-config-managed" not found
+Aug 08 12:09:30 bootstrap bootkube.sh[2434]: Created "csr-bootstrap-role-binding.yaml" clusterrolebindings.v1.rbac.authorization.k8s.io/system-bootstrap-node-bootstrapper -n
+Aug 08 12:09:31 bootstrap bootkube.sh[2434]: Created "cvo-overrides.yaml" clusterversions.v1.config.openshift.io/version -n openshift-cluster-version
+Aug 08 12:09:31 bootstrap bootkube.sh[2434]: Failed to create "etcd-ca-bundle-configmap.yaml" configmaps.v1./etcd-ca-bundle -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:09:31 bootstrap bootkube.sh[2434]: Failed to create "etcd-client-secret.yaml" secrets.v1./etcd-client -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:09:32 bootstrap bootkube.sh[2434]: Failed to create "etcd-metric-client-secret.yaml" secrets.v1./etcd-metric-client -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:09:32 bootstrap bootkube.sh[2434]: Failed to create "etcd-metric-serving-ca-configmap.yaml" configmaps.v1./etcd-metric-serving-ca -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:09:33 bootstrap bootkube.sh[2434]: Failed to create "etcd-metric-signer-secret.yaml" secrets.v1./etcd-metric-signer -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:09:33 bootstrap bootkube.sh[2434]: Failed to create "etcd-serving-ca-configmap.yaml" configmaps.v1./etcd-serving-ca -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:09:33 bootstrap bootkube.sh[2434]: Failed to create "etcd-signer-secret.yaml" secrets.v1./etcd-signer -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:09:34 bootstrap bootkube.sh[2434]: Failed to create "kube-apiserver-serving-ca-configmap.yaml" configmaps.v1./initial-kube-apiserver-server-ca -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:09:34 bootstrap bootkube.sh[2434]: Created "kube-cloud-config.yaml" secrets.v1./kube-cloud-cfg -n kube-system
+Aug 08 12:09:35 bootstrap bootkube.sh[2434]: Created "kube-system-configmap-root-ca.yaml" configmaps.v1./root-ca -n kube-system
+Aug 08 12:09:35 bootstrap bootkube.sh[2434]: Failed to create "machine-config-server-tls-secret.yaml" secrets.v1./machine-config-server-tls -n openshift-machine-config-operator: namespaces "openshift-machine-config-operator" not found
+Aug 08 12:09:35 bootstrap bootkube.sh[2434]: Failed to create "openshift-config-secret-pull-secret.yaml" secrets.v1./pull-secret -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:09:36 bootstrap bootkube.sh[2434]: Created "openshift-etcd-svc.yaml" services.v1./etcd -n openshift-etcd
+Aug 08 12:09:36 bootstrap bootkube.sh[2434]: Failed to create "openshift-install-manifests.yaml" configmaps.v1./openshift-install-manifests -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:09:37 bootstrap bootkube.sh[2434]: Created "secret-aggregator-client-signer.yaml" secrets.v1./aggregator-client-signer -n openshift-kube-apiserver-operator
+Aug 08 12:09:37 bootstrap bootkube.sh[2434]: Created "secret-bound-sa-token-signing-key.yaml" secrets.v1./next-bound-service-account-signing-key -n openshift-kube-apiserver-operator
+Aug 08 12:09:37 bootstrap bootkube.sh[2434]: Created "secret-control-plane-client-signer.yaml" secrets.v1./kube-control-plane-signer -n openshift-kube-apiserver-operator
+Aug 08 12:09:38 bootstrap bootkube.sh[2434]: Created "secret-csr-signer-signer.yaml" secrets.v1./csr-signer-signer -n openshift-kube-controller-manager-operator
+Aug 08 12:09:38 bootstrap bootkube.sh[2434]: Failed to create "secret-initial-kube-controller-manager-service-account-private-key.yaml" secrets.v1./initial-service-account-private-key -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:09:39 bootstrap bootkube.sh[2434]: Created "secret-kube-apiserver-to-kubelet-signer.yaml" secrets.v1./kube-apiserver-to-kubelet-signer -n openshift-kube-apiserver-operator
+Aug 08 12:09:39 bootstrap bootkube.sh[2434]: Created "secret-loadbalancer-serving-signer.yaml" secrets.v1./loadbalancer-serving-signer -n openshift-kube-apiserver-operator
+Aug 08 12:09:39 bootstrap bootkube.sh[2434]: Created "secret-localhost-serving-signer.yaml" secrets.v1./localhost-serving-signer -n openshift-kube-apiserver-operator
+Aug 08 12:09:40 bootstrap bootkube.sh[2434]: Created "secret-service-network-serving-signer.yaml" secrets.v1./service-network-serving-signer -n openshift-kube-apiserver-operator
+Aug 08 12:09:40 bootstrap bootkube.sh[2434]: [#1] failed to create some manifests:
+Aug 08 12:09:40 bootstrap bootkube.sh[2434]: "0000_00_cluster-version-operator_01_adminack_configmap.yaml": failed to create configmaps.v1./admin-acks -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:09:40 bootstrap bootkube.sh[2434]: "0000_00_cluster-version-operator_01_admingate_configmap.yaml": failed to create configmaps.v1./admin-gates -n openshift-config-managed: namespaces "openshift-config-managed" not found
+Aug 08 12:09:40 bootstrap bootkube.sh[2434]: "0000_00_cluster-version-operator_03_deployment.yaml": failed to create deployments.v1.apps/cluster-version-operator -n openshift-cluster-version: deployments.apps "cluster-version-operator" is forbidden: caches not synchronized
+Aug 08 12:09:40 bootstrap bootkube.sh[2434]: "00_etcd-endpoints-cm.yaml": failed to create configmaps.v1./etcd-endpoints -n openshift-etcd: namespaces "openshift-etcd" not found
+Aug 08 12:09:40 bootstrap bootkube.sh[2434]: "99_openshift-cluster-api_master-user-data-secret.yaml": failed to create secrets.v1./master-user-data -n openshift-machine-api: namespaces "openshift-machine-api" not found
+Aug 08 12:09:40 bootstrap bootkube.sh[2434]: "99_openshift-cluster-api_worker-user-data-secret.yaml": failed to create secrets.v1./worker-user-data -n openshift-machine-api: namespaces "openshift-machine-api" not found
+Aug 08 12:09:40 bootstrap bootkube.sh[2434]: "99_openshift-machineconfig_99-master-ssh.yaml": failed to create machineconfigs.v1.machineconfiguration.openshift.io/99-master-ssh -n : the server could not find the requested resource
+Aug 08 12:09:40 bootstrap bootkube.sh[2434]: "99_openshift-machineconfig_99-worker-ssh.yaml": failed to create machineconfigs.v1.machineconfiguration.openshift.io/99-worker-ssh -n : the server could not find the requested resource
+Aug 08 12:09:40 bootstrap bootkube.sh[2434]: "configmap-admin-kubeconfig-client-ca.yaml": failed to create configmaps.v1./admin-kubeconfig-client-ca -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:09:40 bootstrap bootkube.sh[2434]: "configmap-csr-controller-ca.yaml": failed to create configmaps.v1./csr-controller-ca -n openshift-config-managed: namespaces "openshift-config-managed" not found
+Aug 08 12:09:40 bootstrap bootkube.sh[2434]: "configmap-kubelet-bootstrap-kubeconfig-ca.yaml": failed to create configmaps.v1./kubelet-bootstrap-kubeconfig -n openshift-config-managed: namespaces "openshift-config-managed" not found
+Aug 08 12:09:40 bootstrap bootkube.sh[2434]: "configmap-sa-token-signing-certs.yaml": failed to create configmaps.v1./sa-token-signing-certs -n openshift-config-managed: namespaces "openshift-config-managed" not found
+Aug 08 12:09:40 bootstrap bootkube.sh[2434]: "etcd-ca-bundle-configmap.yaml": failed to create configmaps.v1./etcd-ca-bundle -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:09:40 bootstrap bootkube.sh[2434]: "etcd-client-secret.yaml": failed to create secrets.v1./etcd-client -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:09:40 bootstrap bootkube.sh[2434]: "etcd-metric-client-secret.yaml": failed to create secrets.v1./etcd-metric-client -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:09:40 bootstrap bootkube.sh[2434]: "etcd-metric-serving-ca-configmap.yaml": failed to create configmaps.v1./etcd-metric-serving-ca -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:09:40 bootstrap bootkube.sh[2434]: "etcd-metric-signer-secret.yaml": failed to create secrets.v1./etcd-metric-signer -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:09:40 bootstrap bootkube.sh[2434]: "etcd-serving-ca-configmap.yaml": failed to create configmaps.v1./etcd-serving-ca -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:09:40 bootstrap bootkube.sh[2434]: "etcd-signer-secret.yaml": failed to create secrets.v1./etcd-signer -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:09:40 bootstrap bootkube.sh[2434]: "kube-apiserver-serving-ca-configmap.yaml": failed to create configmaps.v1./initial-kube-apiserver-server-ca -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:09:40 bootstrap bootkube.sh[2434]: "machine-config-server-tls-secret.yaml": failed to create secrets.v1./machine-config-server-tls -n openshift-machine-config-operator: namespaces "openshift-machine-config-operator" not found
+Aug 08 12:09:40 bootstrap bootkube.sh[2434]: "openshift-config-secret-pull-secret.yaml": failed to create secrets.v1./pull-secret -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:09:40 bootstrap bootkube.sh[2434]: "openshift-install-manifests.yaml": failed to create configmaps.v1./openshift-install-manifests -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:09:40 bootstrap bootkube.sh[2434]: "secret-initial-kube-controller-manager-service-account-private-key.yaml": failed to create secrets.v1./initial-service-account-private-key -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:09:40 bootstrap bootkube.sh[2434]: Failed to create "0000_00_cluster-version-operator_01_adminack_configmap.yaml" configmaps.v1./admin-acks -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:09:41 bootstrap bootkube.sh[2434]: Failed to create "0000_00_cluster-version-operator_01_admingate_configmap.yaml" configmaps.v1./admin-gates -n openshift-config-managed: namespaces "openshift-config-managed" not found
+Aug 08 12:09:41 bootstrap bootkube.sh[2434]: Created "0000_00_cluster-version-operator_03_deployment.yaml" deployments.v1.apps/cluster-version-operator -n openshift-cluster-version
+Aug 08 12:09:41 bootstrap bootkube.sh[2434]: Created "00_etcd-endpoints-cm.yaml" configmaps.v1./etcd-endpoints -n openshift-etcd
+Aug 08 12:09:42 bootstrap bootkube.sh[2434]: Failed to create "99_openshift-cluster-api_master-user-data-secret.yaml" secrets.v1./master-user-data -n openshift-machine-api: namespaces "openshift-machine-api" not found
+Aug 08 12:09:42 bootstrap bootkube.sh[2434]: Failed to create "99_openshift-cluster-api_worker-user-data-secret.yaml" secrets.v1./worker-user-data -n openshift-machine-api: namespaces "openshift-machine-api" not found
+Aug 08 12:09:43 bootstrap bootkube.sh[2434]: Failed to create "99_openshift-machineconfig_99-master-ssh.yaml" machineconfigs.v1.machineconfiguration.openshift.io/99-master-ssh -n : the server could not find the requested resource
+Aug 08 12:09:43 bootstrap bootkube.sh[2434]: Failed to create "99_openshift-machineconfig_99-worker-ssh.yaml" machineconfigs.v1.machineconfiguration.openshift.io/99-worker-ssh -n : the server could not find the requested resource
+Aug 08 12:09:43 bootstrap bootkube.sh[2434]: Failed to create "configmap-admin-kubeconfig-client-ca.yaml" configmaps.v1./admin-kubeconfig-client-ca -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:09:44 bootstrap bootkube.sh[2434]: Failed to create "configmap-csr-controller-ca.yaml" configmaps.v1./csr-controller-ca -n openshift-config-managed: namespaces "openshift-config-managed" not found
+Aug 08 12:09:44 bootstrap bootkube.sh[2434]: Failed to create "configmap-kubelet-bootstrap-kubeconfig-ca.yaml" configmaps.v1./kubelet-bootstrap-kubeconfig -n openshift-config-managed: namespaces "openshift-config-managed" not found
+Aug 08 12:09:45 bootstrap bootkube.sh[2434]: Failed to create "configmap-sa-token-signing-certs.yaml" configmaps.v1./sa-token-signing-certs -n openshift-config-managed: namespaces "openshift-config-managed" not found
+Aug 08 12:09:45 bootstrap bootkube.sh[2434]: Failed to create "etcd-ca-bundle-configmap.yaml" configmaps.v1./etcd-ca-bundle -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:09:47 bootstrap bootkube.sh[2434]: Failed to create "etcd-client-secret.yaml" secrets.v1./etcd-client -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:09:47 bootstrap bootkube.sh[2434]: Failed to create "etcd-metric-client-secret.yaml" secrets.v1./etcd-metric-client -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:09:47 bootstrap bootkube.sh[2434]: Failed to create "etcd-metric-serving-ca-configmap.yaml" configmaps.v1./etcd-metric-serving-ca -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:09:47 bootstrap bootkube.sh[2434]: Failed to create "etcd-metric-signer-secret.yaml" secrets.v1./etcd-metric-signer -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:09:47 bootstrap bootkube.sh[2434]: Failed to create "etcd-serving-ca-configmap.yaml" configmaps.v1./etcd-serving-ca -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:09:48 bootstrap bootkube.sh[2434]: Failed to create "etcd-signer-secret.yaml" secrets.v1./etcd-signer -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:09:48 bootstrap bootkube.sh[2434]: Failed to create "kube-apiserver-serving-ca-configmap.yaml" configmaps.v1./initial-kube-apiserver-server-ca -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:09:48 bootstrap bootkube.sh[2434]: Created "machine-config-server-tls-secret.yaml" secrets.v1./machine-config-server-tls -n openshift-machine-config-operator
+Aug 08 12:09:49 bootstrap bootkube.sh[2434]: Failed to create "openshift-config-secret-pull-secret.yaml" secrets.v1./pull-secret -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:09:49 bootstrap bootkube.sh[2434]: Failed to create "openshift-install-manifests.yaml" configmaps.v1./openshift-install-manifests -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:09:49 bootstrap bootkube.sh[2434]: Failed to create "secret-initial-kube-controller-manager-service-account-private-key.yaml" secrets.v1./initial-service-account-private-key -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:09:49 bootstrap bootkube.sh[2434]: [#2] failed to create some manifests:
+Aug 08 12:09:49 bootstrap bootkube.sh[2434]: "0000_00_cluster-version-operator_01_adminack_configmap.yaml": failed to create configmaps.v1./admin-acks -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:09:49 bootstrap bootkube.sh[2434]: "0000_00_cluster-version-operator_01_admingate_configmap.yaml": failed to create configmaps.v1./admin-gates -n openshift-config-managed: namespaces "openshift-config-managed" not found
+Aug 08 12:09:49 bootstrap bootkube.sh[2434]: "99_openshift-cluster-api_master-user-data-secret.yaml": failed to create secrets.v1./master-user-data -n openshift-machine-api: namespaces "openshift-machine-api" not found
+Aug 08 12:09:49 bootstrap bootkube.sh[2434]: "99_openshift-cluster-api_worker-user-data-secret.yaml": failed to create secrets.v1./worker-user-data -n openshift-machine-api: namespaces "openshift-machine-api" not found
+Aug 08 12:09:49 bootstrap bootkube.sh[2434]: "99_openshift-machineconfig_99-master-ssh.yaml": failed to create machineconfigs.v1.machineconfiguration.openshift.io/99-master-ssh -n : the server could not find the requested resource
+Aug 08 12:09:49 bootstrap bootkube.sh[2434]: "99_openshift-machineconfig_99-worker-ssh.yaml": failed to create machineconfigs.v1.machineconfiguration.openshift.io/99-worker-ssh -n : the server could not find the requested resource
+Aug 08 12:09:49 bootstrap bootkube.sh[2434]: "configmap-admin-kubeconfig-client-ca.yaml": failed to create configmaps.v1./admin-kubeconfig-client-ca -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:09:49 bootstrap bootkube.sh[2434]: "configmap-csr-controller-ca.yaml": failed to create configmaps.v1./csr-controller-ca -n openshift-config-managed: namespaces "openshift-config-managed" not found
+Aug 08 12:09:49 bootstrap bootkube.sh[2434]: "configmap-kubelet-bootstrap-kubeconfig-ca.yaml": failed to create configmaps.v1./kubelet-bootstrap-kubeconfig -n openshift-config-managed: namespaces "openshift-config-managed" not found
+Aug 08 12:09:49 bootstrap bootkube.sh[2434]: "configmap-sa-token-signing-certs.yaml": failed to create configmaps.v1./sa-token-signing-certs -n openshift-config-managed: namespaces "openshift-config-managed" not found
+Aug 08 12:09:49 bootstrap bootkube.sh[2434]: "etcd-ca-bundle-configmap.yaml": failed to create configmaps.v1./etcd-ca-bundle -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:09:49 bootstrap bootkube.sh[2434]: "etcd-client-secret.yaml": failed to create secrets.v1./etcd-client -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:09:49 bootstrap bootkube.sh[2434]: "etcd-metric-client-secret.yaml": failed to create secrets.v1./etcd-metric-client -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:09:49 bootstrap bootkube.sh[2434]: "etcd-metric-serving-ca-configmap.yaml": failed to create configmaps.v1./etcd-metric-serving-ca -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:09:49 bootstrap bootkube.sh[2434]: "etcd-metric-signer-secret.yaml": failed to create secrets.v1./etcd-metric-signer -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:09:49 bootstrap bootkube.sh[2434]: "etcd-serving-ca-configmap.yaml": failed to create configmaps.v1./etcd-serving-ca -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:09:49 bootstrap bootkube.sh[2434]: "etcd-signer-secret.yaml": failed to create secrets.v1./etcd-signer -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:09:49 bootstrap bootkube.sh[2434]: "kube-apiserver-serving-ca-configmap.yaml": failed to create configmaps.v1./initial-kube-apiserver-server-ca -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:09:49 bootstrap bootkube.sh[2434]: "openshift-config-secret-pull-secret.yaml": failed to create secrets.v1./pull-secret -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:09:49 bootstrap bootkube.sh[2434]: "openshift-install-manifests.yaml": failed to create configmaps.v1./openshift-install-manifests -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:09:49 bootstrap bootkube.sh[2434]: "secret-initial-kube-controller-manager-service-account-private-key.yaml": failed to create secrets.v1./initial-service-account-private-key -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:09:50 bootstrap bootkube.sh[2434]: Failed to create "0000_00_cluster-version-operator_01_adminack_configmap.yaml" configmaps.v1./admin-acks -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:09:50 bootstrap bootkube.sh[2434]: Failed to create "0000_00_cluster-version-operator_01_admingate_configmap.yaml" configmaps.v1./admin-gates -n openshift-config-managed: namespaces "openshift-config-managed" not found
+Aug 08 12:09:51 bootstrap bootkube.sh[2434]: Failed to create "99_openshift-cluster-api_master-user-data-secret.yaml" secrets.v1./master-user-data -n openshift-machine-api: namespaces "openshift-machine-api" not found
+Aug 08 12:09:51 bootstrap bootkube.sh[2434]: Failed to create "99_openshift-cluster-api_worker-user-data-secret.yaml" secrets.v1./worker-user-data -n openshift-machine-api: namespaces "openshift-machine-api" not found
+Aug 08 12:09:51 bootstrap bootkube.sh[2434]: Failed to create "99_openshift-machineconfig_99-master-ssh.yaml" machineconfigs.v1.machineconfiguration.openshift.io/99-master-ssh -n : the server could not find the requested resource
+Aug 08 12:09:52 bootstrap bootkube.sh[2434]: Failed to create "99_openshift-machineconfig_99-worker-ssh.yaml" machineconfigs.v1.machineconfiguration.openshift.io/99-worker-ssh -n : the server could not find the requested resource
+Aug 08 12:09:52 bootstrap bootkube.sh[2434]: Failed to create "configmap-admin-kubeconfig-client-ca.yaml" configmaps.v1./admin-kubeconfig-client-ca -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:09:53 bootstrap bootkube.sh[2434]: Failed to create "configmap-csr-controller-ca.yaml" configmaps.v1./csr-controller-ca -n openshift-config-managed: namespaces "openshift-config-managed" not found
+Aug 08 12:09:53 bootstrap bootkube.sh[2434]: Failed to create "configmap-kubelet-bootstrap-kubeconfig-ca.yaml" configmaps.v1./kubelet-bootstrap-kubeconfig -n openshift-config-managed: namespaces "openshift-config-managed" not found
+Aug 08 12:09:54 bootstrap bootkube.sh[2434]: Failed to create "configmap-sa-token-signing-certs.yaml" configmaps.v1./sa-token-signing-certs -n openshift-config-managed: namespaces "openshift-config-managed" not found
+Aug 08 12:09:54 bootstrap bootkube.sh[2434]: Failed to create "etcd-ca-bundle-configmap.yaml" configmaps.v1./etcd-ca-bundle -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:09:55 bootstrap bootkube.sh[2434]: Failed to create "etcd-client-secret.yaml" secrets.v1./etcd-client -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:09:55 bootstrap bootkube.sh[2434]: Failed to create "etcd-metric-client-secret.yaml" secrets.v1./etcd-metric-client -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:09:56 bootstrap bootkube.sh[2434]: Failed to create "etcd-metric-serving-ca-configmap.yaml" configmaps.v1./etcd-metric-serving-ca -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:09:56 bootstrap bootkube.sh[2434]: Failed to create "etcd-metric-signer-secret.yaml" secrets.v1./etcd-metric-signer -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:09:57 bootstrap bootkube.sh[2434]: Failed to create "etcd-serving-ca-configmap.yaml" configmaps.v1./etcd-serving-ca -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:09:57 bootstrap bootkube.sh[2434]: Failed to create "etcd-signer-secret.yaml" secrets.v1./etcd-signer -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:09:58 bootstrap bootkube.sh[2434]: Failed to create "kube-apiserver-serving-ca-configmap.yaml" configmaps.v1./initial-kube-apiserver-server-ca -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:09:59 bootstrap bootkube.sh[2434]: Failed to create "openshift-config-secret-pull-secret.yaml" secrets.v1./pull-secret -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:10:02 bootstrap bootkube.sh[2434]: Failed to create "openshift-install-manifests.yaml" configmaps.v1./openshift-install-manifests -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:10:03 bootstrap bootkube.sh[2434]: Failed to create "secret-initial-kube-controller-manager-service-account-private-key.yaml" secrets.v1./initial-service-account-private-key -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:10:03 bootstrap bootkube.sh[2434]: [#3] failed to create some manifests:
+Aug 08 12:10:03 bootstrap bootkube.sh[2434]: "0000_00_cluster-version-operator_01_adminack_configmap.yaml": failed to create configmaps.v1./admin-acks -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:10:03 bootstrap bootkube.sh[2434]: "0000_00_cluster-version-operator_01_admingate_configmap.yaml": failed to create configmaps.v1./admin-gates -n openshift-config-managed: namespaces "openshift-config-managed" not found
+Aug 08 12:10:03 bootstrap bootkube.sh[2434]: "99_openshift-cluster-api_master-user-data-secret.yaml": failed to create secrets.v1./master-user-data -n openshift-machine-api: namespaces "openshift-machine-api" not found
+Aug 08 12:10:03 bootstrap bootkube.sh[2434]: "99_openshift-cluster-api_worker-user-data-secret.yaml": failed to create secrets.v1./worker-user-data -n openshift-machine-api: namespaces "openshift-machine-api" not found
+Aug 08 12:10:03 bootstrap bootkube.sh[2434]: "99_openshift-machineconfig_99-master-ssh.yaml": failed to create machineconfigs.v1.machineconfiguration.openshift.io/99-master-ssh -n : the server could not find the requested resource
+Aug 08 12:10:03 bootstrap bootkube.sh[2434]: "99_openshift-machineconfig_99-worker-ssh.yaml": failed to create machineconfigs.v1.machineconfiguration.openshift.io/99-worker-ssh -n : the server could not find the requested resource
+Aug 08 12:10:03 bootstrap bootkube.sh[2434]: "configmap-admin-kubeconfig-client-ca.yaml": failed to create configmaps.v1./admin-kubeconfig-client-ca -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:10:03 bootstrap bootkube.sh[2434]: "configmap-csr-controller-ca.yaml": failed to create configmaps.v1./csr-controller-ca -n openshift-config-managed: namespaces "openshift-config-managed" not found
+Aug 08 12:10:03 bootstrap bootkube.sh[2434]: "configmap-kubelet-bootstrap-kubeconfig-ca.yaml": failed to create configmaps.v1./kubelet-bootstrap-kubeconfig -n openshift-config-managed: namespaces "openshift-config-managed" not found
+Aug 08 12:10:03 bootstrap bootkube.sh[2434]: "configmap-sa-token-signing-certs.yaml": failed to create configmaps.v1./sa-token-signing-certs -n openshift-config-managed: namespaces "openshift-config-managed" not found
+Aug 08 12:10:03 bootstrap bootkube.sh[2434]: "etcd-ca-bundle-configmap.yaml": failed to create configmaps.v1./etcd-ca-bundle -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:10:03 bootstrap bootkube.sh[2434]: "etcd-client-secret.yaml": failed to create secrets.v1./etcd-client -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:10:03 bootstrap bootkube.sh[2434]: "etcd-metric-client-secret.yaml": failed to create secrets.v1./etcd-metric-client -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:10:03 bootstrap bootkube.sh[2434]: "etcd-metric-serving-ca-configmap.yaml": failed to create configmaps.v1./etcd-metric-serving-ca -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:10:03 bootstrap bootkube.sh[2434]: "etcd-metric-signer-secret.yaml": failed to create secrets.v1./etcd-metric-signer -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:10:03 bootstrap bootkube.sh[2434]: "etcd-serving-ca-configmap.yaml": failed to create configmaps.v1./etcd-serving-ca -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:10:03 bootstrap bootkube.sh[2434]: "etcd-signer-secret.yaml": failed to create secrets.v1./etcd-signer -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:10:03 bootstrap bootkube.sh[2434]: "kube-apiserver-serving-ca-configmap.yaml": failed to create configmaps.v1./initial-kube-apiserver-server-ca -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:10:03 bootstrap bootkube.sh[2434]: "openshift-config-secret-pull-secret.yaml": failed to create secrets.v1./pull-secret -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:10:03 bootstrap bootkube.sh[2434]: "openshift-install-manifests.yaml": failed to create configmaps.v1./openshift-install-manifests -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:10:03 bootstrap bootkube.sh[2434]: "secret-initial-kube-controller-manager-service-account-private-key.yaml": failed to create secrets.v1./initial-service-account-private-key -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:10:03 bootstrap bootkube.sh[2434]: Failed to create "0000_00_cluster-version-operator_01_adminack_configmap.yaml" configmaps.v1./admin-acks -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:10:04 bootstrap bootkube.sh[2434]: Failed to create "0000_00_cluster-version-operator_01_admingate_configmap.yaml" configmaps.v1./admin-gates -n openshift-config-managed: namespaces "openshift-config-managed" not found
+Aug 08 12:10:04 bootstrap bootkube.sh[2434]: Failed to create "99_openshift-cluster-api_master-user-data-secret.yaml" secrets.v1./master-user-data -n openshift-machine-api: namespaces "openshift-machine-api" not found
+Aug 08 12:10:04 bootstrap bootkube.sh[2434]: Failed to create "99_openshift-cluster-api_worker-user-data-secret.yaml" secrets.v1./worker-user-data -n openshift-machine-api: namespaces "openshift-machine-api" not found
+Aug 08 12:10:04 bootstrap bootkube.sh[2434]: Created "99_openshift-machineconfig_99-master-ssh.yaml" machineconfigs.v1.machineconfiguration.openshift.io/99-master-ssh -n
+Aug 08 12:10:04 bootstrap bootkube.sh[2434]: Created "99_openshift-machineconfig_99-worker-ssh.yaml" machineconfigs.v1.machineconfiguration.openshift.io/99-worker-ssh -n
+Aug 08 12:10:04 bootstrap bootkube.sh[2434]: Failed to create "configmap-admin-kubeconfig-client-ca.yaml" configmaps.v1./admin-kubeconfig-client-ca -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:10:04 bootstrap bootkube.sh[2434]: Failed to create "configmap-csr-controller-ca.yaml" configmaps.v1./csr-controller-ca -n openshift-config-managed: namespaces "openshift-config-managed" not found
+Aug 08 12:10:05 bootstrap bootkube.sh[2434]: Created "configmap-kubelet-bootstrap-kubeconfig-ca.yaml" configmaps.v1./kubelet-bootstrap-kubeconfig -n openshift-config-managed
+Aug 08 12:10:05 bootstrap bootkube.sh[2434]:         Pod Status:openshift-kube-apiserver/kube-apiserver        DoesNotExist
+Aug 08 12:10:05 bootstrap bootkube.sh[2434]:         Pod Status:openshift-kube-scheduler/openshift-kube-scheduler        DoesNotExist
+Aug 08 12:10:05 bootstrap bootkube.sh[2434]:         Pod Status:openshift-kube-controller-manager/kube-controller-manager        DoesNotExist
+Aug 08 12:10:05 bootstrap bootkube.sh[2434]:         Pod Status:openshift-cluster-version/cluster-version-operator        Pending
+Aug 08 12:10:05 bootstrap bootkube.sh[2434]: Created "configmap-sa-token-signing-certs.yaml" configmaps.v1./sa-token-signing-certs -n openshift-config-managed
+Aug 08 12:10:06 bootstrap bootkube.sh[2434]: Failed to create "etcd-ca-bundle-configmap.yaml" configmaps.v1./etcd-ca-bundle -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:10:07 bootstrap bootkube.sh[2434]: Created "etcd-client-secret.yaml" secrets.v1./etcd-client -n openshift-config
+Aug 08 12:10:07 bootstrap bootkube.sh[2434]: Created "etcd-metric-client-secret.yaml" secrets.v1./etcd-metric-client -n openshift-config
+Aug 08 12:10:07 bootstrap bootkube.sh[2434]: Created "etcd-metric-serving-ca-configmap.yaml" configmaps.v1./etcd-metric-serving-ca -n openshift-config
+Aug 08 12:10:07 bootstrap bootkube.sh[2434]: Created "etcd-metric-signer-secret.yaml" secrets.v1./etcd-metric-signer -n openshift-config
+Aug 08 12:10:08 bootstrap bootkube.sh[2434]: Created "etcd-serving-ca-configmap.yaml" configmaps.v1./etcd-serving-ca -n openshift-config
+Aug 08 12:10:08 bootstrap bootkube.sh[2434]: Created "etcd-signer-secret.yaml" secrets.v1./etcd-signer -n openshift-config
+Aug 08 12:10:08 bootstrap bootkube.sh[2434]: Created "kube-apiserver-serving-ca-configmap.yaml" configmaps.v1./initial-kube-apiserver-server-ca -n openshift-config
+Aug 08 12:10:09 bootstrap bootkube.sh[2434]: Created "openshift-config-secret-pull-secret.yaml" secrets.v1./pull-secret -n openshift-config
+Aug 08 12:10:10 bootstrap bootkube.sh[2434]: Created "openshift-install-manifests.yaml" configmaps.v1./openshift-install-manifests -n openshift-config
+Aug 08 12:10:10 bootstrap bootkube.sh[2434]: Created "secret-initial-kube-controller-manager-service-account-private-key.yaml" secrets.v1./initial-service-account-private-key -n openshift-config
+Aug 08 12:10:10 bootstrap bootkube.sh[2434]: [#4] failed to create some manifests:
+Aug 08 12:10:10 bootstrap bootkube.sh[2434]: "0000_00_cluster-version-operator_01_adminack_configmap.yaml": failed to create configmaps.v1./admin-acks -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:10:10 bootstrap bootkube.sh[2434]: "0000_00_cluster-version-operator_01_admingate_configmap.yaml": failed to create configmaps.v1./admin-gates -n openshift-config-managed: namespaces "openshift-config-managed" not found
+Aug 08 12:10:10 bootstrap bootkube.sh[2434]: "99_openshift-cluster-api_master-user-data-secret.yaml": failed to create secrets.v1./master-user-data -n openshift-machine-api: namespaces "openshift-machine-api" not found
+Aug 08 12:10:10 bootstrap bootkube.sh[2434]: "99_openshift-cluster-api_worker-user-data-secret.yaml": failed to create secrets.v1./worker-user-data -n openshift-machine-api: namespaces "openshift-machine-api" not found
+Aug 08 12:10:10 bootstrap bootkube.sh[2434]: "configmap-admin-kubeconfig-client-ca.yaml": failed to create configmaps.v1./admin-kubeconfig-client-ca -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:10:10 bootstrap bootkube.sh[2434]: "configmap-csr-controller-ca.yaml": failed to create configmaps.v1./csr-controller-ca -n openshift-config-managed: namespaces "openshift-config-managed" not found
+Aug 08 12:10:10 bootstrap bootkube.sh[2434]: "etcd-ca-bundle-configmap.yaml": failed to create configmaps.v1./etcd-ca-bundle -n openshift-config: namespaces "openshift-config" not found
+Aug 08 12:10:10 bootstrap bootkube.sh[2434]: Skipped "0000_00_cluster-version-operator_01_adminack_configmap.yaml" configmaps.v1./admin-acks -n openshift-config as it already exists
+Aug 08 12:10:10 bootstrap bootkube.sh[2434]: Created "0000_00_cluster-version-operator_01_admingate_configmap.yaml" configmaps.v1./admin-gates -n openshift-config-managed
+Aug 08 12:10:11 bootstrap bootkube.sh[2434]: Created "99_openshift-cluster-api_master-user-data-secret.yaml" secrets.v1./master-user-data -n openshift-machine-api
+Aug 08 12:10:12 bootstrap bootkube.sh[2434]: Created "99_openshift-cluster-api_worker-user-data-secret.yaml" secrets.v1./worker-user-data -n openshift-machine-api
+Aug 08 12:10:13 bootstrap bootkube.sh[2434]: Created "configmap-admin-kubeconfig-client-ca.yaml" configmaps.v1./admin-kubeconfig-client-ca -n openshift-config
+Aug 08 12:10:13 bootstrap bootkube.sh[2434]: Created "configmap-csr-controller-ca.yaml" configmaps.v1./csr-controller-ca -n openshift-config-managed
+Aug 08 12:10:13 bootstrap bootkube.sh[2434]: Created "etcd-ca-bundle-configmap.yaml" configmaps.v1./etcd-ca-bundle -n openshift-config
+
+Aug 08 12:23:15 bootstrap bootkube.sh[2434]:         Pod Status:openshift-kube-apiserver/kube-apiserver        DoesNotExist
+Aug 08 12:23:15 bootstrap bootkube.sh[2434]:         Pod Status:openshift-kube-scheduler/openshift-kube-scheduler        DoesNotExist
+Aug 08 12:23:15 bootstrap bootkube.sh[2434]:         Pod Status:openshift-kube-controller-manager/kube-controller-manager        DoesNotExist
+Aug 08 12:23:15 bootstrap bootkube.sh[2434]:         Pod Status:openshift-cluster-version/cluster-version-operator        Ready
+Aug 08 12:24:00 bootstrap bootkube.sh[2434]:         Pod Status:openshift-kube-apiserver/kube-apiserver        DoesNotExist
+Aug 08 12:24:00 bootstrap bootkube.sh[2434]:         Pod Status:openshift-kube-scheduler/openshift-kube-scheduler        Pending
+Aug 08 12:24:00 bootstrap bootkube.sh[2434]:         Pod Status:openshift-kube-controller-manager/kube-controller-manager        DoesNotExist
+Aug 08 12:24:00 bootstrap bootkube.sh[2434]:         Pod Status:openshift-cluster-version/cluster-version-operator        Ready
+Aug 08 12:24:25 bootstrap bootkube.sh[2434]:         Pod Status:openshift-kube-apiserver/kube-apiserver        DoesNotExist
+Aug 08 12:24:25 bootstrap bootkube.sh[2434]:         Pod Status:openshift-kube-scheduler/openshift-kube-scheduler        RunningNotReady
+Aug 08 12:24:25 bootstrap bootkube.sh[2434]:         Pod Status:openshift-kube-controller-manager/kube-controller-manager        DoesNotExist
+Aug 08 12:24:25 bootstrap bootkube.sh[2434]:         Pod Status:openshift-cluster-version/cluster-version-operator        Ready
+Aug 08 12:24:35 bootstrap bootkube.sh[2434]:         Pod Status:openshift-kube-scheduler/openshift-kube-scheduler        Pending
+Aug 08 12:24:35 bootstrap bootkube.sh[2434]:         Pod Status:openshift-kube-controller-manager/kube-controller-manager        DoesNotExist
+Aug 08 12:24:35 bootstrap bootkube.sh[2434]:         Pod Status:openshift-cluster-version/cluster-version-operator        Ready
+Aug 08 12:24:35 bootstrap bootkube.sh[2434]:         Pod Status:openshift-kube-apiserver/kube-apiserver        DoesNotExist
+Aug 08 12:24:40 bootstrap bootkube.sh[2434]:         Pod Status:openshift-kube-scheduler/openshift-kube-scheduler        RunningNotReady
+Aug 08 12:24:40 bootstrap bootkube.sh[2434]:         Pod Status:openshift-kube-controller-manager/kube-controller-manager        DoesNotExist
+Aug 08 12:24:40 bootstrap bootkube.sh[2434]:         Pod Status:openshift-cluster-version/cluster-version-operator        Ready
+Aug 08 12:24:40 bootstrap bootkube.sh[2434]:         Pod Status:openshift-kube-apiserver/kube-apiserver        DoesNotExist
+Aug 08 12:24:45 bootstrap bootkube.sh[2434]:         Pod Status:openshift-kube-controller-manager/kube-controller-manager        Pending
+Aug 08 12:24:45 bootstrap bootkube.sh[2434]:         Pod Status:openshift-cluster-version/cluster-version-operator        Ready
+Aug 08 12:24:45 bootstrap bootkube.sh[2434]:         Pod Status:openshift-kube-apiserver/kube-apiserver        DoesNotExist
+Aug 08 12:24:45 bootstrap bootkube.sh[2434]:         Pod Status:openshift-kube-scheduler/openshift-kube-scheduler        RunningNotReady
+Aug 08 12:25:05 bootstrap bootkube.sh[2434]:         Pod Status:openshift-kube-apiserver/kube-apiserver        DoesNotExist
+Aug 08 12:25:05 bootstrap bootkube.sh[2434]:         Pod Status:openshift-kube-scheduler/openshift-kube-scheduler        RunningNotReady
+Aug 08 12:25:05 bootstrap bootkube.sh[2434]:         Pod Status:openshift-kube-controller-manager/kube-controller-manager        RunningNotReady
+Aug 08 12:25:05 bootstrap bootkube.sh[2434]:         Pod Status:openshift-cluster-version/cluster-version-operator        Ready
+Aug 08 12:25:10 bootstrap bootkube.sh[2434]:         Pod Status:openshift-kube-scheduler/openshift-kube-scheduler        RunningNotReady
+Aug 08 12:25:10 bootstrap bootkube.sh[2434]:         Pod Status:openshift-kube-controller-manager/kube-controller-manager        RunningNotReady
+Aug 08 12:25:10 bootstrap bootkube.sh[2434]:         Pod Status:openshift-cluster-version/cluster-version-operator        Ready
+Aug 08 12:25:10 bootstrap bootkube.sh[2434]:         Pod Status:openshift-kube-apiserver/kube-apiserver        Pending
+Aug 08 12:25:15 bootstrap bootkube.sh[2434]:         Pod Status:openshift-kube-scheduler/openshift-kube-scheduler        RunningNotReady
+Aug 08 12:25:15 bootstrap bootkube.sh[2434]:         Pod Status:openshift-kube-controller-manager/kube-controller-manager        RunningNotReady
+Aug 08 12:25:15 bootstrap bootkube.sh[2434]:         Pod Status:openshift-cluster-version/cluster-version-operator        Ready
+Aug 08 12:25:15 bootstrap bootkube.sh[2434]:         Pod Status:openshift-kube-apiserver/kube-apiserver        RunningNotReady
+Aug 08 12:25:20 bootstrap bootkube.sh[2434]:         Pod Status:openshift-cluster-version/cluster-version-operator        Ready
+Aug 08 12:25:20 bootstrap bootkube.sh[2434]:         Pod Status:openshift-kube-apiserver/kube-apiserver        Pending
+Aug 08 12:25:20 bootstrap bootkube.sh[2434]:         Pod Status:openshift-kube-scheduler/openshift-kube-scheduler        Ready
+Aug 08 12:25:20 bootstrap bootkube.sh[2434]:         Pod Status:openshift-kube-controller-manager/kube-controller-manager        Ready
+Aug 08 12:25:25 bootstrap bootkube.sh[2434]:         Pod Status:openshift-kube-apiserver/kube-apiserver        RunningNotReady
+Aug 08 12:25:25 bootstrap bootkube.sh[2434]:         Pod Status:openshift-kube-scheduler/openshift-kube-scheduler        RunningNotReady
+Aug 08 12:25:25 bootstrap bootkube.sh[2434]:         Pod Status:openshift-kube-controller-manager/kube-controller-manager        Ready
+Aug 08 12:25:25 bootstrap bootkube.sh[2434]:         Pod Status:openshift-cluster-version/cluster-version-operator        Ready
+Aug 08 12:25:30 bootstrap bootkube.sh[2434]:         Pod Status:openshift-kube-apiserver/kube-apiserver        RunningNotReady
+Aug 08 12:25:30 bootstrap bootkube.sh[2434]:         Pod Status:openshift-kube-scheduler/openshift-kube-scheduler        Ready
+Aug 08 12:25:30 bootstrap bootkube.sh[2434]:         Pod Status:openshift-kube-controller-manager/kube-controller-manager        Ready
+Aug 08 12:25:30 bootstrap bootkube.sh[2434]:         Pod Status:openshift-cluster-version/cluster-version-operator        Ready
+Aug 08 12:25:50 bootstrap bootkube.sh[2434]:         Pod Status:openshift-kube-scheduler/openshift-kube-scheduler        Ready
+Aug 08 12:25:50 bootstrap bootkube.sh[2434]:         Pod Status:openshift-kube-controller-manager/kube-controller-manager        Ready
+Aug 08 12:25:50 bootstrap bootkube.sh[2434]:         Pod Status:openshift-cluster-version/cluster-version-operator        Ready
+Aug 08 12:25:50 bootstrap bootkube.sh[2434]:         Pod Status:openshift-kube-apiserver/kube-apiserver        Ready
+Aug 08 12:25:50 bootstrap bootkube.sh[2434]: All self-hosted control plane components successfully started
+Aug 08 12:25:50 bootstrap bootkube.sh[2434]: Sending bootstrap-success event.Waiting for remaining assets to be created.
+Aug 08 12:25:50 bootstrap bootkube.sh[2434]: Skipped "0000_00_cluster-version-operator_00_namespace.yaml" namespaces.v1./openshift-cluster-version -n  as it already exists
+Aug 08 12:25:50 bootstrap bootkube.sh[2434]: Skipped "0000_00_cluster-version-operator_01_adminack_configmap.yaml" configmaps.v1./admin-acks -n openshift-config as it already exists
+Aug 08 12:25:51 bootstrap bootkube.sh[2434]: Skipped "0000_00_cluster-version-operator_01_admingate_configmap.yaml" configmaps.v1./admin-gates -n openshift-config-managed as it already exists
+Aug 08 12:25:51 bootstrap bootkube.sh[2434]: Skipped "0000_00_cluster-version-operator_01_clusteroperator.crd.yaml" customresourcedefinitions.v1.apiextensions.k8s.io/clusteroperators.config.openshift.io -n  as it already exists
+Aug 08 12:25:51 bootstrap bootkube.sh[2434]: Skipped "0000_00_cluster-version-operator_01_clusterversion.crd.yaml" customresourcedefinitions.v1.apiextensions.k8s.io/clusterversions.config.openshift.io -n  as it already exists
+Aug 08 12:25:51 bootstrap bootkube.sh[2434]: Skipped "0000_00_cluster-version-operator_02_roles.yaml" clusterrolebindings.v1.rbac.authorization.k8s.io/cluster-version-operator -n  as it already exists
+Aug 08 12:25:51 bootstrap bootkube.sh[2434]: Skipped "0000_00_cluster-version-operator_03_deployment.yaml" deployments.v1.apps/cluster-version-operator -n openshift-cluster-version as it already exists
+Aug 08 12:25:51 bootstrap bootkube.sh[2434]: Skipped "0000_00_namespace-openshift-infra.yaml" namespaces.v1./openshift-infra -n  as it already exists
+Aug 08 12:25:51 bootstrap bootkube.sh[2434]: Skipped "0000_03_authorization-openshift_01_rolebindingrestriction.crd.yaml" customresourcedefinitions.v1.apiextensions.k8s.io/rolebindingrestrictions.authorization.openshift.io -n  as it already exists
+Aug 08 12:25:51 bootstrap bootkube.sh[2434]: Skipped "0000_03_config-operator_01_operatorhub.crd.yaml" customresourcedefinitions.v1.apiextensions.k8s.io/operatorhubs.config.openshift.io -n  as it already exists
+Aug 08 12:25:51 bootstrap bootkube.sh[2434]: Skipped "0000_03_config-operator_01_proxy.crd.yaml" customresourcedefinitions.v1.apiextensions.k8s.io/proxies.config.openshift.io -n  as it already exists
+Aug 08 12:25:51 bootstrap bootkube.sh[2434]: Skipped "0000_03_quota-openshift_01_clusterresourcequota.crd.yaml" customresourcedefinitions.v1.apiextensions.k8s.io/clusterresourcequotas.quota.openshift.io -n  as it already exists
+Aug 08 12:25:51 bootstrap bootkube.sh[2434]: Skipped "0000_03_security-openshift_01_scc.crd.yaml" customresourcedefinitions.v1.apiextensions.k8s.io/securitycontextconstraints.security.openshift.io -n  as it already exists
+Aug 08 12:25:51 bootstrap bootkube.sh[2434]: Skipped "0000_03_securityinternal-openshift_02_rangeallocation.crd.yaml" customresourcedefinitions.v1.apiextensions.k8s.io/rangeallocations.security.internal.openshift.io -n  as it already exists
+Aug 08 12:25:51 bootstrap bootkube.sh[2434]: Skipped "0000_10_config-operator_01_apiserver.crd.yaml" customresourcedefinitions.v1.apiextensions.k8s.io/apiservers.config.openshift.io -n  as it already exists
+Aug 08 12:25:52 bootstrap bootkube.sh[2434]: Skipped "0000_10_config-operator_01_authentication.crd.yaml" customresourcedefinitions.v1.apiextensions.k8s.io/authentications.config.openshift.io -n  as it already exists
+Aug 08 12:25:52 bootstrap bootkube.sh[2434]: Skipped "0000_10_config-operator_01_build.crd.yaml" customresourcedefinitions.v1.apiextensions.k8s.io/builds.config.openshift.io -n  as it already exists
+Aug 08 12:25:52 bootstrap bootkube.sh[2434]: Skipped "0000_10_config-operator_01_console.crd.yaml" customresourcedefinitions.v1.apiextensions.k8s.io/consoles.config.openshift.io -n  as it already exists
+Aug 08 12:25:52 bootstrap bootkube.sh[2434]: Skipped "0000_10_config-operator_01_dns.crd.yaml" customresourcedefinitions.v1.apiextensions.k8s.io/dnses.config.openshift.io -n  as it already exists
+Aug 08 12:25:53 bootstrap bootkube.sh[2434]: Skipped "0000_10_config-operator_01_featuregate.crd.yaml" customresourcedefinitions.v1.apiextensions.k8s.io/featuregates.config.openshift.io -n  as it already exists
+Aug 08 12:25:53 bootstrap bootkube.sh[2434]: Skipped "0000_10_config-operator_01_image.crd.yaml" customresourcedefinitions.v1.apiextensions.k8s.io/images.config.openshift.io -n  as it already exists
+Aug 08 12:25:53 bootstrap bootkube.sh[2434]: Skipped "0000_10_config-operator_01_imagecontentpolicy.crd.yaml" customresourcedefinitions.v1.apiextensions.k8s.io/imagecontentpolicies.config.openshift.io -n  as it already exists
+Aug 08 12:25:53 bootstrap bootkube.sh[2434]: Skipped "0000_10_config-operator_01_imagecontentsourcepolicy.crd.yaml" customresourcedefinitions.v1.apiextensions.k8s.io/imagecontentsourcepolicies.operator.openshift.io -n  as it already exists
+Aug 08 12:25:53 bootstrap bootkube.sh[2434]: Skipped "0000_10_config-operator_01_infrastructure.crd.yaml" customresourcedefinitions.v1.apiextensions.k8s.io/infrastructures.config.openshift.io -n  as it already exists
+Aug 08 12:25:53 bootstrap bootkube.sh[2434]: Skipped "0000_10_config-operator_01_ingress.crd.yaml" customresourcedefinitions.v1.apiextensions.k8s.io/ingresses.config.openshift.io -n  as it already exists
+Aug 08 12:25:54 bootstrap bootkube.sh[2434]: Skipped "0000_10_config-operator_01_network.crd.yaml" customresourcedefinitions.v1.apiextensions.k8s.io/networks.config.openshift.io -n  as it already exists
+Aug 08 12:25:54 bootstrap bootkube.sh[2434]: Skipped "0000_10_config-operator_01_oauth.crd.yaml" customresourcedefinitions.v1.apiextensions.k8s.io/oauths.config.openshift.io -n  as it already exists
+Aug 08 12:25:54 bootstrap bootkube.sh[2434]: Skipped "0000_10_config-operator_01_project.crd.yaml" customresourcedefinitions.v1.apiextensions.k8s.io/projects.config.openshift.io -n  as it already exists
+Aug 08 12:25:54 bootstrap bootkube.sh[2434]: Skipped "0000_10_config-operator_01_scheduler.crd.yaml" customresourcedefinitions.v1.apiextensions.k8s.io/schedulers.config.openshift.io -n  as it already exists
+Aug 08 12:25:54 bootstrap bootkube.sh[2434]: Skipped "0000_20_kube-apiserver-operator_00_cr-scc-anyuid.yaml" clusterroles.v1.rbac.authorization.k8s.io/system:openshift:scc:anyuid -n  as it already exists
+Aug 08 12:25:55 bootstrap bootkube.sh[2434]: Skipped "0000_20_kube-apiserver-operator_00_cr-scc-hostaccess.yaml" clusterroles.v1.rbac.authorization.k8s.io/system:openshift:scc:hostaccess -n  as it already exists
+Aug 08 12:25:55 bootstrap bootkube.sh[2434]: Skipped "0000_20_kube-apiserver-operator_00_cr-scc-hostmount-anyuid.yaml" clusterroles.v1.rbac.authorization.k8s.io/system:openshift:scc:hostmount -n  as it already exists
+Aug 08 12:25:55 bootstrap bootkube.sh[2434]: Skipped "0000_20_kube-apiserver-operator_00_cr-scc-hostnetwork.yaml" clusterroles.v1.rbac.authorization.k8s.io/system:openshift:scc:hostnetwork -n  as it already exists
+Aug 08 12:25:55 bootstrap bootkube.sh[2434]: Skipped "0000_20_kube-apiserver-operator_00_cr-scc-nonroot.yaml" clusterroles.v1.rbac.authorization.k8s.io/system:openshift:scc:nonroot -n  as it already exists
+Aug 08 12:25:55 bootstrap bootkube.sh[2434]: Skipped "0000_20_kube-apiserver-operator_00_cr-scc-privileged.yaml" clusterroles.v1.rbac.authorization.k8s.io/system:openshift:scc:privileged -n  as it already exists
+Aug 08 12:25:56 bootstrap bootkube.sh[2434]: Skipped "0000_20_kube-apiserver-operator_00_cr-scc-restricted.yaml" clusterroles.v1.rbac.authorization.k8s.io/system:openshift:scc:restricted -n  as it already exists
+Aug 08 12:25:56 bootstrap bootkube.sh[2434]: Skipped "0000_20_kube-apiserver-operator_00_scc-anyuid.yaml" securitycontextconstraints.v1.security.openshift.io/anyuid -n  as it already exists
+Aug 08 12:25:56 bootstrap bootkube.sh[2434]: Skipped "0000_20_kube-apiserver-operator_00_scc-hostaccess.yaml" securitycontextconstraints.v1.security.openshift.io/hostaccess -n  as it already exists
+Aug 08 12:25:56 bootstrap bootkube.sh[2434]: Skipped "0000_20_kube-apiserver-operator_00_scc-hostmount-anyuid.yaml" securitycontextconstraints.v1.security.openshift.io/hostmount-anyuid -n  as it already exists
+Aug 08 12:25:56 bootstrap bootkube.sh[2434]: Skipped "0000_20_kube-apiserver-operator_00_scc-hostnetwork.yaml" securitycontextconstraints.v1.security.openshift.io/hostnetwork -n  as it already exists
+Aug 08 12:25:57 bootstrap bootkube.sh[2434]: Skipped "0000_20_kube-apiserver-operator_00_scc-nonroot.yaml" securitycontextconstraints.v1.security.openshift.io/nonroot -n  as it already exists
+Aug 08 12:25:57 bootstrap bootkube.sh[2434]: Skipped "0000_20_kube-apiserver-operator_00_scc-privileged.yaml" securitycontextconstraints.v1.security.openshift.io/privileged -n  as it already exists
+Aug 08 12:25:57 bootstrap bootkube.sh[2434]: Skipped "0000_20_kube-apiserver-operator_00_scc-restricted.yaml" securitycontextconstraints.v1.security.openshift.io/restricted -n  as it already exists
+Aug 08 12:25:57 bootstrap bootkube.sh[2434]: Skipped "0001_00_cluster-version-operator_03_service.yaml" services.v1./cluster-version-operator -n openshift-cluster-version as it already exists
+Aug 08 12:25:57 bootstrap bootkube.sh[2434]: Skipped "00_etcd-endpoints-cm.yaml" configmaps.v1./etcd-endpoints -n openshift-etcd as it already exists
+Aug 08 12:25:58 bootstrap bootkube.sh[2434]: Skipped "00_namespace-security-allocation-controller-clusterrole.yaml" clusterroles.v1.rbac.authorization.k8s.io/system:openshift:controller:namespace-security-allocation-controller -n  as it already exists
+Aug 08 12:25:58 bootstrap bootkube.sh[2434]: Skipped "00_namespace-security-allocation-controller-clusterrolebinding.yaml" clusterrolebindings.v1.rbac.authorization.k8s.io/system:openshift:controller:namespace-security-allocation-controller -n  as it already exists
+Aug 08 12:25:58 bootstrap bootkube.sh[2434]: Skipped "00_openshift-etcd-ns.yaml" namespaces.v1./openshift-etcd -n  as it already exists
+Aug 08 12:25:58 bootstrap bootkube.sh[2434]: Skipped "00_openshift-kube-apiserver-ns.yaml" namespaces.v1./openshift-kube-apiserver -n  as it already exists
+Aug 08 12:25:58 bootstrap bootkube.sh[2434]: Skipped "00_openshift-kube-apiserver-operator-ns.yaml" namespaces.v1./openshift-kube-apiserver-operator -n  as it already exists
+Aug 08 12:25:59 bootstrap bootkube.sh[2434]: Skipped "00_openshift-kube-controller-manager-ns.yaml" namespaces.v1./openshift-kube-controller-manager -n  as it already exists
+Aug 08 12:25:59 bootstrap bootkube.sh[2434]: Skipped "00_openshift-kube-controller-manager-operator-ns.yaml" namespaces.v1./openshift-kube-controller-manager-operator -n  as it already exists
+Aug 08 12:25:59 bootstrap bootkube.sh[2434]: Skipped "00_openshift-kube-scheduler-ns.yaml" namespaces.v1./openshift-kube-scheduler -n  as it already exists
+Aug 08 12:25:59 bootstrap bootkube.sh[2434]: Skipped "99_kubeadmin-password-secret.yaml" secrets.v1./kubeadmin -n kube-system as it already exists
+Aug 08 12:25:59 bootstrap bootkube.sh[2434]: Skipped "99_openshift-cluster-api_master-user-data-secret.yaml" secrets.v1./master-user-data -n openshift-machine-api as it already exists
+Aug 08 12:26:00 bootstrap bootkube.sh[2434]: Skipped "99_openshift-cluster-api_worker-user-data-secret.yaml" secrets.v1./worker-user-data -n openshift-machine-api as it already exists
+Aug 08 12:26:00 bootstrap bootkube.sh[2434]: Skipped "99_openshift-machineconfig_99-master-ssh.yaml" machineconfigs.v1.machineconfiguration.openshift.io/99-master-ssh -n  as it already exists
+Aug 08 12:26:00 bootstrap bootkube.sh[2434]: Skipped "99_openshift-machineconfig_99-worker-ssh.yaml" machineconfigs.v1.machineconfiguration.openshift.io/99-worker-ssh -n  as it already exists
+Aug 08 12:26:00 bootstrap bootkube.sh[2434]: Skipped "cco-cloudcredential_v1_credentialsrequest_crd.yaml" customresourcedefinitions.v1.apiextensions.k8s.io/credentialsrequests.cloudcredential.openshift.io -n  as it already exists
+Aug 08 12:26:00 bootstrap bootkube.sh[2434]: Skipped "cco-cloudcredential_v1_operator_config_custresdef.yaml" customresourcedefinitions.v1.apiextensions.k8s.io/cloudcredentials.operator.openshift.io -n  as it already exists
+Aug 08 12:26:01 bootstrap bootkube.sh[2434]: Skipped "cco-namespace.yaml" namespaces.v1./openshift-cloud-credential-operator -n  as it already exists
+Aug 08 12:26:01 bootstrap bootkube.sh[2434]: Skipped "cco-operator-config.yaml" cloudcredentials.v1.operator.openshift.io/cluster -n  as it already exists
+Aug 08 12:26:01 bootstrap bootkube.sh[2434]: Skipped "cluster-config.yaml" configmaps.v1./cluster-config-v1 -n kube-system as it already exists
+Aug 08 12:26:01 bootstrap bootkube.sh[2434]: Skipped "cluster-dns-02-config.yml" dnses.v1.config.openshift.io/cluster -n  as it already exists
+Aug 08 12:26:01 bootstrap bootkube.sh[2434]: Skipped "cluster-infrastructure-02-config.yml" infrastructures.v1.config.openshift.io/cluster -n  as it already exists
+Aug 08 12:26:02 bootstrap bootkube.sh[2434]: Skipped "cluster-ingress-00-custom-resource-definition.yaml" customresourcedefinitions.v1.apiextensions.k8s.io/ingresscontrollers.operator.openshift.io -n  as it already exists
+Aug 08 12:26:02 bootstrap bootkube.sh[2434]: Skipped "cluster-ingress-00-namespace.yaml" namespaces.v1./openshift-ingress-operator -n  as it already exists
+Aug 08 12:26:02 bootstrap bootkube.sh[2434]: Skipped "cluster-ingress-02-config.yml" ingresses.v1.config.openshift.io/cluster -n  as it already exists
+Aug 08 12:26:02 bootstrap bootkube.sh[2434]: Skipped "cluster-network-01-crd.yml" customresourcedefinitions.v1.apiextensions.k8s.io/networks.config.openshift.io -n  as it already exists
+Aug 08 12:26:02 bootstrap bootkube.sh[2434]: Skipped "cluster-network-02-config.yml" networks.v1.config.openshift.io/cluster -n  as it already exists
+Aug 08 12:26:03 bootstrap bootkube.sh[2434]: Skipped "cluster-proxy-01-config.yaml" proxies.v1.config.openshift.io/cluster -n  as it already exists
+Aug 08 12:26:03 bootstrap bootkube.sh[2434]: Skipped "cluster-role-binding-kube-apiserver.yaml" clusterrolebindings.v1.rbac.authorization.k8s.io/kube-apiserver -n  as it already exists
+Aug 08 12:26:03 bootstrap bootkube.sh[2434]: Skipped "cluster-role-kube-apiserver.yaml" clusterroles.v1.rbac.authorization.k8s.io/kube-apiserver -n  as it already exists
+Aug 08 12:26:04 bootstrap bootkube.sh[2434]: Skipped "cluster-scheduler-02-config.yml" schedulers.v1.config.openshift.io/cluster -n  as it already exists
+Aug 08 12:26:04 bootstrap bootkube.sh[2434]: Skipped "configmap-admin-kubeconfig-client-ca.yaml" configmaps.v1./admin-kubeconfig-client-ca -n openshift-config as it already exists
+Aug 08 12:26:04 bootstrap bootkube.sh[2434]: Skipped "configmap-csr-controller-ca.yaml" configmaps.v1./csr-controller-ca -n openshift-config-managed as it already exists
+Aug 08 12:26:04 bootstrap bootkube.sh[2434]: Skipped "configmap-kubelet-bootstrap-kubeconfig-ca.yaml" configmaps.v1./kubelet-bootstrap-kubeconfig -n openshift-config-managed as it already exists
+Aug 08 12:26:05 bootstrap bootkube.sh[2434]: Skipped "configmap-sa-token-signing-certs.yaml" configmaps.v1./sa-token-signing-certs -n openshift-config-managed as it already exists
+Aug 08 12:26:05 bootstrap bootkube.sh[2434]: Skipped "csr-bootstrap-role-binding.yaml" clusterrolebindings.v1.rbac.authorization.k8s.io/system-bootstrap-node-bootstrapper -n  as it already exists
+Aug 08 12:26:05 bootstrap bootkube.sh[2434]: Skipped "cvo-overrides.yaml" clusterversions.v1.config.openshift.io/version -n openshift-cluster-version as it already exists
+Aug 08 12:26:05 bootstrap bootkube.sh[2434]: Skipped "etcd-ca-bundle-configmap.yaml" configmaps.v1./etcd-ca-bundle -n openshift-config as it already exists
+Aug 08 12:26:06 bootstrap bootkube.sh[2434]: Skipped "etcd-client-secret.yaml" secrets.v1./etcd-client -n openshift-config as it already exists
+Aug 08 12:26:06 bootstrap bootkube.sh[2434]: Skipped "etcd-metric-client-secret.yaml" secrets.v1./etcd-metric-client -n openshift-config as it already exists
+Aug 08 12:26:06 bootstrap bootkube.sh[2434]: Skipped "etcd-metric-serving-ca-configmap.yaml" configmaps.v1./etcd-metric-serving-ca -n openshift-config as it already exists
+Aug 08 12:26:06 bootstrap bootkube.sh[2434]: Skipped "etcd-metric-signer-secret.yaml" secrets.v1./etcd-metric-signer -n openshift-config as it already exists
+Aug 08 12:26:06 bootstrap bootkube.sh[2434]: Skipped "etcd-serving-ca-configmap.yaml" configmaps.v1./etcd-serving-ca -n openshift-config as it already exists
+Aug 08 12:26:06 bootstrap bootkube.sh[2434]: Skipped "etcd-signer-secret.yaml" secrets.v1./etcd-signer -n openshift-config as it already exists
+Aug 08 12:26:06 bootstrap bootkube.sh[2434]: Skipped "kube-apiserver-serving-ca-configmap.yaml" configmaps.v1./initial-kube-apiserver-server-ca -n openshift-config as it already exists
+Aug 08 12:26:06 bootstrap bootkube.sh[2434]: Skipped "kube-cloud-config.yaml" secrets.v1./kube-cloud-cfg -n kube-system as it already exists
+Aug 08 12:26:06 bootstrap bootkube.sh[2434]: Skipped "kube-system-configmap-root-ca.yaml" configmaps.v1./root-ca -n kube-system as it already exists
+Aug 08 12:26:07 bootstrap bootkube.sh[2434]: Skipped "machine-config-server-tls-secret.yaml" secrets.v1./machine-config-server-tls -n openshift-machine-config-operator as it already exists
+Aug 08 12:26:07 bootstrap bootkube.sh[2434]: Skipped "openshift-config-secret-pull-secret.yaml" secrets.v1./pull-secret -n openshift-config as it already exists
+Aug 08 12:26:07 bootstrap bootkube.sh[2434]: Skipped "openshift-etcd-svc.yaml" services.v1./etcd -n openshift-etcd as it already exists
+Aug 08 12:26:07 bootstrap bootkube.sh[2434]: Skipped "openshift-install-manifests.yaml" configmaps.v1./openshift-install-manifests -n openshift-config as it already exists
+Aug 08 12:26:07 bootstrap bootkube.sh[2434]: Skipped "secret-aggregator-client-signer.yaml" secrets.v1./aggregator-client-signer -n openshift-kube-apiserver-operator as it already exists
+Aug 08 12:26:08 bootstrap bootkube.sh[2434]: Skipped "secret-bound-sa-token-signing-key.yaml" secrets.v1./next-bound-service-account-signing-key -n openshift-kube-apiserver-operator as it already exists
+Aug 08 12:26:08 bootstrap bootkube.sh[2434]: Skipped "secret-control-plane-client-signer.yaml" secrets.v1./kube-control-plane-signer -n openshift-kube-apiserver-operator as it already exists
+Aug 08 12:26:08 bootstrap bootkube.sh[2434]: Skipped "secret-csr-signer-signer.yaml" secrets.v1./csr-signer-signer -n openshift-kube-controller-manager-operator as it already exists
+Aug 08 12:26:08 bootstrap bootkube.sh[2434]: Skipped "secret-initial-kube-controller-manager-service-account-private-key.yaml" secrets.v1./initial-service-account-private-key -n openshift-config as it already exists
+Aug 08 12:26:08 bootstrap bootkube.sh[2434]: Skipped "secret-kube-apiserver-to-kubelet-signer.yaml" secrets.v1./kube-apiserver-to-kubelet-signer -n openshift-kube-apiserver-operator as it already exists
+Aug 08 12:26:09 bootstrap bootkube.sh[2434]: Skipped "secret-loadbalancer-serving-signer.yaml" secrets.v1./loadbalancer-serving-signer -n openshift-kube-apiserver-operator as it already exists
+Aug 08 12:26:09 bootstrap bootkube.sh[2434]: Skipped "secret-localhost-serving-signer.yaml" secrets.v1./localhost-serving-signer -n openshift-kube-apiserver-operator as it already exists
+Aug 08 12:26:09 bootstrap bootkube.sh[2434]: Skipped "secret-service-network-serving-signer.yaml" secrets.v1./service-network-serving-signer -n openshift-kube-apiserver-operator as it already exists
+Aug 08 12:26:09 bootstrap bootkube.sh[2434]: Tearing down temporary bootstrap control plane...
+Aug 08 12:26:10 bootstrap bootkube.sh[2434]: Sending bootstrap-finished event.Restoring CVO overrides
+Aug 08 12:26:11 bootstrap bootkube.sh[2434]: clusterversion.config.openshift.io/version patched
+Aug 08 12:26:11 bootstrap bootkube.sh[2434]: Waiting for CEO to finish...
+Aug 08 12:26:12 bootstrap bootkube.sh[2434]: I0808 12:26:12.938616       1 waitforceo.go:67] waiting on condition EtcdRunningInCluster in etcd CR /cluster to be True.
+Aug 08 12:26:43 bootstrap bootkube.sh[2434]: I0808 12:26:43.246791       1 waitforceo.go:67] waiting on condition EtcdRunningInCluster in etcd CR /cluster to be True.
+Aug 08 12:27:03 bootstrap bootkube.sh[2434]: I0808 12:27:03.075219       1 waitforceo.go:67] waiting on condition EtcdRunningInCluster in etcd CR /cluster to be True.
+Aug 08 12:27:16 bootstrap bootkube.sh[2434]: I0808 12:27:16.485111       1 waitforceo.go:67] waiting on condition EtcdRunningInCluster in etcd CR /cluster to be True.
+Aug 08 12:27:54 bootstrap bootkube.sh[2434]: I0808 12:27:54.399113       1 waitforceo.go:67] waiting on condition EtcdRunningInCluster in etcd CR /cluster to be True.
+Aug 08 12:28:35 bootstrap bootkube.sh[2434]: I0808 12:28:35.743592       1 waitforceo.go:67] waiting on condition EtcdRunningInCluster in etcd CR /cluster to be True.
+Aug 08 12:28:42 bootstrap bootkube.sh[2434]: I0808 12:28:42.338780       1 waitforceo.go:67] waiting on condition EtcdRunningInCluster in etcd CR /cluster to be True.
+Aug 08 12:29:15 bootstrap bootkube.sh[2434]: I0808 12:29:15.222174       1 waitforceo.go:67] waiting on condition EtcdRunningInCluster in etcd CR /cluster to be True.
+Aug 08 12:29:16 bootstrap bootkube.sh[2434]: I0808 12:29:16.203211       1 waitforceo.go:67] waiting on condition EtcdRunningInCluster in etcd CR /cluster to be True.
+Aug 08 12:29:16 bootstrap bootkube.sh[2434]: I0808 12:29:16.565655       1 waitforceo.go:67] waiting on condition EtcdRunningInCluster in etcd CR /cluster to be True.
+Aug 08 12:29:20 bootstrap bootkube.sh[2434]: I0808 12:29:20.231307       1 waitforceo.go:67] waiting on condition EtcdRunningInCluster in etcd CR /cluster to be True.
+Aug 08 12:29:21 bootstrap bootkube.sh[2434]: I0808 12:29:21.253748       1 waitforceo.go:67] waiting on condition EtcdRunningInCluster in etcd CR /cluster to be True.
+Aug 08 12:29:21 bootstrap bootkube.sh[2434]: I0808 12:29:21.634323       1 waitforceo.go:67] waiting on condition EtcdRunningInCluster in etcd CR /cluster to be True.
+Aug 08 12:29:22 bootstrap bootkube.sh[2434]: I0808 12:29:22.427558       1 waitforceo.go:67] waiting on condition EtcdRunningInCluster in etcd CR /cluster to be True.
+Aug 08 12:29:24 bootstrap bootkube.sh[2434]: I0808 12:29:24.548460       1 waitforceo.go:67] waiting on condition EtcdRunningInCluster in etcd CR /cluster to be True.
+Aug 08 12:29:33 bootstrap bootkube.sh[2434]: I0808 12:29:33.931259       1 waitforceo.go:67] waiting on condition EtcdRunningInCluster in etcd CR /cluster to be True.
+Aug 08 12:29:37 bootstrap bootkube.sh[2434]: I0808 12:29:37.675737       1 waitforceo.go:67] waiting on condition EtcdRunningInCluster in etcd CR /cluster to be True.
+Aug 08 12:29:38 bootstrap bootkube.sh[2434]: I0808 12:29:38.121771       1 waitforceo.go:67] waiting on condition EtcdRunningInCluster in etcd CR /cluster to be True.
+Aug 08 12:29:41 bootstrap bootkube.sh[2434]: I0808 12:29:41.450815       1 waitforceo.go:67] waiting on condition EtcdRunningInCluster in etcd CR /cluster to be True.
+Aug 08 12:29:47 bootstrap bootkube.sh[2434]: I0808 12:29:47.795126       1 waitforceo.go:67] waiting on condition EtcdRunningInCluster in etcd CR /cluster to be True.
+Aug 08 12:29:50 bootstrap bootkube.sh[2434]: I0808 12:29:50.722781       1 waitforceo.go:67] waiting on condition EtcdRunningInCluster in etcd CR /cluster to be True.
+Aug 08 12:29:51 bootstrap bootkube.sh[2434]: I0808 12:29:51.626015       1 waitforceo.go:67] waiting on condition EtcdRunningInCluster in etcd CR /cluster to be True.
+Aug 08 12:30:11 bootstrap bootkube.sh[2434]: I0808 12:30:11.054264       1 waitforceo.go:67] waiting on condition EtcdRunningInCluster in etcd CR /cluster to be True.
+Aug 08 12:30:13 bootstrap bootkube.sh[2434]: I0808 12:30:13.854321       1 waitforceo.go:67] waiting on condition EtcdRunningInCluster in etcd CR /cluster to be True.
+Aug 08 12:30:14 bootstrap bootkube.sh[2434]: I0808 12:30:14.434318       1 waitforceo.go:67] waiting on condition EtcdRunningInCluster in etcd CR /cluster to be True.
+Aug 08 12:30:14 bootstrap bootkube.sh[2434]: I0808 12:30:14.922387       1 waitforceo.go:67] waiting on condition EtcdRunningInCluster in etcd CR /cluster to be True.
+Aug 08 12:30:22 bootstrap bootkube.sh[2434]: I0808 12:30:22.004192       1 waitforceo.go:67] waiting on condition EtcdRunningInCluster in etcd CR /cluster to be True.
+Aug 08 12:31:08 bootstrap bootkube.sh[2434]: I0808 12:31:08.149948       1 waitforceo.go:67] waiting on condition EtcdRunningInCluster in etcd CR /cluster to be True.
+Aug 08 12:31:13 bootstrap bootkube.sh[2434]: I0808 12:31:13.632088       1 waitforceo.go:67] waiting on condition EtcdRunningInCluster in etcd CR /cluster to be True.
+Aug 08 12:31:14 bootstrap bootkube.sh[2434]: I0808 12:31:14.217448       1 waitforceo.go:67] waiting on condition EtcdRunningInCluster in etcd CR /cluster to be True.
+Aug 08 12:31:15 bootstrap bootkube.sh[2434]: I0808 12:31:15.595917       1 waitforceo.go:67] waiting on condition EtcdRunningInCluster in etcd CR /cluster to be True.
+Aug 08 12:31:19 bootstrap bootkube.sh[2434]: I0808 12:31:19.302575       1 waitforceo.go:67] waiting on condition EtcdRunningInCluster in etcd CR /cluster to be True.
+Aug 08 12:31:19 bootstrap bootkube.sh[2434]: I0808 12:31:19.520102       1 waitforceo.go:64] Cluster etcd operator bootstrapped successfully
+Aug 08 12:31:19 bootstrap bootkube.sh[2434]: I0808 12:31:19.520214       1 waitforceo.go:58] cluster-etcd-operator bootstrap etcd
+Aug 08 12:31:19 bootstrap bootkube.sh[2434]: bootkube.service complete
+Aug 08 12:31:19 bootstrap systemd[1]: bootkube.service: Succeeded.

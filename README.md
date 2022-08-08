@@ -126,17 +126,6 @@ Troubleshooting while bootstraping:
     journalctl -b -f -u bootkube.service
     for pod in $(sudo podman ps -a -q); do sudo podman logs $pod; done
 
-## Operation
-
-#### Setttings to cluster
-Export
-
-    ocp_version=4.10.16
-    export KUBECONFIG=/root/ocp4upi/"$ocp_version"/auth/kubeconfig
-    openshift-install --dir=/root/ocp4upi/"$ocp_version" wait-for install-complete --log-level=debug
-    
-### Add woker nodes
-
 References: 
 
     https://docs.openshift.com/container-platform/4.6/post_installation_configuration/node-tasks.html
@@ -147,18 +136,21 @@ After there are some error logs, and request pending. After approve all the requ
 E0808 15:40:48.752187   58531 reflector.go:307] k8s.io/client-go/tools/watch/informerwatcher.go:146: Failed to watch *v1.ClusterVersion: the server is currently unable to handle the request (get clusterversions.config.openshift.io)
 DEBUG Still waiting for the cluster to initialize: Cluster operator authentication is reporting a failure: WellKnownReadyControllerDegraded: need at least 3 kube-apiservers, got 2 
 
-Perform to add worker nodes:
+On node utility
 
+    ocp_version=4.10.16
+    export KUBECONFIG=/root/ocp4upi/"$ocp_version"/auth/kubeconfig
+    openshift-install --dir=/root/ocp4upi/"$ocp_version" wait-for install-complete --log-level=debug
+ 
     oc get csr
     oc get csr -o go-template='{{range .items}}{{if not .status}}{{.metadata.name}}{{"\n"}}{{end}}{{end}}' | xargs --no-run-if-empty oc adm certificate approve
     oc get nodes
     oc get co
 
-### Login to OCP4
-
-After install 
+On haproxy
 
     http://10.1.17.253:32700/
+### After install, login to OCP4
 
 Edit hosts file
 
