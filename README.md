@@ -44,18 +44,25 @@ On a vsphere environment, create a several VM  cluters with different name but s
 Prepare environment such as local repository, hosts file    
     
     ansible-playbook -i config/inventory prepare_node_all.yml
+    
 
 ### Setup the utility node    
 
 Setup required software node utility such as: dns, dhcp ...
     
-    ansible-playbook -i config/inventory prepare_node_utility.yml -e "ocp_version=4.10.16"
+    ansible-playbook -i config/inventory prepare_node_utility_service.yml 
+    ansible-playbook -i config/inventory prepare_node_utility_ocp.yml -e "ocp_version=4.10.16"
     
 Prepare ignition for setup OCP cluster
+
+    mkdir /root/4.10.26; cd /root/4.10.26
+    wget https://mirror.openshift.com/pub/openshift-v4/clients/ocp/4.10.26/openshift-client-linux.tar.gz 
+    wget https://mirror.openshift.com/pub/openshift-v4/clients/ocp/4.10.26/openshift-install-linux.tar.gz
 
 Get pull secret variables from at https://console.redhat.com/openshift/install/metal/installer-provisioned/, then copy into my_pull_secret: '{"auths":....}' in prepare_ocp_ignition.yml file
 
     ansible-playbook -i config/inventory prepare_ocp_ignition.yml -e "ocp_version=4.10.16"
+    
 ### Setup VM in OCP cluster using Method ISO Installation
 
 References: 
