@@ -52,7 +52,7 @@ ocp_vm:
       state: present
       type: iso 
     disk:
-    - size_gb: 10
+    - size_gb: 100
       type: thin
       datastore: node6-sata1
     networks:
