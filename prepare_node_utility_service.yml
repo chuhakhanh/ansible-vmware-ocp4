@@ -8,7 +8,7 @@
     - lv_name: lv_nfs
     - require_lv_size: 5gb
     - fs: xfs
-    - nfs_mount_point: /ocp4
+    - nfs_mount_point: /exports
 
   become: no
   serial: 4
@@ -304,9 +304,9 @@
         group: root
         mode: 0644
 
-    - name: Copy pull_secret into file install-config.yaml
+    - name: Create first mount point registry
       lineinfile:
-        line: "{{ nfs_mount_point }}"
+        line: "{{ nfs_mount_point }}/registry"
         regexp: ^nfs_mount_point 
         path: /etc/exports
 

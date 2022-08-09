@@ -36,6 +36,9 @@ On deploy-1
     cd /root/ansible-vmware-okd-centos8
   
 On a vsphere environment, create a several VM  cluters with different name but same IP address and MAC address. So we do not need to reconfigure the utility VM include DNS, haproxy. However, we can use only 1 single VM cluster at one time.
+Download file and put to iso datastore, then VM will point cdrom to that iso image
+
+    https://mirror.openshift.com/pub/openshift-v4/x86_64/dependencies/rhcos/4.6/4.6.1/rhcos-installer.x86_64.iso 
   
     ansible-playbook -i config/inventory setup_vmware_cluster.yml -e "action=create" -e "rhcos_ver=4.10.16"
     echo "10.1.17.253 utility" >> /etc/hosts
@@ -80,10 +83,6 @@ References:
 
 Setup VM Installing a cluster on bare metal with network customizations - Installing on bare metal | Installing | OpenShift Container Platform 4.6
 
-Download file and put to iso datastore 
-
-    https://mirror.openshift.com/pub/openshift-v4/x86_64/dependencies/rhcos/4.6/4.6.1/rhcos-installer.x86_64.iso 
-
 Set timezone for VM
 
     sudo timedatectl set-timezone Asia/Saigon
@@ -101,9 +100,8 @@ For worker VM
 
     sudo coreos-installer install /dev/sda --insecure-ignition --ignition-url http://192.168.50.254:8080/openshift4/4.6.4/ignitions/worker.ign 
 
-Reboot 
+Reboot. Bootstrap is starting, login to bootstrap and master node to verify installation process:
 
-    
     rhcos_ver=4.10.16
     rm -f /root/.ssh/known_hosts
     ssh -i /root/.ssh/"$rhcos_ver"/id_rsa core@bootstrap
@@ -160,3 +158,5 @@ Login to console
     https://console-openshift-console.apps.ocp4.example.com/monitoring/dashboards/grafana-dashboard-etcd
     user: kubeadmin
     password: cat /root/ocp4upi/"$rhcos_ver"/auth/kubeadmin-password
+
+[Manage OCP cluster in docs/oc.md to manage](docs/oc.md)
