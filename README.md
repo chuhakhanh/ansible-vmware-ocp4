@@ -28,8 +28,8 @@ Diagram of system
 
 ### Description
 
-Due to the guide use to test variety versions of OCP4 (eg:4.6.1, 4.10.26), we create a VM cluter for each OCP4 version with different name. 
-For simple service setup (include DNS, haproxy, DHCP) we still use same IP address and MAC address for VM. vsphere environement allow to create VMs with differents name and same MAC. However we can only run 1 OCP4 cluster at once time. 
+Due to the guide use to test variety versions of OCP4 (eg:4.6.1, 4.10.26), we create a VM cluter for each OCP4 version with different name.<br /> 
+For simple service setup (include DNS, haproxy, DHCP) we still use same IP address and MAC address for VM. vsphere environement allow to create VMs with differents name and same MAC. However we can only run 1 OCP4 cluster at once time. <br />
 
 ## Prepare
 
@@ -37,8 +37,8 @@ Get pull secret variables from at https://console.redhat.com/openshift/install/m
 
 ### Prepare vsphere environment
 
-Put user login into: vars/vmw_env.yml
-Put cluster VM info into: vars/<version>/vmw_vms.yml
+Put user login into: vars/vmw_env.yml<br />
+Put cluster VM info into: vars/<version>/vmw_vms.yml<br />
 Download iso file and put to ISO datastore, then VM var will point the cdrom to that iso image. 
 
     https://mirror.openshift.com/pub/openshift-v4/x86_64/dependencies/rhcos/4.6/4.6.1/rhcos-installer.x86_64.iso 
@@ -92,17 +92,18 @@ Createa ignition file
     ansible-playbook -i config/inventory prepare_ocp_ignition.yml -e "rhcos_ver=4.6.1"
 
 Setup VM Installing a cluster on bare metal with network customizations - Installing on bare metal | Installing | OpenShift Container Platform 4.6
+
 References: 
     
     https://docs.openshift.com/container-platform/4.6/installing/installing_bare_metal/installing-bare-metal-network-customizations.html#installation-user-infra-machines-iso_installing-bare-metal-network-customizations
 
     
-On client node, after boot into iso cdrom, go to the node console. 
+On client node, after boot into iso cdrom, go to the node console.<br /> 
 Set timezone for VM
 
     sudo timedatectl set-timezone Asia/Saigon
 
-Run coreos-installer to install the OS. 
+Run coreos-installer to install the OS. <br />
 For bootstrap VM
     
     sudo coreos-installer install /dev/sda --insecure-ignition --ignition-url http://192.168.50.254:8080/openshift4/4.6.4/ignitions/bootstrap.ign 
@@ -144,10 +145,12 @@ References:
     https://docs.openshift.com/container-platform/4.6/post_installation_configuration/node-tasks.html
 
 For clusters running on platforms that are not machine API enabled, such as bare metal and other user-provisioned infrastructure, you must implement a method of automatically approving the kubelet serving certificate requests (CSRs). [Review logss in logs/utility.log to review output from node utlity about bootstrap process](logs/utility.log)
+
 Example:
-After there are some error logs, and request pending. After approve all the request, all logs is cleared.
-E0808 15:40:48.752187   58531 reflector.go:307] k8s.io/client-go/tools/watch/informerwatcher.go:146: Failed to watch *v1.ClusterVersion: the server is currently unable to handle the request (get clusterversions.config.openshift.io)
-DEBUG Still waiting for the cluster to initialize: Cluster operator authentication is reporting a failure: WellKnownReadyControllerDegraded: need at least 3 kube-apiservers, got 2 
+
+After there are some error logs, and request pending. After approve all the request, all logs is cleared.<br />
+E0808 15:40:48.752187   58531 reflector.go:307] k8s.io/client-go/tools/watch/informerwatcher.go:146: Failed to watch *v1.ClusterVersion: the server is currently unable to handle the request (get clusterversions.config.openshift.io) <br />
+DEBUG Still waiting for the cluster to initialize: Cluster operator authentication is reporting a failure: WellKnownReadyControllerDegraded: need at least 3 kube-apiservers, got 2 <br />
 
 On node utility
 
@@ -179,5 +182,5 @@ Login to console
 
 ## Note: 
 
-When we create a ignition file, we have to finish the installation with in 24 hours.Because the ignition files contains certificate and it will expires in 24 hours.
+When we create a ignition file, we have to finish the installation with in 24 hours.Because the ignition files contains certificate and it will expires in 24 hours.<br />
 If you recreate OCP and recreate ignition file, remove hidden files: /root/ocp4ui/.openshift_install_state.json 
