@@ -175,7 +175,7 @@ Login to console
     user: kubeadmin
     password: cat /root/ocp4upi/"$rhcos_ver"/auth/kubeadmin-password
 
-[Manage OCP cluster in docs/oc.md to manage](docs/oc.md)
+[Manage OCP cluster in docs/oc.md to manage](docs/ocp.md)
 
 ## Note: 
 
