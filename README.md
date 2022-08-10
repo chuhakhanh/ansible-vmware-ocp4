@@ -144,7 +144,8 @@ References:
 
     https://docs.openshift.com/container-platform/4.6/post_installation_configuration/node-tasks.html
 
-For clusters running on platforms that are not machine API enabled, such as bare metal and other user-provisioned infrastructure, you must implement a method of automatically approving the kubelet serving certificate requests (CSRs). [Review logss in logs/utility.log to review output from node utlity about bootstrap process](logs/utility.log)
+For clusters running on platforms that are not machine API enabled, such as bare metal and other user-provisioned infrastructure, you must implement a method of automatically approving the kubelet serving certificate requests (CSRs).<br />
+Review logss in [logs/utility.log](logs/utility.log) to review output from node utlity about bootstrap process
 
 Example:
 
