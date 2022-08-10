@@ -159,6 +159,8 @@ On node utility
     export KUBECONFIG=/root/ocp4upi/"$rhcos_ver"/auth/kubeconfig
     openshift-install --dir=/root/ocp4upi/"$rhcos_ver" wait-for install-complete --log-level=debug
  
+ While installing, we have to approve the certificate to submit the installtion. In my environement, the installation take 1 hour. This step is at minute 30/60. 
+
     oc get csr
     oc get csr -o go-template='{{range .items}}{{if not .status}}{{.metadata.name}}{{"\n"}}{{end}}{{end}}' | xargs --no-run-if-empty oc adm certificate approve
     oc get nodes
