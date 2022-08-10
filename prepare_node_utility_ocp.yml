@@ -1,3 +1,11 @@
+  #  mkdir /root/4.10.26; cd /root/4.10.26
+  #  wget https://mirror.openshift.com/pub/openshift-v4/clients/ocp/4.10.26/openshift-client-linux.tar.gz 
+  #  wget https://mirror.openshift.com/pub/openshift-v4/clients/ocp/4.10.26/openshift-install-linux.tar.gz
+  #  ln -s /root/4.10.26/kubectl /usr/local/bin/kubectl
+  #  ln -s /root/4.10.26/oc /usr/local/bin/oc
+  #  ln -s /root/4.10.26/openshift-install /usr/local/bin//openshift-install
+
+
 ---
 - hosts: infra
   gather_facts: true
