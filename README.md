@@ -124,7 +124,8 @@ For worker VM
 
 Perform reboot to start the Bootstrap. Login to bootstrap and master node to verify installation process:
 
-    rhcos_ver=4.10.16 or rhcos_ver=4.6.1
+    rhcos_ver=4.10.16 
+    or rhcos_ver=4.6.1
     rm -f /root/.ssh/known_hosts
     ssh -i /root/.ssh/"$rhcos_ver"/id_rsa core@bootstrap
     ssh -i /root/.ssh/"$rhcos_ver"/id_rsa core@master01
