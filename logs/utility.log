@@ -204,8 +204,7 @@ DEBUG Cluster Operators: 33m6s
 INFO Time elapsed: 33m6s                          
 [root@utility ~]# 
 
-############## some approved iss perform currently with logs
-##############
+############## some approved iss perform currently with logs ##############
 
 [root@utility 4.10.16]# oc version
 Client Version: 4.10.26
